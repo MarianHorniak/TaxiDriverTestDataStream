@@ -400,7 +400,21 @@ h2
 	overflow: hidden;
 }
 
+.input.Mess {
 
+}
+
+.scrollBottom.Mess
+{
+	bottom: 100px;
+    width:100%;
+}
+.messageNew {
+    bottom: 0px;
+    position : absolute;
+    height : 100px;
+    width:100%;
+}
 .submenu {
     height: auto;
     position: absolute;
@@ -730,14 +744,22 @@ div.tabs  > div.selected{
 
 #mapOut
 {
-	padding:4px;
+	padding:5px;
 	font-size:15px;
 	position: absolute;
-	right: 0;
-	top: 0px;
+	/*right: 0;
+	top: 0px;*/
+    height:66px;
 	color: white;
+    display:inline-block;
 }
-
+#mapOut2
+{
+	padding:5px;
+	position: absolute;
+    height:66px;
+	color: black;
+}
 #mapDiv
 {
 	position: absolute;

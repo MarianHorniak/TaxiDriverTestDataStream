@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>TAXI driver test</title>
+    <title>TAXI driver test DataStream</title>
     <meta charset="utf-8"/>
     <link href="css/styles.css" rel="stylesheet">
 </head>
@@ -288,17 +288,32 @@
 
 <!-- Message -->
 <script id="message-tpl" type="text/x-handlebars-template">
-<div class='header'>
+<div class='header'  id='messageHeader'>
     <button data-route="orders" class="icon ico_back">&nbsp;</button>
     <button id="messTitle" class="textHeaderTitle" disabled="disabled">Správy</button>
+    <button id="messNumber" class="textHeaderTitle" disabled="disabled">&nbsp;</button>
+    <button id="messDelete" class="icon ico_submit texticon">Zmazať</button>
+    
 </div>
-    <div>
+<div class="scrollBottom Mess"><div id="messageList" class='buttonlist message-list'></div>
+</div>
+    <div class="messageNew">
+        <button id="messNew" class="icon ico_submit texticon">Nová</button>
+        <input type="text" maxlength="500" id="newMessageText" style="width:80%" value="nova sprava ..."  />
+    </div>
+</script>
+
+ <script  id="message-li-tpl" type="text/x-handlebars-template">
     {{#.}}
-        <div>
-            <div class="content"><strong>Správa: {{this.MessageText}} {{this.FormatedDate}}</strong></div>
-        </div>
+     <div id="{{this.GUID}}" class="Cancel">
+            <div class="icon cancel">&nbsp;</div>
+            <div class="content">
+                {{this.FormatedDate}}  {{this.MessageType}} <br/>
+                <strong>{{this.MessageText}} </strong><br/>
+                &nbsp;
+            </div>
+      </div>
     {{/.}}
-   </div>
 </script>
 
 <!-- Settings -->
@@ -345,9 +360,6 @@
             {{#.}}
                 <div class="content"><strong>{{this.Group}}  {{this.Title}} {{this.value}} </strong></div>
             {{/.}}
-        
-    <!--{{#if this.ErrorMessage}}<div class="error">{{this.ErrorMessage}}</div>{{/if}}-->
-    
 </form>
 </script>
 

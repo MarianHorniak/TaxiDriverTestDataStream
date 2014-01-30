@@ -11,14 +11,12 @@
         $("#standBack").click(function () { app.home(); });
         //klik na header
         $("#standHeader").click(function () {
-            //console.log("header click");
             self.getData();
         });
         return this;
     };
 
     this.onShow = function () {
-        app.hideNews();
         this.loadData();
     };
 
