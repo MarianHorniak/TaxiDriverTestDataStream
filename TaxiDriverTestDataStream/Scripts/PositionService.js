@@ -77,8 +77,7 @@ var PositionService = {
 
                 var posChanged = PositionService._lat != PositionService.lat && PositionService._lng != PositionService.lng;
 
-                //stanoviste - zmena ! 
-                Stand.CheckStandAvailable();
+
 
                 
                 if (posChanged) {
@@ -87,7 +86,8 @@ var PositionService = {
                     Globals.Position_Lat = PositionService.lat;
                     Globals.Position_Lng = PositionService.lng;
                 
-   
+                    //stanoviste - zmena ! 
+                    Stand.CheckStandAvailable();
 
                 }
 

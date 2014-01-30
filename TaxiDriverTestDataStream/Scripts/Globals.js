@@ -30,7 +30,7 @@
             OrderDetail_Defauls_timeToRealize: 5,
             g_RefreshOrderSeconds: 60,
             Stand_Distancekm: 0.200,
-            Stand_OfferSec:30, //180
+            Stand_OfferSec:180, //180
         },
     }
 

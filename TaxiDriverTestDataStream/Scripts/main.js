@@ -35,15 +35,16 @@
     },
 
     showNewsComplete: function (title, soundFile, color, hideinmilisec, content) {
+        if (!soundFile | soundFile=="") soundFile = "audio/sound_new.mp3";
         $("#taxiNewsContent").html(content);
         $("#taxiNewsTitle").html(title);
-        $("#taxiNewsFull").show();
+        $("#taxiNewFull").show(200);
         app.playSound(soundFile);
         window.setTimeout(function () { app.hideNews(); }, hideinmilisec);
     },
 
     hideNews: function () {
-        $("#taxiNewsFull").toggle(100);
+        $("#taxiNewFull").hide(100);
     },
     tabSelector: function (tabName, pageName) {
         var tabCtrl = document.getElementById(tabName);

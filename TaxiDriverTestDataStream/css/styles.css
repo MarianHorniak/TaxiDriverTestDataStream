@@ -470,15 +470,18 @@ h2
     background-repeat:no-repeat;
 }
 
-#taxiNewsFull {
+#taxiNewFull {
     display: none;
     background-image: url('../img/transparent.png');
-    width:100%;
-    height:100%;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 100000;
+    background-repeat: repeat;
 }
 
 #taxiNews {
-    display:  none;
+    /*display:  none;*/
     position:absolute;
     top: 100px;
     bottom: 100px;
