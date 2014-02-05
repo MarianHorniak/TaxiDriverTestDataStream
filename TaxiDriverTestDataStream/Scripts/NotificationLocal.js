@@ -9,8 +9,14 @@
 
                 switch (notificationType.toLowerCase())
                 {
-                    case "changeOffer":
+                    case "changeofferdown":
+                        break;
+
+                    case "changeofferup":
                         Stand.LeaveStand();
+                        break;
+
+                    case "changeoffer":
                         break;
 
                     case "autoorder":

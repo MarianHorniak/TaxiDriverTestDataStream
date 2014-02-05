@@ -220,6 +220,8 @@
                 case "settings": page = new SettingsView(); break;
                 case "detail": page = new OrderDetail(); break;
                 case "autoorder": page = new AutoOrderView(); break;
+                case "messagenew": page = new MessageNewView(); break;
+
                 default: this.showAlert("Undefined page:" + p, "ERROR"); return;
             }
             this.pages[p] = page;

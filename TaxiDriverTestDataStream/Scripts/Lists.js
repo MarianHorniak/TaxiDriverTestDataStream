@@ -5,6 +5,7 @@ var Lists = {
         app.log("Lists.initialize");
         for (var i = 0; i < Globals.GLOB_LocalLists.length; i++) {
             Lists.loadListFromServer(Globals.GLOB_LocalLists[i]);
+            
         }
     },
 
@@ -30,6 +31,7 @@ var Lists = {
             function (data) {
                 //storeList(listName, data);
                 Lists.cache[listName] = data;
+                console.log("startup loading list: " + listName+", items: "+data.Items.length);
             });
     },
 

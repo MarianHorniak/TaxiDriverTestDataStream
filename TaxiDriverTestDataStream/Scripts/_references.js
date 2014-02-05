@@ -15,6 +15,7 @@
 /// <reference path="Globals.js" />
 /// <reference path="Errors.js" />
 /// <reference path="SettingsView.js" />
+/// <reference path="MessageNewView.js" />
 /// <reference path="SettingsAllView.js" />
 /// <reference path="Translator.js" />
 /// <reference path="NotificationLocal.js" />

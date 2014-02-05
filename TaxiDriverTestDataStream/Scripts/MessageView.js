@@ -14,22 +14,23 @@ var MessageView = function () {
             self.iscroll = new iScroll($('.scrollBottom', self.el)[0], { hScrollbar: false, vScrollbar: false });
         $("#messageHeader").click(function () { self.loadData(); });
         $("#messDelete").click(function () { self.deleteAllMess(); });
-        $("#messNew").click(function () { self.sendNew(); });
-
+        // $("#messNew").click(function () { self.sendNew(); });
+        Globals.HasNewMessasges = false;
     };
 
     this.deleteAllMess= function ()
     {
         alert("moment, na funkcii deleteAllMess() sa pracuje...");
     }
+
     this.delete1Mess = function(item)
     {
-        alert("moment, na funkcii delete1Mess()  sa pracuje...");
+        var guid = item.attr("id");
+        app.waiting();
+        Service.deleteMessage(guid);
+        app.waiting(false);
     }
-    this.sendNew = function ()
-    {
-        alert("moment, na funkcii SendNew() sa pracuje...");
-    }
+
 
     this.renderItems = function () {
         var self = this;
@@ -38,7 +39,21 @@ var MessageView = function () {
             if (Service.messages.Items) {
                 data = Service.messages.Items;
                 $("#messageList").html(MessageView.liTemplate(data));
-                $(".cancel").click(function () { self.delete1Mess($(this).parent()); } );
+
+                //original
+                $(".cancel").click(function () { self.delete1Mess($(this).parent()); });
+                //$(".cancel").click(function () { self.delete1Mess(this); });
+
+
+                //zo servra stands
+                //.dblclick(function (item) { return function (ev) { self.removeCarfromStand(item.GUID, item.GUID_Transporter, item.StandTitle, item.TaxiTitle); } } (item));
+
+                //skuska
+                //for (var i = 0, l = data.length; i < l; i++) {
+                //    var item = data[i];
+                //    $(".cancel").click(function (item) { return function (ev) { self.delete1Mess(item); } } (item));
+                //}
+
                 if (data)
                     $("#messNumber").text = " [" + data.length+"]";
             }
@@ -50,8 +65,11 @@ var MessageView = function () {
     };
 
 
+
+
     this.loadData = function () {
         var self = this;
+        var s = Service.getSettings();
         app.log("loading messages...")
         app.waiting();
         app.setHeader();
@@ -60,6 +78,8 @@ var MessageView = function () {
             Service.getMessages(function (messages) {
                 $.each(messages.Items, function () {
                     this.FormatedDate = Service.formatJsonDate(this.Created);
+                    if (this.GUID_sysUser_Sender == s.userId)
+                        this.FromMe = true;
                 });
                 if (messages)
                     Service.messagesVer = messages.DataCheckSum;

@@ -59,6 +59,8 @@
     this.upravData = function (standresult) {
         var self = this;
 
+        var iposFromServer = 0;
+
         //uprava dat
         for (var i = 0; i < standresult.Items.length; i++) {
             standresult.Items[i].Status = "StandFree";
@@ -66,14 +68,35 @@
             standresult.Items[i].CanLeave = false;
             var lat = standresult.Items[i].Latitude;
             var lon = standresult.Items[i].Longitude;
-            standresult.Items[i].Distancekm = Geo.getDistanceFromLatLonInKm(lat,lon , Globals.Position_Lat, Globals.Position_Lng);
-            if (standresult.Items[i].StandPosition && standresult.Items[i].StandPosition > 0) Globals.GLOB_StandPosition = standresult.Items[i].StandPosition;
-            if (standresult.Items[i].FreePlaces < 1) standresult.Items[i].Status = "StandNotFree";
+
+            //var myposition = standresult.Items[i].StandPosition;
+
+            standresult.Items[i].Distancekm = Geo.getDistanceFromLatLonInKm(lat, lon, Globals.Position_Lat, Globals.Position_Lng);
+
+            //zapisme poziciu - pretoze sme tu !
+            if (standresult.Items[i].StandPosition && standresult.Items[i].StandPosition > 0) {
+                Globals.GLOB_StandPosition = standresult.Items[i].StandPosition;
+                Globals.GLOB_GUID_Stand = standresult.Items[i].GUID;
+                standresult.Items[i].CanLeave = true;
+                standresult.Items[i].CanStand = false;
+
+            }
+
+            //malo miestya, nemoze stat
+            if (standresult.Items[i].FreePlaces < 1) {
+                standresult.Items[i].Status = "StandNotFree";
+                standresult.Items[i].CanStand = false;
+            }
+
+            //uz sme prihlaseni, nemozme nastupit na stanoviste
             if (Globals.GLOB_GUID_Stand != "" || standresult.Items[i].FreePlaces < 1) standresult.Items[i].CanStand = false;
-            if (Globals.GLOB_GUID_Stand == standresult.Items[i].GUID) standresult.Items[i].CanLeave = true;
+
+            
             //nemoze sa prihlasit pre vzdialenost!!!
             if (standresult.Items[i].Distancekm > Globals.constants.Stand_Distancekm) standresult.Items[i].CanStand = false;
         }
+
+
     }
 
     this.getData = function (e)
@@ -118,11 +141,25 @@
             GUID_sysUser_Driver: null,
             Latitude: PositionService.lat,
             Longitude: PositionService.lng
-        });
-        Globals.GLOB_GUID_Stand = standGUID;
-        Globals.GLOB_StandPosition = 100;
+        },
+
+                    function (standresult) {
+                        console.log("Join stand OK delegate : " + standGUID);
+                        Globals.GLOB_GUID_Stand = standGUID;
+                        Globals.GLOB_StandPosition = 100;
+                    },
+
+        null
+
+        );
+
 
     }
+
+    //this.joinstandOK(data, standGUID)
+    //{
+
+    //}
 
 }
 
@@ -180,6 +217,12 @@ var Stand = {
 
     },
 
+    succesLeaveStand : function ()
+    {
+        Globals.GLOB_GUID_Stand = "";
+        Globals.GLOB_StandPosition = 0;
+    },
+
     LeaveStand : function (callback)
     {
 
@@ -190,6 +233,7 @@ var Stand = {
         }
 
         app.log("Leave stand:" + Globals.GLOB_GUID_Stand);
+        console.log("Leave stand:" + Globals.GLOB_GUID_Stand);
 
         //app.showNews("Leave stand:" + Globals.GLOB_GUID_Stand);
         var s = Service.getSettings();
@@ -199,10 +243,9 @@ var Stand = {
             GUID_sysUser_Driver: null,
             Latitude: PositionService.lat,
             Longitude: PositionService.lng
-        });
+        }, Stand.succesLeaveStand());
 
-        Globals.GLOB_GUID_Stand = "";
-        Globals.GLOB_StandPosition = 0;
+
 
         if (callback)
         {

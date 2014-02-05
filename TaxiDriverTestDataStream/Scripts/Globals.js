@@ -12,7 +12,7 @@
         GLOB_StandPosition: 0,
 
         //array of local lists
-        GLOB_LocalLists: new Array("Stand"),
+        GLOB_LocalLists: new Array("Stand", "sysMessageTemplate"),
 
         //last position
         Position_Lat: 0,
@@ -22,6 +22,19 @@
         Position_LngPrev: 0,
 
         language: "SK",
+        RoleName: "TaxiDriver",
+
+        //Messaging
+        HasNewMessasges: false,
+        MessageTimeToLiveMin: 30,
+        MessageType: "Info",
+        ReceiverRole : "TaxiDispatcher",
+
+
+        //Me
+        myGUID : "",
+        myTicket : "",
+
 
 
         //CONSTANTS
