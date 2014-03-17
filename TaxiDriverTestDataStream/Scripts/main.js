@@ -84,8 +84,6 @@
     },
     playNew: function(){
         if (app.mediaNew) {
-            app.log("app play new execute");
-            console.log("app play new execute");
             app.mediaNew.play();
         }
     },
