@@ -125,9 +125,12 @@
         var self = this;
         app.log("Join stand:" + standGUID);
 
-        window.setTimeout(function () {
-            self.joinStandasync(standGUID);
-        }, 100);
+        //mhp test
+        self.joinStandasync(standGUID);
+
+        //window.setTimeout(function () {
+        //    self.joinStandasync(standGUID);
+        //}, 100);
 
         console.log("joinStand end");
 
