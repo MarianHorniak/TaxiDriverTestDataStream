@@ -77,8 +77,6 @@ var PositionService = {
 
                 var posChanged = PositionService._lat != PositionService.lat && PositionService._lng != PositionService.lng;
 
-
-
                 
                 if (posChanged) {
                     PositionService._lat = PositionService.lat;

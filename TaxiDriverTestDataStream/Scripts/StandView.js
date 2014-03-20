@@ -34,6 +34,9 @@
     this.renderStands = function (standresult)
     {
         var self = this;
+        
+        //nastavime stand poslednu ponuku
+        Stand.lastOffer = Date.now();
 
         $('.stand-list').html(StandView.liTemplate(standresult.Items));
         if (self.iscroll)
@@ -44,7 +47,8 @@
 
         //klik na join stand
         $(".forstandup").click(function (item) {
-            
+            item.stopPropagation();
+            //event.stopPropagation();
             var data_id = item.currentTarget.getAttribute("data_id");
             self.joinStand(data_id);
         });
@@ -170,7 +174,17 @@ var Stand = {
 
     CheckStandAvailable: function()
     {
+
+        //ak sme na stanovisti, tak prec ! 
+        if (Globals.GLOB_GUID_Stand != "") return;
+
+
+        //od poslenej ponuky neubehlo este dost casu ? 
+        var differenceSec = (Date.now() - Stand.lastOffer) / 1000;
+        if (differenceSec < Globals.constants.Stand_OfferSec) return;
+
         console.log("CheckStandAvailable starts...");
+
         var Distanceminkm = 100000;
         var StandNear = "";
 
@@ -200,18 +214,20 @@ var Stand = {
             if (availbale) {
                 console.log("CheckStandAvailable show News!!");
                 Stand.lastOffer = Date.now();
-                var content = Translator.Translate("Vo vašej blízkosti sa nachádza stanovište")+" : "+StandNear + "<br/><button id=\"btnStand\"  data-route=\"stand\" class=\"textnoicon\">Stanovištia</button>";
+                var content = Translator.Translate("Vo vašej blízkosti sa nachádza stanovište")+" : "+StandNear + "<br/><button id=\"btnStand\"  data-route=\"stand\" style=\"background-color:black;\" class=\"textnoicon\">Stanovištia</button>";
                 //app.showNew();
-                app.showNewsComplete(Translator.Translate("Stanovište v blízkosti"), MediaInternal.getNewsSoundFile("StandAvailable"), "", 10000, content);
+                app.showNewsComplete(Translator.Translate("Stanovište"), MediaInternal.getNewsSoundFile("StandAvailable"), "", 10000, content);
             }
         }
             //je na stanovisku, odosiel ? 
         else {
             if (Distanceminkm > Globals.constants.Stand_Distancekm)
             {
-                console.log("Leave stand automat!!");
-                app.playSound(MediaInternal.getNewsSoundFile("StandLeave"));
-                Stand.LeaveStand();
+                //MHP - 19.3.2014 nemozeme to spravit, pretoze sa sem-tam strati GPS, vrati 0 a zrazu je sofer mimo stanovista 
+
+                //console.log("Leave stand automat!!");
+                //app.playSound(MediaInternal.getNewsSoundFile("StandLeave"));
+                //Stand.LeaveStand();
             }
         }
 
