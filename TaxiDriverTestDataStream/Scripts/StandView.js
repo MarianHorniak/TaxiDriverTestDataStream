@@ -126,11 +126,15 @@
         app.log("Join stand:" + standGUID);
 
         //mhp test
-        self.joinStandasync(standGUID);
+        //self.joinStandasync(standGUID);
 
         //window.setTimeout(function () {
         //    self.joinStandasync(standGUID);
         //}, 100);
+
+        window.setTimeout(function () {
+            self.joinStandasync(standGUID);
+        });
 
         console.log("joinStand end");
 
