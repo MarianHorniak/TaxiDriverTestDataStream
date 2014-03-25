@@ -55,7 +55,6 @@
         //klik na join stand
         $(".forstandup").click(function (item) {
             item.stopPropagation();
-            //event.stopPropagation();
             var data_id = item.currentTarget.getAttribute("data_id");
             self.joinStand(data_id);
         });
@@ -133,15 +132,15 @@
         app.log("Join stand:" + standGUID);
 
         //mhp test toto funguje, inak sa zavola alarm ak sa buttony prekryvaju
-        self.joinStandasync(standGUID);
+        //self.joinStandasync(standGUID);
 
         //window.setTimeout(function () {
         //    self.joinStandasync(standGUID);
         //}, 100);
 
-        //window.setTimeout(function () {
-        //    self.joinStandasync(standGUID);
-        //});
+        window.setTimeout(function () {
+            self.joinStandasync(standGUID);
+        });
 
         console.log("joinStand end");
 
@@ -149,8 +148,13 @@
     }
 
     this.joinStandasync = function (standGUID) {
+
+        standGUID.stopPropagation();
+
         var self = this;
         app.log("Join stand:" + standGUID);
+
+        
 
         var s = Service.getSettings();
         Service.callService("TransporterJoinStand", {
