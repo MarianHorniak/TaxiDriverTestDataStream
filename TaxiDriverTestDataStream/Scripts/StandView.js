@@ -8,6 +8,10 @@
     this.render = function () {
         var self = this;
         this.el.html(StandView.template());
+
+        //close modal New window
+        app.hideNews();
+
         $("#standBack").click(function () { app.home(); });
         //klik na header
         $("#standHeader").click(function () {
@@ -105,7 +109,7 @@
 
     this.getData = function (e)
     {
-        console.log("get data stands");
+        Diagnostic.log("get data stands");
         var self = this;
         var s = Service.getSettings();
         Service.callService("datamobile", { Id: "viewStandsForDriver", GUID_Transporter : s.transporterId },
