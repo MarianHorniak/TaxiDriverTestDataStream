@@ -38,7 +38,10 @@
     this.renderStands = function (standresult)
     {
         var self = this;
-        
+
+        //zavreme news okno
+        app.hideNews();
+
         //nastavime stand poslednu ponuku
         Stand.lastOffer = Date.now();
 
