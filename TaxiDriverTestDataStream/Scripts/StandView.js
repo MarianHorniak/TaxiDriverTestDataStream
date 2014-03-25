@@ -165,12 +165,14 @@
                         console.log("Join stand OK delegate : " + standGUID);
                         Globals.GLOB_GUID_Stand = standGUID;
                         Globals.GLOB_StandPosition = 100;
+                        return false;
                     },
 
         null
 
         );
 
+        return false;
 
     }
 
