@@ -114,6 +114,10 @@
         Diagnostic.log("get data stands");
         var self = this;
         var s = Service.getSettings();
+
+        //set icon on main index
+        Stand.setIcon();
+
         Service.callService("datamobile", { Id: "viewStandsForDriver", GUID_Transporter : s.transporterId },
             function (standresult) {
                 self.upravData(standresult);
@@ -149,7 +153,7 @@
 
     this.joinStandasync = function (standGUID) {
 
-        standGUID.stopPropagation();
+        //standGUID.stopPropagation();
 
         var self = this;
         app.log("Join stand:" + standGUID);
@@ -169,6 +173,8 @@
                         console.log("Join stand OK delegate : " + standGUID);
                         Globals.GLOB_GUID_Stand = standGUID;
                         Globals.GLOB_StandPosition = 100;
+                        //set stand icon On
+                        Stand.setIconNotFree();
                         return false;
                     },
 
@@ -180,17 +186,41 @@
 
     }
 
-    //this.joinstandOK(data, standGUID)
-    //{
 
-    //}
 
 }
 
 var Stand = {
 
     //kedy bol naposledy ponuknuty Stand ? 
-    lastOffer : Date.now(),
+    lastOffer: Date.now(),
+
+
+    setIcon: function () {
+        if (Globals.GLOB_GUID_Stand) {
+            Stand.setIconNotFree();
+        }
+        else {
+            Stand.setIconNotFree();
+        }
+
+    },
+
+
+    setIconFree: function ()
+    {
+        $("#btnStand").removeClass("standMenuFree");
+        $("#btnStand").addClass("standMenuOn");
+
+    },
+
+    setIconNotFree: function ()
+    {
+        $("#btnStand").removeClass("standMenuFree");
+        $("#btnStand").addClass("standMenuOn");
+
+    },
+
 
     CheckStandAvailable: function()
     {
@@ -257,6 +287,7 @@ var Stand = {
     {
         Globals.GLOB_GUID_Stand = "";
         Globals.GLOB_StandPosition = 0;
+        Stand.setIconFree();
     },
 
     LeaveStand : function (callback)

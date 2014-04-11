@@ -636,6 +636,15 @@ button.ico_stop
 	/* For IE 6 and 7 */
 }
 
+button.standMenuFree {
+    background-image: url('../img/parktest.png');
+}
+
+button.standMenuOn
+{
+	background-image: url('../img/parktest2.png');
+}
+
 button.ico_order
 {
     background-color:Green;
