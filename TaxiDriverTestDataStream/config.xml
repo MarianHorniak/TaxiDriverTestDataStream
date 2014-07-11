@@ -2,8 +2,8 @@
 <widget xmlns       = "http://www.w3.org/ns/widgets"
         xmlns:gap   = "http://phonegap.com/ns/1.0"
         id          = "sk.datastream.taxi"
-        versionCode = "433"
-        version     = "1.4.33">
+        versionCode = "434"
+        version     = "1.4.34">
  
     <name>TAXI Driver test datastream</name>
   
@@ -25,7 +25,11 @@
   <preference name="load-url-timeout" value="60000" />
   <preference name="phonegap-version" value="2.9.0" />
   <preference name="DisallowOverscroll" value="true" />
-
+  <preference name="exit-on-suspend" value="false" />
+  <preference name="KeepRunning " value="true" />
+  <preference name="Fullscreen" value="true" />
+  <preference name="loadingDialog" value="Driver, Starting" />
+  
     <access origin="*" />
     
     <feature name="http://api.phonegap.com/1.0/geolocation"/>
