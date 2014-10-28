@@ -28,6 +28,7 @@
         transporterId: undefined,
         transporterSPZ: undefined,
         url: undefined,
+        GUID_sysCompany:undefined,
         sessionId: undefined,
         enableHighAccuracy: true
     },
@@ -66,6 +67,14 @@
                 //permamnet driver ! 
                 if (d.ItemsDictKeys!=null)
                 {
+                    //GUID_sysCompany 
+                    var posGUID_sysCompany = d.ItemsDictKeys.indexOf("GUID_sysCompany");
+                    if (posGUID_sysCompany > -1)
+                    {
+                        var GUID_sysCompany = d.ItemsDictValues[posGUID_sysCompany];
+                        if (GUID_sysCompany) s.GUID_sysCompany = GUID_sysCompany;
+                    }
+
                     var pos = d.ItemsDictKeys.indexOf("bool_DriverPermanent");
                     if(pos>-1)
                     {
@@ -174,13 +183,19 @@
             Service.callService("MobileAutoOrder", { GUID_Transporter: s.transporterId, OrderSource: "Auto", OrderSourceDescription: "autoOrder", Latitude: PositionService.lat, Longitude: PositionService.lng }, function () { app.home(true); }, function () { app.home(true); });
         });
     },
-    autoOrder2: function (EndCity,EndAddress,TimeToRealize,callback) {
+    autoOrder2: function (StartCity, StartAddress, EndCity, EndAddress, TimeToRealize, AutoOrderToReserved, callback) {
             var s = Service.getSettings();
             //notify
             NotificationLocal.Notify("autoOrder", s, null, null);
-            Service.callService("MobileAutoOrder", { GUID_Transporter: s.transporterId, OrderSource: "Auto", OrderSourceDescription: "autoOrder", Latitude: PositionService.lat, Longitude: PositionService.lng, EndCity: EndCity, EndAddress: EndAddress, TimeToRealize: TimeToRealize }, function () { app.home(true); }, function () { app.home(true); });
+            Service.callService("MobileAutoOrder", { GUID_Transporter: s.transporterId, OrderSource: "Auto", OrderSourceDescription: "autoOrder", Latitude: PositionService.lat, Longitude: PositionService.lng, EndCity: EndCity, EndAddress: EndAddress, StartCity:StartCity, StartAddress:StartAddress, AutoOrderToReserved:AutoOrderToReserved,  TimeToRealize: TimeToRealize }, function () { app.home(true); }, function () { app.home(true); });
             //if (callback)
             //    callback();
+    },
+    autoOrdertodisp: function (StartCity, StartAddress, CustomerName, CustomerPhone, callback) {
+        var s = Service.getSettings();
+        //notify
+        NotificationLocal.Notify("autoOrdertodisp", s, null, null);
+        Service.callService("MobileAutoOrderToDisp", { GUID_Transporter: s.transporterId, OrderSource: "AutoDisp", OrderSourceDescription: "autoOrdertoDisp", Latitude: PositionService.lat, Longitude: PositionService.lng, StartCity: StartCity, StartAddress: StartAddress,  CustomerName: CustomerName, CustomerPhone:CustomerPhone }, function () { app.home(true); }, function () { app.home(true); });
     },
     getOrders: function (callback) {
         var self = this;
@@ -235,6 +250,9 @@
         this.callService("datamobile", { Id: viewName, IdTransporter: this._settings.transporterId }, callback);
     },
 
+    getListItems: function (viewName, callback) {
+        this.callService("datamobile", { Id: viewName, GUID_sysCompany: this._settings.GUID_sysCompany }, callback);
+    },
     //getHistoryOrdersMe: function (callback) {
     //    this.callService("datamobile", { Id: "orders_lastforDriverMe", IdTransporter: this._settings.transporterId }, callback);
     //},

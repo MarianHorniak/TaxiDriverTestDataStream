@@ -78,12 +78,16 @@ var OrdersView = function () {
 
                 $.each(orders.Items, function () {
                     this.FormatedDate = Service.formatJsonDate(this.Date);
-                    if (this.Status == 'Cancel')
+                    this.ShowCancelbtn = true;
+                    if (this.Status == 'Cancel') {
                         this.StatusCancel = true;
+                        this.ShowCancelbtn = false;
+                    }
                     if (this.Status == 'Offered')
                         this.StatusOfferGUI = true;
 
-                   
+                    if(this.Status=="Processing")
+                        this.ShowCancelbtn = false;
                 });
 
 

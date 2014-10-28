@@ -243,9 +243,10 @@
                 case "allsettings": page = new SettingsAllView(); break;
                 case "settings": page = new SettingsView(); break;
                 case "detail": page = new OrderDetail(); break;
+                case "lists": page = new ListView(); break;
                 case "autoorder": page = new AutoOrderView(); break;
+                case "autoorderdisp": page = new AutoOrderToDispView(); break;
                 case "messagenew": page = new MessageNewView(); break;
-
                 default: this.showAlert("Undefined page:" + p, "ERROR"); return;
             }
             this.pages[p] = page;
@@ -317,9 +318,13 @@
         $("#taxiHeader")
                    .removeClass()
                    .addClass(Service.transporter.Status);
+        //$("#taxiText")
+        //    .empty()
+        //    .html(settings.name + " " + Service.transporter.SPZ + " [" + Service.getTransporterStatusText()+"]");
+
         $("#taxiText")
             .empty()
-            .html(settings.name + " " + Service.transporter.SPZ + " [" + Service.getTransporterStatusText()+"]");
+            .html(settings.name + " " + Service.transporter.SPZ);
     },
 
     setStatusBar: function (info,offer, messages, park) {

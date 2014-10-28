@@ -15,6 +15,8 @@
         $("#orderDetailSave").off(app.clickEvent, function () { self.save(); });
         $("#orderDetailSave").on(app.clickEvent, function () { self.save(); });
 
+
+
         $("#orderDetailBack").off(app.clickEvent, function () { app.home(); });
         $("#orderDetailBack").on(app.clickEvent, function () { app.home(); });
 
@@ -41,6 +43,9 @@
         $("#orderDetailTab").on(app.clickEvent, function () { self.showDetail(); });
 
 
+        $("#orderPaymentTab").off(app.clickEvent, function () { self.showPayment(); });
+        $("#orderPaymentTab").on(app.clickEvent, function () { self.showPayment(); });
+
         $("#orderMapTab").off(app.clickEvent, function (e) { self.showMap(); });
         $("#orderMapTab").on(app.clickEvent, function (e) { self.showMap(); });
 
@@ -51,12 +56,26 @@
         this.loadData();
     };
    
-    this.showTime = function () {
-        $("#orderDetailTime").show();
+
+    this.removeSelectedClass= function () {
+    
+        $("#orderMapTab").removeClass("selected");
+        $("#orderTimeTab").removeClass("selected");
+        $("#orderDetailTab").removeClass("selected");
+        $("#orderPaymentTab").removeClass("selected");
+
         $("#orderDetailForm").hide();
         $("#orderDetailMap").hide();
-        $("#orderDetailTab").removeClass("selected");
-        $("#orderMapTab").removeClass("selected");
+        $("#orderDetailTime").hide();
+        $("#orderDetailPayment").hide();
+
+    };
+
+
+    this.showTime = function () {
+        var self = this;
+        this.removeSelectedClass();
+        $("#orderDetailTime").show();
         $("#orderTimeTab").addClass("selected");
 
         if (self.iscroll)
@@ -66,12 +85,32 @@
     };
 
     this.showDetail = function () {
-        $("#orderDetailTime").hide();
+        var self = this;
+        this.removeSelectedClass();
         $("#orderDetailForm").show();
-        $("#orderDetailMap").hide();
         $("#orderDetailTab").addClass("selected");
-        $("#orderMapTab").removeClass("selected");
-        $("#orderTimeTab").removeClass("selected");
+
+
+        $("#btnorderDetailFormChangeEndAddress").off(app.clickEvent, function () { self.changeAddress(); });
+        $("#btnorderDetailFormChangeEndAddress").on(app.clickEvent, function () { self.changeAddress(); });
+
+        if (self.iscroll)
+            self.iscroll.refresh();
+        else
+            self.iscroll = new iScroll($('.scrollBottom', self.el)[0], { hScrollbar: false, vScrollbar: false });
+    };
+
+
+    this.showPayment = function () {
+        var self = this;
+        this.removeSelectedClass();
+        var f = $("#orderDetailPayment");
+        f.show();
+        $("#orderPaymentTab").addClass("selected");
+       
+        $("#btnorderDetailPaymentTotal").off(app.clickEvent, function () { self.setPayment(); });
+        $("#btnorderDetailPaymentTotal").on(app.clickEvent, function () { self.setPayment(); });
+
 
         if (self.iscroll)
             self.iscroll.refresh();
@@ -80,12 +119,9 @@
     };
 
     this.showMap = function () {
-        $("#orderDetailTime").hide();
-        $("#orderDetailForm").hide();
+        this.removeSelectedClass();
         $("#orderDetailMap").show();
-        $("#orderDetailTab").removeClass("selected");
         $("#orderMapTab").addClass("selected");
-        $("#orderTimeTab").removeClass("selected");
         if (this.order && this.order.StartLatitude) {
             DetailMap.setMap(this.order.StartLatitude, this.order.StartLongitude, PositionService.lat, PositionService.lng);
         }
@@ -103,10 +139,29 @@
         else
             $("#orderCall").removeClass("ico_hangup").addClass("ico_phone").show();
 
-        if (this.order.Status == "Offered")
+        if (this.order.Status == "Offered") {
             $("#OrderTimeToRealize").val(Globals.constants.OrderDetail_Defauls_timeToRealize);
+
+        }
         else
             $("#OrderTimeToRealize").val(this.order.TimeToRealize);
+
+        if (this.order.Status == "Offered") {
+
+            //buttony znemoznit
+            $('#btnorderDetailPaymentTotal').hide();
+            $('#btnorderDetailFormChangeEndAddress').hide();
+            $("#orderDetailFormEndCity").prop('disabled', true);
+            $("#orderDetailFormEndAddress").prop('disabled', true);
+            $("#orderDetailFormPaymentTotal").prop('disabled', true);
+        }
+        else {
+            $('#btnorderDetailPaymentTotal').show();
+            $('#btnorderDetailFormChangeEndAddress').show();
+            $("#orderDetailFormEndCity").prop('disabled', false);
+            $("#orderDetailFormEndAddress").prop('disabled', false);
+            $("#orderDetailFormPaymentTotal").prop('disabled', false);
+        }
 
         app.radio($("#OrderTimeToRealizeRadio"), $("#OrderTimeToRealize"));
 
@@ -119,6 +174,10 @@
     this.loadData = function () {
         this.order = Service.orders.Current;
         if (this.order) {
+            //nastavime patbu na 0
+            if (!this.order.PaymentTotal)
+                this.order.PaymentTotal = 5;
+
             $("#orderDetailForm").html(OrderDetail.detailTemplate(this.order));
             this.setButtons();
             //if (this.order.StartLatitude) {
@@ -137,6 +196,53 @@
             }
         }
         this.showTime();
+    };
+
+    this.changeAddress = function () {
+
+        app.waiting();
+        var orderDetailFormEndCity = $("#orderDetailFormEndCity").val();
+        var orderDetailFormEndAddress = $("#orderDetailFormEndAddress").val();
+
+        var settings = Service.getSettings(), self = this;
+
+        var data = {
+            GUID_Transporter: settings.transporterId,
+            GUID_TransporterOrder: this.order.GUID,
+            Status_TransporterOrder: this.order.Status,
+            Latitude: PositionService.lat,
+            Longitude: PositionService.lng,
+            EndCity: orderDetailFormEndCity,
+            EndAddress: orderDetailFormEndAddress
+        };
+
+        Service.callService("OrderChangeEndAddress", data, function () { app.home(); });
+    };
+
+    this.setPayment = function () {
+
+        //hodnota platby
+        var orderDetailFormPaymentTotal = $("#orderDetailFormPaymentTotal").val();
+        //kontrola
+        if (isNaN(orderDetailFormPaymentTotal)) {
+            app.showAlert("Nesprávna cena", "Chyba");
+            return;
+        }
+
+        this.order = Service.orders.Current;
+        app.waiting();
+        var settings = Service.getSettings(), self = this;
+        this.order.PaymentTotal = orderDetailFormPaymentTotal;
+        var data = {
+            HistoryAction: "Payment",
+            HistoryActionDescription : "Total",
+            GUID_TransporterOrder: this.order.GUID,
+            Payment: orderDetailFormPaymentTotal
+        };
+
+        //alert(orderDetailFormPaymentTotal);
+
+        Service.callService("TaxiSetPayment", data, function () { app.home(); });
     };
 
     this.save = function () {
@@ -183,3 +289,6 @@
 
 OrderDetail.template = Handlebars.compile($("#orderDetail-tpl").html());
 OrderDetail.detailTemplate = Handlebars.compile($("#orderDetailForm-tpl").html());
+OrderDetail.paymentTemplate = Handlebars.compile($("#orderDetailPayment-tpl").html());
+
+
