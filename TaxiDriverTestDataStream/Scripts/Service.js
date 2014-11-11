@@ -98,6 +98,7 @@
                 Service.saveSettings(s);
                 if (Service.isComplet()) {
                     Lists.listInitialize();
+                    Globals.initialize();
                     PositionService.startWatch();
                     Service.loginHistory();
                     app.refreshTransporter(callback);
@@ -292,7 +293,16 @@
                 app.home(true);
             });
     },
+
+    alarmConfirm: function () {
+        var scriptText = "onclick = \"Service.alarm()\"";
+        var content = Translator.Translate("Spustiť alarm?") +"<br/><button id=\"btnsetAlarm\" " + scriptText + "  style=\"background-color:black;\" class=\"textnoicon\">" + Translator.Translate("Spustiť") + "</button>";
+        app.showNewsComplete(Translator.Translate("Alarm"), null, "", 10000, content);
+        return;
+    },
+
     alarm: function () {
+        app.hideNews();
         app.waiting();
         var s = Service.getSettings();
         Service.callService("TransporterAlarm", {

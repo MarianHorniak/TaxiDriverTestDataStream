@@ -80,8 +80,10 @@ var SettingsAllView = function (messages) {
 
         if (self.iscroll)
             self.iscroll.refresh();
-        else
-            self.iscroll = new iScroll($('.scrollBottom', self.el)[0], { hScrollbar: false, vScrollbar: false });
+        else {
+            //self.iscroll = new iScroll($('.scrollBottom', self.el)[0], { hScrollbar: false, vScrollbar: false });
+            self.iscroll = new iScroll($('.scrollcommon', self.el)[0], { hScrollbar: true, vScrollbar: true });
+        }
 
         
 

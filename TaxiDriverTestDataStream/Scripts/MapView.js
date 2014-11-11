@@ -62,14 +62,19 @@ var Map = {
         Service.callService("datamobile", { Id: "viewWebClientTransporters" },
             function (result) {
                 Map.carCount = result.Items.length;
-                Map.mapOut2.html(Translator.Translate("Počet") + ": " + result.Items.length);
+                //Map.mapOut2.html(Translator.Translate("Počet") + ": " + result.Items.length);
                 self.datatransporters = result;
                 console.log("get map view data " + result.Items.length);
                 $.each(self.datatransporters.Items, function () {
                     var item = this;
+                    var iconurl = "";
+                    if (s) iconurl = s.url + "/resources/icon/Transporter_";
+                    if (item && item.Status) iconurl = iconurl + item.Status;
+                    if (item && item.DriverTitle) iconurl = iconurl + "_1_" + item.DriverTitle;
+
+
                     var m = new  google.maps.Marker({
-                        //icon: { url: "img/cabs.png" },
-                        //labelContent: 'A',
+                        icon: {url:iconurl},
                         position: new google.maps.LatLng(item.Latitude, item.Longitude),
                         title:item.Title,
                         clickable: false,
@@ -103,7 +108,7 @@ var Map = {
         Map.date = new Date().toTimeString();
         Map.message("Pozícia " + Map.date);
         var poc = "";
-        if (Map.carCount && Map.carCount > 0) poc = Translate('Počet') + ': ' + Map.carCount;
+        if (Map.carCount && Map.carCount > 0) poc = Translator.Translate('Počet') + ': ' + Map.carCount;
 
         var d = Translator.Translate('Lat.')+': ' + position.coords.latitude + '  ' +
         Translator.Translate('Long.')+': ' + position.coords.longitude + '<br />' +

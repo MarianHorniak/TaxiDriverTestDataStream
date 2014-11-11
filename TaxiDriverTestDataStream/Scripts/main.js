@@ -174,7 +174,7 @@
         //$('body').on('app.clickEvent, '#newOrder', function (event) { Service.autoOrder(); });
         $('body').on(app.clickEvent, '#unbreakButton', function (event) { $("#unbreakButton").hide(); Service.unBreak(); });
         $('body').on(app.clickEvent, '#unalarmButton', function (event) { $("#unalarmButton").hide(); Service.unAlarm(); });
-        $('body').on(app.clickEvent, '#taxiAlarm', function (event) { Service.alarm(); });
+        $('body').on(app.clickEvent, '#taxiAlarm', function (event) { Service.alarmConfirm(); });
         $('body').on(app.clickEvent, '#btnRecallMe', function (event) { Service.recallme(); });
         $('body').on(app.clickEvent, '#btnSubmenu', function (event) { app.submenu(); });
         $('body').on(app.clickEvent, '#btnNewsClose', function (event) { app.hideNews(); });
@@ -347,6 +347,10 @@
     setStatusBarNewMessage: function () {
         $("#taxiStatusMessages").removeClass("None");
         $("#taxiStatusMessages").addClass("New");
+        //$("#taxiStatusMessages").addClass("icon");
+        //$("#taxiStatusMessages").addClass("message");
+
+
 
     },
 

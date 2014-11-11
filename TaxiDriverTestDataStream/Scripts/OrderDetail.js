@@ -34,6 +34,14 @@
         });
 
 
+        //scroll divu 
+        //var el = $("#orderDetailTabs");
+        //if (el.iscroll)
+        //    el.iscroll.refresh();
+        //else
+        //    el.iscroll = new iScroll('orderDetailTabs', {
+        //        scrollX: true
+        //    });
 
         $("#orderTimeTab").off(app.clickEvent, function (e) { self.showTime(); });
         $("#orderTimeTab").on(app.clickEvent, function (e) { self.showTime(); });
@@ -94,6 +102,8 @@
         $("#btnorderDetailFormChangeEndAddress").off(app.clickEvent, function () { self.changeAddress(); });
         $("#btnorderDetailFormChangeEndAddress").on(app.clickEvent, function () { self.changeAddress(); });
 
+
+
         if (self.iscroll)
             self.iscroll.refresh();
         else
@@ -108,9 +118,22 @@
         f.show();
         $("#orderPaymentTab").addClass("selected");
        
-        $("#btnorderDetailPaymentTotal").off(app.clickEvent, function () { self.setPayment(); });
-        $("#btnorderDetailPaymentTotal").on(app.clickEvent, function () { self.setPayment(); });
+        var btn = $("#btnorderDetailPaymentTotal");
+        btn.off(app.clickEvent);
+        btn.on(app.clickEvent, function () { self.setPayment(); });
 
+        
+        //aka je vyska platby ? nastavime hodnotu
+        var pToinput = 0;
+        if (this.order.PaymentTotal) pToinput = this.order.PaymentTotal;
+        if (pToinput == 0)
+        {
+            var sp = Globals.GetSetItem("DefaultPaymentValue");
+            if (sp && sp != "")
+                pToinput = sp;
+        }
+        $("#orderDetailFormPaymentTotal").val(pToinput);
+            
 
         if (self.iscroll)
             self.iscroll.refresh();
@@ -146,7 +169,7 @@
         else
             $("#OrderTimeToRealize").val(this.order.TimeToRealize);
 
-        if (this.order.Status == "Offered") {
+        if (this.order.Status == "Offered" || this.order.Status == "Reserved") {
 
             //buttony znemoznit
             $('#btnorderDetailPaymentTotal').hide();
@@ -169,6 +192,17 @@
             $("#orderDetailSave").show().text("Prijať objednávku");
         else
             $("#orderDetailSave").show().text("Zmeniť čas");
+
+        //scroll left ?
+        //var divScrolHor = $("#orderDetailTabs");
+        //if (divScrolHor.iscroll)
+        //    divScrolHor.iscroll.refresh();
+        //else
+        //    divScrolHor.iscroll = new iScroll( $(".scrollhoriz"), { hScrollbar: true, vScrollbar: true });
+        //divScrolHor.off(onscroll);
+        //divScrolHor.on(onscroll, function () { divScrolHor.scrollLeft(300); });
+
+
     };
 
     this.loadData = function () {
@@ -176,7 +210,7 @@
         if (this.order) {
             //nastavime patbu na 0
             if (!this.order.PaymentTotal)
-                this.order.PaymentTotal = 5;
+                this.order.PaymentTotal = 0;
 
             $("#orderDetailForm").html(OrderDetail.detailTemplate(this.order));
             this.setButtons();
@@ -232,7 +266,7 @@
         this.order = Service.orders.Current;
         app.waiting();
         var settings = Service.getSettings(), self = this;
-        this.order.PaymentTotal = orderDetailFormPaymentTotal;
+       // this.order.PaymentTotal = orderDetailFormPaymentTotal;
         var data = {
             HistoryAction: "Payment",
             HistoryActionDescription : "Total",
@@ -240,7 +274,7 @@
             Payment: orderDetailFormPaymentTotal
         };
 
-        //alert(orderDetailFormPaymentTotal);
+       // alert(orderDetailFormPaymentTotal);
 
         Service.callService("TaxiSetPayment", data, function () { app.home(); });
     };
@@ -286,6 +320,8 @@
 
     this.initialize();
 }
+
+
 
 OrderDetail.template = Handlebars.compile($("#orderDetail-tpl").html());
 OrderDetail.detailTemplate = Handlebars.compile($("#orderDetailForm-tpl").html());

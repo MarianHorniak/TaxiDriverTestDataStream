@@ -226,13 +226,15 @@
         <!--<button id="orderDetailBack" class="icon ico_back">&nbsp;</button>-->
         <!--<button id="orderCall" class="icon ico_phone">&nbsp;</button>-->
     
-        <div id="orderDetailTabs" class="tabs">
+        <div id="orderDetailTabs" class="tabs scrollhoriz">
             <button id="orderDetailBack" class="icon ico_back">&nbsp;</button>
-            <button id="orderCall" class="icon ico_phone">&nbsp;</button>
-            <div id="orderTimeTab" class="selected">Čas</div>
-            <div id="orderDetailTab">Detail</div>
-            <div id="orderPaymentTab">Platba</div>
-            <div id="orderMapTab">Mapa</div>
+
+                <button id="orderCall" class="icon ico_phone">&nbsp;</button>
+                <div id="orderTimeTab" class="selected">Čas</div>
+                <div id="orderDetailTab">Detail</div>
+                <div id="orderPaymentTab">Platba</div>
+                <div id="orderMapTab">Mapa</div>
+
         </div>
     
     </div>    
@@ -468,7 +470,7 @@
  <!-- Settings ALL detail -->
  <script id="settingsallForm-tpl" type="text/x-handlebars-template">
 <form id="settingsallForm-form">
-    <div class="FullContent">
+    <div class="FullContent scrollcommon">
             {{#.}}
                {{#if this.isHeader}}  
                    <div class="GroupHeader">{{this.Title}}</div>

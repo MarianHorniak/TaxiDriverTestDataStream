@@ -481,6 +481,16 @@ h2
 	font-size: 18px;
 }
 
+.scrollcommon {
+    -webkit-overflow-scrolling: touch;
+}
+
+.scrollhoriz {
+    -webkit-overflow-scrolling: touch;
+    overflow:auto;
+}
+
+
 .scroll
 {
 	-webkit-overflow-scrolling: touch;
@@ -508,9 +518,10 @@ h2
 
 }
 
-.scrollBottom.Mess
+.scrollcommon.Mess
 {
-	bottom: 100px;
+	/*bottom: 100px;*/
+    bottom:5px;
     width:100%;
 }
 .messageNew {
@@ -748,6 +759,8 @@ button.ico_order
 	*background-image: url(/img/appbar.thumb.up.add.png);
 	/* For IE 6 and 7 */
 }
+
+
 
 button.ico_message
 {
