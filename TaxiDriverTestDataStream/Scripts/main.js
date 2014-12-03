@@ -33,16 +33,17 @@
     },
 
     showNews: function (content) {
-        var soundFile = "audio/sound_new.mp3";
+        var soundFile = MediaInternal.defaultNewsSoundfile; // "audio/sound_new.mp3";
         app.showNewsComplete(Translator.Translate("Warning"), soundFile, "", 10000, content)
     },
 
     showNewsComplete: function (title, soundFile, color, hideinmilisec, content) {
-        if (!soundFile | soundFile=="") soundFile = "audio/sound_new.mp3";
+        if (!soundFile | soundFile == "") soundFile = MediaInternal.defaultNewsSoundfile; //"audio/sound_new.mp3";
         $("#taxiNewsContent").html(content);
         $("#taxiNewsTitle").html(title);
         $("#taxiNewFull").show(200);
-        app.playSound(soundFile);
+        //app.playSound(soundFile);
+        MediaInternal.playSoundInMedia(soundFile,1,1);
         window.setTimeout(function () { app.hideNews(); }, hideinmilisec);
     },
 
@@ -103,7 +104,7 @@
 
                 //toplay sound initialized ? 
                 if (toplay) {
-                    //toplay.volume = Globals.Media_Volume;
+                    toplay.volume = Globals.Media_Volume;
                     toplay.play();
                 }
             }
