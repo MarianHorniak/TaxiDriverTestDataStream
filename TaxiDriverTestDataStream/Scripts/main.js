@@ -2,7 +2,8 @@
     currentPage: null,
     currentPageName: null,
     isDevice: false,
-    DeviceOs:"",
+    userAgent:"",
+    platform: "",
     clickEvent: "click",
     mediaNew : null,
     mediaAlert : null,
@@ -420,11 +421,9 @@
 };
 
 function onLoad() {
+    app.userAgent = navigator.userAgent;
     app.isDevice = navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/);
-    app.DeviceOs = navigator.platform;
-
-    alert("UserAgent: " + navigator.userAgent);
-    alert("platform: " + navigator.platform);
+    app.platform = navigator.platform;
 
 
     if (app.isDevice) {
