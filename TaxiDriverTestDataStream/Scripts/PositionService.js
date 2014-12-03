@@ -89,7 +89,7 @@ var PositionService = {
 
                     //moze opustat stanoviste a neodhlasil sa
                     Stand.CheckStandLeave();
-                }
+                } 
 
                 Service.callService("MobilePool", {
                     Id: s.transporterId,
