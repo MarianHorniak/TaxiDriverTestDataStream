@@ -422,6 +422,11 @@
 function onLoad() {
     app.isDevice = navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/);
     app.DeviceOs = navigator.platform;
+
+    alert("UserAgent: " + navigator.userAgent);
+    alert("platform: " + navigator.platform);
+
+
     if (app.isDevice) {
         app.clickEvent = "tap";
         document.addEventListener("deviceready", function () { app.initialize(); }, false);
