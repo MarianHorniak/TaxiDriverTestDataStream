@@ -2,6 +2,7 @@
     currentPage: null,
     currentPageName: null,
     isDevice: false,
+    DeviceOs:"",
     clickEvent: "click",
     mediaNew : null,
     mediaAlert : null,
@@ -380,6 +381,15 @@
         }
         else return "";
     },
+
+    getAndroidPath: function () {
+        if (app.isDevice) {
+            var path = "/android_asset/www/";
+            return path;
+        }
+        else return "";
+    },
+
     initialize: function () {
         app.log("app.initialize");
         app.log("app.isDevice: " + this.isDevice);
@@ -411,6 +421,7 @@
 
 function onLoad() {
     app.isDevice = navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/);
+    app.DeviceOs = navigator.platform;
     if (app.isDevice) {
         app.clickEvent = "tap";
         document.addEventListener("deviceready", function () { app.initialize(); }, false);

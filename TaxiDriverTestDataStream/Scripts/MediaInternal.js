@@ -43,14 +43,22 @@
             window.setTimeout(function () {
                 if (realSoundFile) {
                     var toplay;
-                    if (app.isDevice)
-                        toplay = new Media(app.getPhoneGapPath() + "audio/" + realSoundFile);
-                    else
+                    if (app.isDevice) {
+
+                        var file = app.getPhoneGapPath() + "audio/" + realSoundFile;
+                        alert("Play: " + file);
+                        //toplay = new Media(app.getPhoneGapPath() + "audio/" + realSoundFile);
+                        toplay = new Media(file);
+
+                    }
+                    else {
+                        var test = app.getPhoneGapPath();
                         toplay = new Audio("audio/" + realSoundFile);
+                    }
 
                     //toplay sound initialized ? 
                     if (toplay) {
-                        toplay.volume = Globals.Media_Volume;
+                        //toplay.volume = Globals.Media_Volume;
                         toplay.play();
                     }
                 }
