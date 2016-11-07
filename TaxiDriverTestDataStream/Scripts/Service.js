@@ -220,6 +220,13 @@
         });
     },
 
+    getMessagesToOrder: function (GUID_TransporterOrder, callback) {
+        var self = this;
+        this.callService("datamobile", { Id: "transporterordermessages", GUID_TransporterOrder: GUID_TransporterOrder }, function (messages) {
+            if (callback)
+                callback(messages);
+        });
+    },
 
     setOrderDescription: function (order) {
         if (!order.GUID)
@@ -371,7 +378,7 @@
             });
     },
 
-    sendNewMessage: function (MessageType, MessageText, LifeTimeMinutes, isAnswer, needAnswer, SenderRole, ReceiverRole, GUID_sysUser_Sender, GUID_sysUser_Receiver, Latitude, Longitude) {
+    sendNewMessage: function (MessageType, MessageText, LifeTimeMinutes, isAnswer, needAnswer, SenderRole, ReceiverRole, GUID_sysUser_Sender, GUID_sysUser_Receiver, Latitude, Longitude, successDelegate) {
         app.waiting();
         Service.callService("SendMessage", {
             MessageType: MessageType,
@@ -388,7 +395,10 @@
 
         },
             function () {
-                app.route("messages");
+                if (!successDelegate)
+                    app.route("messages");
+                else
+                    successDelegate();
             },
             function (d) {
                 app.info(d.ErrorMessage);

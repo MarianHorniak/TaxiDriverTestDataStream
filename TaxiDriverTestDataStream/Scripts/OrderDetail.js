@@ -54,6 +54,10 @@
         $("#orderPaymentTab").off(app.clickEvent, function () { self.showPayment(); });
         $("#orderPaymentTab").on(app.clickEvent, function () { self.showPayment(); });
 
+        //orderMessagesTab
+        $("#orderMessagesTab").off(app.clickEvent, function () { self.showMessages(); });
+        $("#orderMessagesTab").on(app.clickEvent, function () { self.showMessages(); });
+
         $("#orderMapTab").off(app.clickEvent, function (e) { self.showMap(); });
         $("#orderMapTab").on(app.clickEvent, function (e) { self.showMap(); });
 
@@ -71,11 +75,13 @@
         $("#orderTimeTab").removeClass("selected");
         $("#orderDetailTab").removeClass("selected");
         $("#orderPaymentTab").removeClass("selected");
+        $("#orderMessagesTab").removeClass("selected");
 
         $("#orderDetailForm").hide();
         $("#orderDetailMap").hide();
         $("#orderDetailTime").hide();
         $("#orderDetailPayment").hide();
+        $("#orderDetailMessages").hide();
 
     };
 
@@ -140,6 +146,74 @@
         else
             self.iscroll = new iScroll($('.scrollBottom', self.el)[0], { hScrollbar: false, vScrollbar: false });
     };
+
+    this.showMessages = function () {
+        var self = this;
+        this.removeSelectedClass();
+        var f = $("#orderDetailMessages");
+        f.show();
+        $("#orderMessagesTab").addClass("selected");
+
+        var btn = $("#btnorderDetailMessageNew");
+        btn.off(app.clickEvent);
+        btn.on(app.clickEvent, function () { self.setMessage(); });
+
+        //soplnime options
+        var cis = Lists.getListItems("sysMessageTemplate");
+        console.log(cis);
+        var el = $("#selectMessageType");
+        if (el)
+        {
+            el.empty(); //clear it !
+            var option = document.createElement("option");
+            option.text = "";
+            option.value = "no";
+            el.append(option);
+            var myItems = cis.Items.sort();
+            for (var i = 0; i < myItems.length; i++)
+            {
+                var option1 = document.createElement("option");
+                option1.value = cis.Items[i].Title;
+                option1.text = cis.Items[i].MessageText;
+                el.append(option1);
+            }
+        }
+
+        var masterdiv = $("#orderDetailMessagesList");
+        masterdiv.empty();
+        //tereaz nacitame spravy : komunikaciu
+        Service.getMessagesToOrder(Service.orders.Current.GUID,
+            function (messages) {
+                if (messages && masterdiv)
+                {
+                    console.log(messages);
+                    for(var i=0;i<messages.Items.length;i++)
+                    {
+                        //SenderRole, ActiveFrom
+                        if (messages.Items[i].SenderRole == "TaxiCustomer") //toto je nasa mesage
+                        {
+                            masterdiv.append("<div class='content' style='background-color:black'>" +  messages.Items[i].MessageText + " </div>");
+
+                        }
+                        else {
+                            masterdiv.append("<div class='content' style='padding-left:50px;'>" + messages.Items[i].MessageText + " </div>");
+                        }
+
+                    }
+                }
+            }
+            
+            );
+
+
+        if (self.iscroll)
+            self.iscroll.refresh();
+        else
+            self.iscroll = new iScroll($('.scrollBottom', self.el)[0], { hScrollbar: false, vScrollbar: false });
+    };
+
+
+
 
     this.showMap = function () {
         this.removeSelectedClass();
@@ -278,6 +352,47 @@
 
         Service.callService("TaxiSetPayment", data, function () { app.home(); });
     };
+
+    this.setMessage = function () {
+
+        var self = this;
+
+        //hodnota platby
+        var messtext = $("#txtOrderMessageText").val();
+        if (!messtext || messtext == "")
+        {
+            messtext = $("#selectMessageType option:selected").text();
+            if (messtext == "no") messtext = "";
+        }
+
+        if (!messtext || messtext == "") {
+
+            app.showAlert("Zadajte text správy", "Chyba");
+            return;
+        }
+
+        console.log("Send message: "+messtext);
+
+
+
+        //posleme
+        app.waiting(true);
+        this.order = Service.orders.Current;
+        var s = Service.getSettings();
+        console.log(s);
+        Service.sendNewMessage("Info", messtext, 5000, false, false, Globals.RoleName, "TaxiCustomer", s.userId, this.order.GUID, PositionService.lat, PositionService.lng, function () { console.log('message send OK'); self.showMessages(); })
+
+
+        //vymazeme 
+        $("#txtOrderMessageText").val("");
+        //nastavime selected na "no"
+        $("#selectMessageType").val("no");
+        //waiting
+        app.waiting(false);
+        //spat refresh messages
+        
+    };
+
 
     this.save = function () {
 
