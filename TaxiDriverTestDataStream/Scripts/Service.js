@@ -1,6 +1,7 @@
 ﻿var Service = {
     online: false,
     ordersVer: undefined,
+    ordersReservationVer: undefined,
     messagesVer: undefined,
     transporterVer: "",
     transporter: null,

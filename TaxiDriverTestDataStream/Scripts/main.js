@@ -88,7 +88,11 @@
     },
     playNew: function(){
         if (app.mediaNew) {
-            app.mediaNew.volume = Globals.Media_Volume;
+            if (app.mediaNew.setVolume)
+                app.mediaNew.setVolume(Globals.Media_Volume);
+            else
+                app.mediaNew.volume = Globals.Media_Volume;
+
             app.mediaNew.play();
         }
     },
@@ -104,7 +108,12 @@
 
                 //toplay sound initialized ? 
                 if (toplay) {
-                    toplay.volume = Globals.Media_Volume;
+
+                    if (toplay.setVolume)
+                        toplay.setVolume(Globals.Media_Volume);
+                    else
+                        toplay.volume = Globals.Media_Volume;
+                    
                     toplay.play();
                 }
             }
@@ -345,6 +354,11 @@
     setStatusBarOffer: function (offerClass) {
         $("#taxiStatusOffers").removeClass();
         $("#taxiStatusOffers").addClass(offerClass);
+    },
+
+    setStatusBarOfferReservation: function (offerClass) {
+        $("#taxiStatusOffersReservation").removeClass();
+        $("#taxiStatusOffersReservation").addClass(offerClass);
     },
 
     setStatusBarNewMessage: function () {

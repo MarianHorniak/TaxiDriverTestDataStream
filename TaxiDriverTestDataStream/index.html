@@ -28,6 +28,7 @@
             <div id="taxiStatus">
                 <div class="None" id="taxiStatusInfo">I</div> 
                 <div class="None" id="taxiStatusOffers">O</div> 
+                <div class="None" data-route="history"id="taxiStatusOffersReservation">R</div> 
                 <div class="None" data-route="messages" id="taxiStatusMessages">S</div> 
                 <div class="None" data-route="stand" id="taxiStatusPark">P</div> 
             </div>
@@ -38,7 +39,7 @@
 <!--submenu--> 
 <div id="menu">
 <div class='submenu' id="divsubmenu" style="display:none;z-index:10000;">
-    <button data-route="map" class="icon ico_map">&nbsp;</button>
+    <button id="btnmenuMap" data-route="map" class="icon ico_map">&nbsp;</button>
     <button id="btnHistory"  data-route="history" class="textnoicon">História</button>
     <button id ="btnRecallMe" title="Recall me" class="icon ico_phone">&nbsp;</button>
     <button data-route="states" class="icon ico_stop">&nbsp;</button>
@@ -75,12 +76,18 @@
     <div class="content">
     {{#if this.StatusOfferGUI}}
              <strong>{{this.FormatedDate}} {{this.StatusTranslation}}</strong> <br/>
-             {{this.StartCity}} {{this.StartAddress}}<br/>
-             {{this.EndCity}} {{this.EndAddress}}<br/>
-            {{this.Persons}} / {{this.SpecialConditions}}  
-            {{#if Globals.Orders_List_ShowCustomerPhone}}
-            / {{this.CustomerPhone}} 
+             {{this.StartCity}} {{this.StartAddress}} jj<br/>
+        
+            {{#if this.ShowOrderEndAddress}}
+                     {{this.EndCity}} {{this.EndAddress}} <br/>
             {{/if}}
+        
+            {{this.Persons}} / {{this.SpecialConditions}}  
+        
+            {{#if  this.ShowOrderCustomerPhone}}
+                  / {{this.CustomerPhone}} 
+            {{/if}}
+
             / {{this.CustomerName}} 
            
                 
@@ -88,10 +95,12 @@
     {{else}}
 
             <strong>{{this.FormatedDate}}</strong> {{this.StartCity}} {{this.StartAddress}}<br/>
-            {{this.EndCity}} {{this.EndAddress}}<br/>
+            {{#if  this.ShowOrderEndAddress}}
+                {{this.EndCity}} {{this.EndAddress}}<br/>
+            {{/if}}
             {{this.Persons}} / {{this.SpecialConditions}}  
-            {{#if Globals.Orders_List_ShowCustomerPhone}}
-            / {{this.CustomerPhone}} 
+            {{#if  this.ShowOrderCustomerPhone}}
+                 / {{this.CustomerPhone}} 
             {{/if}}
             / {{this.CustomerName}} - <strong>{{this.StatusTranslation}}</strong>
 
@@ -145,20 +154,17 @@
     <button id="historyTitle" class="textHeaderTitle" disabled="disabled">História</button>
     <div style="position:absolute; left:200px; top:2px; right:0px;">
     <select id="selectHistory">
-        <option value="1h">1 hodina</option>
-        <option value="2h">2 hodiny</option>
-        <option value="24h">24 hodín</option>
-        <option value="My24h">Moje 24 hod.</option>
-        <option value="My1Month">Moje 1 mesiac</option>
-        <option value="Reservations">Rezervácie</option>
-        <option value="Disp24">Disp 24 hod.</option>
-
-        <!--<option value="MyTodayTab">Moje dnes</option>-->
-        <!--<option value="MyYestTab">Moje včera</option>-->
+        <option id="selectHistory1h"  value="1h">1 hodina</option>
+        <option id="selectHistory2h" value="2h">2 hodiny</option>
+        <option id="selectHistory24h" value="24h">24 hodín</option>
+        <option id="selectHistoryMy24h" value="My24h">Moje 24 hod.</option>
+        <option id="selectHistoryMy1Month" value="My1Month">Moje 1 mesiac</option>
+        <option id="selectHistoryReservations" value="Reservations">Rezervácie</option>
+        <option id="selectHistoryDisp24" value="Disp24">Disp 24 hod.</option>
     </select>
  </div>
 </div>
-<div class="scrollBottom"><div class='buttonlist ordersHistory-list'></div></div>
+<div class="scrollBottom"><div class='buttonlist ordersHistory-list'></div><div id="ordersHistory-listnoData"></div></div>
 </script>
 
 <script id="ordersHistory-li-tpl" type="text/x-handlebars-template">
@@ -283,12 +289,18 @@
        <strong>{{this.FormatedDate}} {{this.StatusTranslation}}</strong> <br/>   
        <strong>Odkiaľ:</strong> {{this.StartCity}} {{this.StartAddress}} <br/> 
 
+    {{#if this.ShowOrderEndAddress}}
         <strong>Kam:</strong> <br/> 
         <input type="text" placeholder="EndCity" name="EndCity" id="orderDetailFormEndCity" value="{{this.EndCity}}"/>
         <input type="text" placeholder="EndAddress" name="EndAddress" id="orderDetailFormEndAddress" value="{{this.EndAddress}}"/>
         <button id ="btnorderDetailFormChangeEndAddress" title="Zmeniť adresu" class="icon texticon ico_submit">Zmeniť cieľ</button> <br/> 
+    {{/if}}
 
-     <strong>Kontakt:</strong> {{this.CustomerName}}  {{#if Globals.Orders_List_ShowCustomerPhone}}   {{this.CustomerPhone}}  {{/if}}     <br/>
+     <strong>Kontakt:</strong> {{this.CustomerName}}  
+     {{#if this.ShowOrderCustomerPhone}}   
+         <a href="tel: {{this.CustomerPhone}} "> {{this.CustomerPhone}} </a>
+     {{/if}}    
+     <br/>
      {{#if this.Persons}}
             <strong>Počet pasažierov:</strong> {{this.Persons}}   <br/>
      {{/if}}

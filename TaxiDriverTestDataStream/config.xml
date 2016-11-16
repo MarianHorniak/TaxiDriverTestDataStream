@@ -32,8 +32,7 @@
   
     <access origin="*" />
   
-  <plugin name="org.apache.cordova.media" source="pgb" spec="0.2.3" />
-
+  <plugin name="cordova-plugin-media" spec="~2.4.0" />
   
   
   <feature name="http://api.phonegap.com/1.0/geolocation"/>

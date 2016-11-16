@@ -13,6 +13,9 @@
 
         $("#selectHistory").off("change", function (e) { self.selectionChange(e); });
         $("#selectHistory").on("change", function (e) { self.selectionChange(e); });
+
+        Globals.HideHistory();
+
         return this;
     };
 
@@ -25,9 +28,9 @@
         app.waiting();
         var self = this;
         //select !          
-        $("#selectHistory").val("2h");
+        $("#selectHistory").val("My24h");
         //default view 
-        self.getViewCommon("view_orders_history2h");
+        self.getViewCommon("view_orders_history24hme");
     };
         
     this.selectionChange = function (e)
@@ -69,15 +72,6 @@
             case "Disp24":
                 self.getViewCommon("view_orders_disp24Hour");
                 break;
-            //case "Test":
-            //    self.viewtest();
-            //    break;
-            //case "MyTodayTab":
-            //    self.view_orders_historyTodaymeStat();
-            //    break;
-            //case "MyYestTab":
-            //    self.view_orders_historyYestmeStat();
-            //    break;
         }
 
         app.waiting(false);
@@ -88,14 +82,21 @@
     this.renderOrders = function(orders)
     {
         var i = 1;
-        $.each(orders.Items, function () {
-            this.FormatedDate = Service.formatJsonDate(this.OrderToDate);
-            this.SpecialConditionsRender = '';
-            if (this.SpecialConditions) this.SpecialConditionsRender = this.SpecialConditions;
-            this.Status = Service.setOrderDescription(this);
-            this.isOddCSS = Tools.isOddCSS(i);
-            this.iOrder = i++;
-        });
+        $('#ordersHistory-listnoData').html("");
+        //mame nieco ? 
+        if (orders && orders.Items && orders.Items.length>0) {
+            $.each(orders.Items, function () {
+                this.FormatedDate = Service.formatJsonDate(this.OrderToDate);
+                this.SpecialConditionsRender = '';
+                if (this.SpecialConditions) this.SpecialConditionsRender = this.SpecialConditions;
+                this.Status = Service.setOrderDescription(this);
+                this.isOddCSS = Tools.isOddCSS(i);
+                this.iOrder = i++;
+            });
+        }
+        else { //neme nic 
+            $('#ordersHistory-listnoData').text(Translator.Translate("no data"));
+        }
 
         $('.ordersHistory-list').html(OrdersHistoryView.liTemplate(orders.Items));
         if (self.iscroll)
@@ -110,15 +111,20 @@
 
     this.renderTab = function (data) {
         var i = 1;
-
-        $.each(data.Items, function () {
-            this.FormatedDate = Service.formatJsonDate(this.OrderToDate);
-            //fake guid :
-            this.GUID = "aaa";
-            this.Status = Service.setOrderDescription(this);
-            this.isOddCSS = Tools.isOddCSS(i);
-            this.iOrder = i++;
-        });
+        $('#ordersHistory-listnoData').html("");
+        if (data && data.Items && data.Items.length > 0) {
+            $.each(data.Items, function () {
+                this.FormatedDate = Service.formatJsonDate(this.OrderToDate);
+                //fake guid :
+                this.GUID = "aaa";
+                this.Status = Service.setOrderDescription(this);
+                this.isOddCSS = Tools.isOddCSS(i);
+                this.iOrder = i++;
+            });
+        }
+        else {
+            $('#ordersHistory-listnoData').text(Translator.Translate("no data"));
+        }
 
         if (self.iscroll)
             self.iscroll.refresh();

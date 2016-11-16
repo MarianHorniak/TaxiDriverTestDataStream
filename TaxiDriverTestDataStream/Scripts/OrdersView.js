@@ -79,6 +79,10 @@ var OrdersView = function () {
                 $.each(orders.Items, function () {
                     this.FormatedDate = Service.formatJsonDate(this.Date);
                     this.ShowCancelbtn = true;
+                    //nastavime premenne
+                    this.ShowOrderCustomerPhone = Globals.constants.ShowOrderCustomerPhone;
+                    this.ShowOrderEndAddress = Globals.constants.ShowOrderEndAddress;
+
                     if (this.Status == 'Cancel') {
                         this.StatusCancel = true;
                         this.ShowCancelbtn = false;
@@ -138,7 +142,7 @@ var OrdersView = function () {
             if (sp && sp != "")
                 pToinput = sp;
         }
-        var content1 = "<input type=\"text\" placeholder=\"Payment\" name=\"PaymentTotal\" id=\"orderNewsDetailFormPaymentTotal\" value=\""+pToinput+"\"/><br/>";
+        var content1 = "<input type=\"text\" placeholder=\"Payment\" style=\"width:80%\" name=\"PaymentTotal\" id=\"orderNewsDetailFormPaymentTotal\" value=\""+pToinput+"\"/><br/>";
         var content = Translator.Translate("Cena celkovo:") + content1 + "<br/><button id=\"btnsetPayment\" " + scriptText + "  style=\"background-color:black;\" class=\"textnoicon\">" + Translator.Translate("Zadať") + "</button>";
         app.showNewsComplete(Translator.Translate("Platba"), "SetPayment", "", 100000, content);
         return;

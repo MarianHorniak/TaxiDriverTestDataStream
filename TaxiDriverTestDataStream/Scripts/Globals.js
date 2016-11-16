@@ -43,7 +43,7 @@
         ReceiverRole : "TaxiDispatcher",
 
         //Media
-        Media_Volume:0.5, 
+        Media_Volume:0.5,
 
         //Me
         myGUID : "",
@@ -59,7 +59,8 @@
 
         //CONSTANTS
         constants: {
-            Orders_List_ShowCustomerPhone: false,
+            ShowOrderCustomerPhone: false,
+            ShowOrderEndAddress: true,
             OrderDetail_Defauls_timeToRealize: 5,
             g_RefreshOrderSeconds: 60,
             Stand_Distancekm: 0.200,
@@ -73,9 +74,57 @@
                 $.each(listitems.Items, function () {
                     Globals.items.push(this);
                 });
+
+                //disable casti menu ! 
+                var DisabledMenus = Globals.GetSetItem("DisabledMenus");
+                if (DisabledMenus)
+                {
+                    var resArray = DisabledMenus.split(Globals.SplitString);
+                    if (resArray && resArray.length > 0)
+                    {
+                        for (var i = 0; i < resArray.length; i++) {
+                            var r = "#" + resArray[i];
+                            var els = $(r);
+                            $(r).attr("disabled", "disabled");
+                            $(r).hide();
+                        }
+                    }
+
+                }
+
+                //este do premennych 
+                var sVal = Globals.GetSetItem("ShowOrderCustomerPhone");
+                if (sVal == "1") Globals.constants.ShowOrderCustomerPhone = true;
+
+                sVal = Globals.GetSetItem("ShowOrderEndAddress");
+                if (sVal == "0") Globals.constants.ShowOrderEndAddress = false
+
+
             });
 
 
+        },
+
+
+        HideHistory: function()
+        {
+
+            //disable casti menu ! 
+            var DisabledMenus = Globals.GetSetItem("DisabledMenus");
+            if (DisabledMenus) {
+                var resArray = DisabledMenus.split(Globals.SplitString);
+                if (resArray && resArray.length > 0) {
+                    for (var i = 0; i < resArray.length; i++) {
+                        if (resArray[i].indexOf('selectHistory') > -1) {
+                            var r = "#" + resArray[i];
+                            $(r).attr("disabled", "disabled");
+                            $(r).hide();
+                            $("#selectHistory option[id='"+resArray[i]+"']").remove();
+                        }
+                    }
+                }
+
+            }
         },
 
         //najde hodnotu setting value v zozname settingova
@@ -85,7 +134,8 @@
             if (!Globals.items) return ret;
             for (var i = 0, iLen = Globals.items.length; i < iLen; i++) {
 
-                if (Globals.items[i].Title == Title) return Globals.items[i].SettingValue;
+                if (Globals.items[i].Title == Title)
+                    return Globals.items[i].SettingValue;
             }
 
             return ret;

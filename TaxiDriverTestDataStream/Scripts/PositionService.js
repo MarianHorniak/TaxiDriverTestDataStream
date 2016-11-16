@@ -95,6 +95,7 @@ var PositionService = {
                     Id: s.transporterId,
                     Lat: posChanged ? PositionService.lat : 0,
                     Lng: posChanged ? PositionService.lng : 0,
+                    GUID_sysCompany: s.GUID_sysCompany,
                 },
                 function (d) { PositionService.startPool(); app.info(""); PositionService.refreshVersionData(d); },
                 function (d) { PositionService.startPool(); if (d.ErrorMessage) app.info(d.ErrorMessage); PositionService.refreshVersionData(d); });
@@ -112,6 +113,7 @@ var PositionService = {
         
         //mhp tu bude zmen, priuchadza viacerio checksumov ! 
         var checkSum_Orders = '';
+        var checkSum_Reservation = '';
         var checkSum_Messages = '';
         var checkSum_Transporter = '';
         var checkSum_User = '';
@@ -124,6 +126,8 @@ var PositionService = {
         checkSum_Orders = d.Items[0]["Column1"];
         checkSum_Messages = d.Items[1]["Column1"];
         checkSum_Transporter = d.Items[2]["Column1"];
+        checkSum_Reservation = d.Items[3]["Column1"];
+
 
         //app.setStatusBar('aa', 'bb', 'mess', 'P');
         
@@ -151,6 +155,19 @@ var PositionService = {
             //MHP stacia orders a nepotrebujeme transporters ? 
             //app.refreshData(["orders", "transporters"]);
             app.refreshData(["orders"]);
+        }
+
+        //reservations 
+        app.setStatusBarOfferReservation("None");
+        if (checkSum_Reservation) {
+            Service.ordersReservationVer = checkSum_Reservation;
+            var hasNew = false;
+            var res = checkSum_Reservation.split(Globals.SplitString);
+            if (res && res.length == 2 && res[1] != "0") {
+                hasNew = true;
+            }
+            if(hasNew)
+                app.setStatusBarOfferReservation("New");
         }
 
         //messages 

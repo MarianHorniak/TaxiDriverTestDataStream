@@ -248,6 +248,8 @@
             //buttony znemoznit
             $('#btnorderDetailPaymentTotal').hide();
             $('#btnorderDetailFormChangeEndAddress').hide();
+            $('#orderPaymentTab').hide();
+            $('#orderMessagesTab').hide();
             $("#orderDetailFormEndCity").prop('disabled', true);
             $("#orderDetailFormEndAddress").prop('disabled', true);
             $("#orderDetailFormPaymentTotal").prop('disabled', true);
@@ -255,9 +257,18 @@
         else {
             $('#btnorderDetailPaymentTotal').show();
             $('#btnorderDetailFormChangeEndAddress').show();
+            $('#orderPaymentTab').show();
+            if(Globals.GetSetItem("EnableOrderDriverChat")=="1")
+                $('#orderMessagesTab').show();
             $("#orderDetailFormEndCity").prop('disabled', false);
             $("#orderDetailFormEndAddress").prop('disabled', false);
             $("#orderDetailFormPaymentTotal").prop('disabled', false);
+        }
+
+        //specialita pre reserved
+        if (this.order.Status == "Reserved") {
+            if (Globals.GetSetItem("EnableOrderDriverChat") == "1")
+                $('#orderMessagesTab').show();
         }
 
         app.radio($("#OrderTimeToRealizeRadio"), $("#OrderTimeToRealize"));
@@ -292,6 +303,11 @@
             //   // $("#orderDetailMap").height($(window).height() - $("#orderDetailForm").outerHeight() - 66);
             //    DetailMap.setMap(this.order.StartLatitude, this.order.StartLongitude, PositionService.lat, PositionService.lng);
             //}
+
+
+            //nastavime premenne
+            this.order.ShowOrderCustomerPhone = Globals.constants.ShowOrderCustomerPhone;
+            this.order.ShowOrderEndAddress = Globals.constants.ShowOrderEndAddress;
 
             //zobrazit rozbaleny cas, ak sa jedna o ponuku
             if (this.order.Status == "Offered") {

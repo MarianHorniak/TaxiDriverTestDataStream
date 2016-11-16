@@ -113,7 +113,11 @@
 
             
             //nemoze sa prihlasit pre vzdialenost!!!
-            if (standresult.Items[i].Distancekm > Globals.constants.Stand_Distancekm) standresult.Items[i].CanStand = false;
+            var distance = Globals.constants.Stand_Distancekm;
+            if (standresult.Items[i].RadiusinMeter) //vyplneny radius 
+                distance = standresult.Items[i].RadiusinMeter / 1000;
+
+            if (standresult.Items[i].Distancekm > distance) standresult.Items[i].CanStand = false;
         }
 
 
@@ -259,6 +263,9 @@ var Stand = {
         var StandNear = "";
         var StandGuid = "";
 
+        var availbale = false;
+        //vyberiem z chache listu:
+
         var standresult = Lists.getListItems("Stand");
         for (var i = 0; i < standresult.Items.length; i++) {
             var lat = standresult.Items[i].Latitude;
@@ -276,8 +283,7 @@ var Stand = {
         var differenceSec = (Date.now() - Stand.lastOffer) / 1000;//1000;
         if (differenceSec < Globals.constants.Stand_OfferSec) return;
 
-        var availbale = false;
-        //vyberiem z chache listu: 
+ 
 
         if (Distanceminkm <= Globals.constants.Stand_Distancekm) availbale = true;
 
