@@ -23,6 +23,20 @@
         },
 
 
+        addSpace: function (origString,fulllength)
+        {
+            var newString = origString;
+            if (origString && origString.length < fulllength)
+            {
+                for (var i = origString.length, l = fulllength; i < l; i++)
+                {
+                    newString = newString + " ";
+                }
+            }
+
+            return newString;
+        }
+
     }
 
 

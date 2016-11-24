@@ -256,7 +256,7 @@
 
 
     getHistoryOrders: function (viewName, callback) {
-        this.callService("datamobile", { Id: viewName, IdTransporter: this._settings.transporterId }, callback);
+        this.callService("datamobile", { Id: viewName, IdTransporter: this._settings.transporterId , GUID_sysUser_Driver : this._settings.userId}, callback);
     },
 
     getListItems: function (viewName, callback) {

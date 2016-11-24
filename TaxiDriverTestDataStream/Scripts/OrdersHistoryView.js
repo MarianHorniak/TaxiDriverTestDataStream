@@ -72,6 +72,22 @@
             case "Disp24":
                 self.getViewCommon("view_orders_disp24Hour");
                 break;
+
+            case "MySum24":
+                self.getViewCommonTabSum("view_orders_MySum24");
+                break;
+
+            case "MySum16":
+                self.getViewCommonTabSum("view_orders_MySum16");
+                break;
+
+            case "MySum12":
+                self.getViewCommonTabSum("view_orders_MySum12");
+                break;
+
+            case "MySum8":
+                self.getViewCommonTabSum("view_orders_MySum8");
+                break;
         }
 
         app.waiting(false);
@@ -111,6 +127,7 @@
 
     this.renderTab = function (data) {
         var i = 1;
+        console.log(data);
         $('#ordersHistory-listnoData').html("");
         if (data && data.Items && data.Items.length > 0) {
             $.each(data.Items, function () {
@@ -137,7 +154,50 @@
 
     }
 
+    this.renderTabSum = function (data) {
+        var i = 1;
+        
+        $('#ordersHistory-listnoData').html("");
+        var pocet = 0;
+        var suma = 0;
+        if (data && data.Items && data.Items.length > 0) {
+            $.each(data.Items, function () {
+                this.FormatedDate = Service.formatJsonDate(this.OrderToDate);
+                //fake guid :
+                this.GUID = "aaa";
+                this.Status = Service.setOrderDescription(this);
+                this.StatusTranslation = Tools.addSpace(this.StatusTranslation, 15);
+                this.isOddCSS = Tools.isOddCSS(i);
+                this.iOrder = i++;
+                this.isData = true;
+                pocet = pocet + this.Pocet;
+                suma = suma + this.Suma;
+            });
+        }
+        else {
+            $('#ordersHistory-listnoData').text(Translator.Translate("no data"));
+        }
 
+        //dplnit pocty 
+        if (data) {
+            data.CelkPocet = pocet;
+            data.CelkSuma = suma;
+            var newItem = { StatusTranslation: "CELKOVO", Suma: suma, Pocet: pocet, isData: false };
+            data.Items.push(newItem);
+        }
+
+        console.log(data);
+
+        if (self.iscroll)
+            self.iscroll.refresh();
+        else
+            self.iscroll = new iScroll($('.scrollBottom', self.el)[0], { hScrollbar: false, vScrollbar: true });
+
+        app.waiting(false);
+        $('.ordersHistory-list').html(OrdersHistoryView.liTemplateTabSum(data.Items));
+        $('.ordersHistory-list').show();
+        
+    }
 
     this.getViewCommon = function (viewName,e) {
         var self = this;
@@ -152,6 +212,15 @@
             self.renderTab(orders);
         });
     }
+
+
+    this.getViewCommonTabSum = function (viewName, e) {
+        var self = this;
+        Service.getHistoryOrders(viewName, function (orders) {
+            self.renderTabSum(orders);
+        });
+    }
+
 
     //this.view1h = function (e) {
     //    var self = this;
@@ -204,4 +273,5 @@ OrdersHistoryView.template = Handlebars.compile($("#ordersHistory-tpl").html());
 OrdersHistoryView.liTemplate = Handlebars.compile($("#ordersHistory-li-tpl").html());
 OrdersHistoryView.liTemplateRaw = Handlebars.compile($("#ordersHistoryraw-li-tpl").html());
 OrdersHistoryView.liTemplateTab = Handlebars.compile($("#ordersHistorytab-li-tpl").html());
+OrdersHistoryView.liTemplateTabSum = Handlebars.compile($("#ordersHistorytabSum-li-tpl").html());
 

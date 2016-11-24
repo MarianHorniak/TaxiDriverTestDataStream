@@ -161,6 +161,13 @@
         <option id="selectHistoryMy1Month" value="My1Month">Moje 1 mesiac</option>
         <option id="selectHistoryReservations" value="Reservations">Rezervácie</option>
         <option id="selectHistoryDisp24" value="Disp24">Disp 24 hod.</option>
+        <option id="selectHistoryMySum24h" value="MySum24">Sumár 24 hod.</option>
+        <option id="selectHistoryMySum16h" value="MySum16">Sumár 16 hod.</option>
+        <option id="selectHistoryMySum12h" value="MySum12">Sumár 12 hod.</option>
+        <option id="selectHistoryMySum8h" value="MySum8">Sumár 8 hod.</option>
+
+
+
     </select>
  </div>
 </div>
@@ -193,6 +200,31 @@
 {{/.}}
         
 </script>
+
+ <script id="ordersHistorytabSum-li-tpl" type="text/x-handlebars-template">
+     
+     <table>
+         <tr style="background-color:lightyellow; color:black"><td>&nbsp;STATUS&nbsp;</td><td>&nbsp;POČET&nbsp;</td><td>&nbsp;SUMA&nbsp;</td></tr>
+     
+{{#.}} 
+         {{#if  this.isData}}
+            <tr style="text-align:right"  class="{{this.isOddCSS}}">
+                <td> {{this.StatusTranslation}} &nbsp; </td><td>  {{this.Pocet}}</td><td>  {{this.Suma}}</td>
+            </tr>
+         {{else}}
+             <tr style="background-color:lightyellow; color:black;text-align:right">
+                <td> {{this.StatusTranslation}} </td><td>  {{this.Pocet}}</td><td>  {{this.Suma}}</td>
+            </tr>
+          {{/if}}
+{{/.}}
+   
+
+
+          
+
+   </table>
+</script>
+
 
 <!-- Lists start -->
     <script id="lists-tpl" type="text/x-handlebars-template">

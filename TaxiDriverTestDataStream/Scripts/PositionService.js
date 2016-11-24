@@ -91,11 +91,19 @@ var PositionService = {
                     Stand.CheckStandLeave();
                 } 
 
+                //ktory view sa pouzije? 
+                //var DataPackageDriver = "viewDataPackageDriverReservations";
+                var DataPackageDriver = "viewDataPackageDriver";
+                var snewdata = Globals.GetSetItem("DataPackageDriver");
+                if (snewdata && snewdata != "")
+                    DataPackageDriver = snewdata;
+
                 Service.callService("MobilePool", {
                     Id: s.transporterId,
                     Lat: posChanged ? PositionService.lat : 0,
                     Lng: posChanged ? PositionService.lng : 0,
                     GUID_sysCompany: s.GUID_sysCompany,
+                    DataPackageDriver: DataPackageDriver,
                 },
                 function (d) { PositionService.startPool(); app.info(""); PositionService.refreshVersionData(d); },
                 function (d) { PositionService.startPool(); if (d.ErrorMessage) app.info(d.ErrorMessage); PositionService.refreshVersionData(d); });
@@ -126,7 +134,8 @@ var PositionService = {
         checkSum_Orders = d.Items[0]["Column1"];
         checkSum_Messages = d.Items[1]["Column1"];
         checkSum_Transporter = d.Items[2]["Column1"];
-        checkSum_Reservation = d.Items[3]["Column1"];
+        if(d.Items.length>3)
+            checkSum_Reservation = d.Items[3]["Column1"];
 
 
         //app.setStatusBar('aa', 'bb', 'mess', 'P');
@@ -159,7 +168,7 @@ var PositionService = {
 
         //reservations 
         app.setStatusBarOfferReservation("None");
-        if (checkSum_Reservation) {
+        if (checkSum_Reservation && checkSum_Reservation!="") {
             Service.ordersReservationVer = checkSum_Reservation;
             var hasNew = false;
             var res = checkSum_Reservation.split(Globals.SplitString);
