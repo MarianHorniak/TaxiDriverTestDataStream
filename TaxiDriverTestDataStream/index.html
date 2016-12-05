@@ -76,7 +76,7 @@
     <div class="content">
     {{#if this.StatusOfferGUI}}
              <strong>{{this.FormatedDate}} {{this.StatusTranslation}}</strong> <br/>
-             {{this.StartCity}} {{this.StartAddress}} jj<br/>
+             {{this.StartCity}} {{this.StartAddress}} <br/>
         
             {{#if this.ShowOrderEndAddress}}
                      {{this.EndCity}} {{this.EndAddress}} <br/>
@@ -444,6 +444,7 @@
 <!--<input id="messagenewType"  name="Typ" value="{{this.MessageType}}" type="text" placeholder="Typ správy" />-->
 <!--<input id="messagenewText" name="Text" value="{{this.MessageText}}" type="text"  placeholder="text"  />-->
     <textarea id="messagenewText" name="Text"  type="text"  placeholder="text" ></textarea>
+    <select id="idselectNewMessToDisp">   </select>
 <!--<input id="messagenewTimeToLive" name="TimeToLive" value="{{this.TimeToLiveMin}}" type="number" placeholder="live min." />-->
 {{#if this.ErrorMessage}}<div class="error">{{this.ErrorMessage}}</div>{{/if}}
 </script>

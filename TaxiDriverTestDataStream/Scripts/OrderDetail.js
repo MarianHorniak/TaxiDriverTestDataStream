@@ -177,6 +177,7 @@
                 option1.text = cis.Items[i].MessageText;
                 el.append(option1);
             }
+            Tools.sortSelect(el[0]);
         }
 
         var masterdiv = $("#orderDetailMessagesList");
