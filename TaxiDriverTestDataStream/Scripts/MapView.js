@@ -97,7 +97,7 @@ var Map = {
     showPosition: function () {
         Map.message("Hľadám pozíciu ...");
         try {
-            navigator.geolocation.getCurrentPosition(Map.success, Map.error, { enableHighAccuracy: true }); //, { frequency: 2000 }
+            app.geolocation.getCurrentPosition(Map.success, Map.error, { enableHighAccuracy: true }); //, { frequency: 2000 }
         }
         catch (err) {
             Map.message(err.message, true);

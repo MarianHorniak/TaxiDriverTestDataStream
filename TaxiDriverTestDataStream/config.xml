@@ -2,8 +2,8 @@
 <widget xmlns       = "http://www.w3.org/ns/widgets"
         xmlns:gap   = "http://phonegap.com/ns/1.0"
         id          = "sk.datastream.taxidriverinternal"
-        versionCode = "445"
-        version     = "1.4.45">
+        versionCode = "446"
+        version     = "1.4.46">
  
     <name>TAXI Driver test datastream</name>
   
@@ -34,6 +34,9 @@
   
   <plugin name="cordova-plugin-media" spec="~2.4.0" />
   <plugin name="cordova-plugin-geolocation" version="2.1.0" />
+  
+  <!--<feature name="http://api.phonegap.com/1.0/geolocation"/>
+  <feature name="http://api.phonegap.com/1.0/network"/>-->
 
   <platform name="android">
     <preference name="android-build-tool" value="gradle" />
@@ -42,13 +45,11 @@
     <preference name="android-targetSdkVersion" value="23" />
 
     <config-file target="AndroidManifest.xml" parent="/*">
+      <uses-permission android:name="android.permission.INTERNET" />
       <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
       <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
       <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
       <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     </config-file>
   </platform>
-  
-  <feature name="http://api.phonegap.com/1.0/geolocation"/>
-  <feature name="http://api.phonegap.com/1.0/network"/>
 </widget>

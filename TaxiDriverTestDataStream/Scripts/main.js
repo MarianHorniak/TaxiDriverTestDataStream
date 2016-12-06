@@ -2,6 +2,7 @@
     currentPage: null,
     currentPageName: null,
     isDevice: false,
+    geolocation: null,
     userAgent:"",
     platform: "",
     clickEvent: "click",
@@ -411,6 +412,11 @@
         app.log("app.isDevice: " + this.isDevice);
         var self = this;
         this.pages = {};
+
+        if (!app.geolocation) {
+            app.geolocation = navigator.geolocation; // cordova geolocation plugin
+        }
+
         this.registerEvents();
 
         Service.initialize(function () {
@@ -436,6 +442,12 @@
 };
 
 function onLoad() {
+
+    app.geolocation = false;
+    if (navigator.geolocation) {
+        app.geolocation = navigator.geolocation;
+    }
+
     app.userAgent = navigator.userAgent;
     app.isDevice = navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/);
     app.platform = navigator.platform;

@@ -44,7 +44,7 @@ var PositionService = {
         this.poolID = undefined;
             PositionService.callService();
             //try {
-            //    navigator.geolocation.getCurrentPosition(
+            //    app.geolocation.getCurrentPosition(
             //        function (position) {
             //                PositionService.lat = position.coords.latitude;
             //                PositionService.lng = position.coords.longitude;
