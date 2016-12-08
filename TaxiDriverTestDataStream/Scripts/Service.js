@@ -379,7 +379,7 @@
             });
     },
 
-    sendNewMessage: function (MessageType, MessageText, LifeTimeMinutes, isAnswer, needAnswer, SenderRole, ReceiverRole, GUID_sysUser_Sender, GUID_sysUser_Receiver, Latitude, Longitude, successDelegate) {
+    sendNewMessage: function (MessageType, MessageText, LifeTimeMinutes, isAnswer, needAnswer, SenderRole, ReceiverRole, GUID_sysUser_Sender, GUID_sysUser_Receiver, Latitude, Longitude, successDelegate, errorDelegate) {
         app.waiting();
         Service.callService("SendMessage", {
             MessageType: MessageType,
@@ -403,7 +403,10 @@
             },
             function (d) {
                 app.info(d.ErrorMessage);
-                app.home(true);
+                if (!errorDelegate)
+                    app.home(true);
+                else
+                    errorDelegate();
             });
     },
 

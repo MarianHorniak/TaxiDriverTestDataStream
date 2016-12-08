@@ -175,17 +175,6 @@ textarea {
 	color: #fff;
 }
 
-.doubleHeader
-{
-	width: 100%;
-	height: 132px;
-	border-bottom: 1px solid #fff;
-	background: #333;
-	color: #fff;
-}
-
-
-
 .waitingDiv {
     padding: 10px;
     width: 100%;
@@ -882,30 +871,46 @@ div.GroupHeader {
     font-size: x-large;
 }
 
+#orderDetailHeader
+{
+	width: 100%;
+	height: 135px;
+	border-bottom: 1px solid #fff;
+	background: #333;
+	color: #fff;
+}
+
 #orderDetailContent {
-    position:absolute;width:100%; top:133px;bottom:0px;background-color:#333;
+    position:absolute;width:100%; top:135px;bottom:0px;background-color:#333;
 }
 
 #orderDetailTabs {
     cursor: default;
     position: relative;
     width: 100%;
+    white-space:nowrap;
+    overflow:hidden;
+    height: 135px;
 }
-#orderDetailTabs   > div.right{
-    float:left;
-}
-
 #orderDetailTabs   > div.left{
     width: 70px;
-    float:left;
+    position:absolute;
 }
+
+#orderDetailTabs   > div.right{
+    position:absolute;
+    left:70px;
+    white-space:nowrap;
+    overflow:hidden;
+}
+
 
 #orderDetailTabs   > div > div.selected{
     background-color:Gray;
 }
 
 #orderDetailTabs > div > div {
-    width:95px;
+    width:92px;
     text-align:center;
     display: inline-block;
     margin-top: 3px;

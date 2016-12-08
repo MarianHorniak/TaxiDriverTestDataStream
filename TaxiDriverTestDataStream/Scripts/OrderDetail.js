@@ -151,7 +151,7 @@
 
         var btn = $("#btnorderDetailMessageNew");
         btn.off(app.clickEvent);
-        btn.on(app.clickEvent, function () { self.setMessage(); });
+        btn.on(app.clickEvent, function (event) { event.stopPropagation(); self.setMessage(); return false; });
 
         //soplnime options
         var cis = Lists.getListItems("sysMessageTemplate");
@@ -384,26 +384,26 @@
         }
 
         console.log("Send message: "+messtext);
-
-
-
+        
         //posleme
+
         app.waiting(true);
         this.order = Service.orders.Current;
         var s = Service.getSettings();
         console.log(s);
         Service.sendNewMessage("Info", messtext, 5000, false, false, Globals.RoleName, "TaxiCustomer", s.userId, this.order.GUID, PositionService.lat, PositionService.lng,
-            function () { console.log('message send OK'); self.showMessages(); })
-
-
-        //vymazeme 
-        $("#txtOrderMessageText").val("");
-        //nastavime selected na "no"
-        $("#selectMessageType").val("no");
-        //waiting
-        app.waiting(false);
-        //spat refresh messages
-        
+            function ()
+            {
+                //vymazeme 
+                $("#txtOrderMessageText").val("");
+                //nastavime selected na "no"
+                $("#selectMessageType").val("no");
+                //waiting
+                app.waiting(false);
+                //spat refresh messages
+                console.log('message send OK');
+                self.showMessages();
+            }, function () { app.waiting(false); })
     };
 
 
