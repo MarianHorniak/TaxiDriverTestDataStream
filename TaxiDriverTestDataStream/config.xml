@@ -2,8 +2,8 @@
 <widget xmlns       = "http://www.w3.org/ns/widgets"
         xmlns:gap   = "http://phonegap.com/ns/1.0"
         id          = "sk.datastream.taxidriverinternal"
-        versionCode = "447"
-        version     = "1.4.47">
+        versionCode = "448"
+        version     = "1.4.48">
  
     <name>TAXI Driver test datastream</name>
   

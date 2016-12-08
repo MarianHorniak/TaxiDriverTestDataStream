@@ -12,9 +12,11 @@ var MessageView = function () {
             self.iscroll.refresh();
         else
             self.iscroll = new iScroll($('.scrollBottom', self.el)[0], { hScrollbar: true, vScrollbar: true });
-        $("#messageHeader").off(app.clickEvent, function () { self.loadData(); });
+
+        $("#messageHeader").off(app.clickEvent);
         $("#messageHeader").on(app.clickEvent, function () { self.loadData(); });
-        $("#messDelete").off(app.clickEvent, function () { self.deleteAllMess(); });
+
+        $("#messDelete").off(app.clickEvent);
         $("#messDelete").on(app.clickEvent, function () { self.deleteAllMess(); });
 
         // $("#messNew").click(function () { self.sendNew(); });
@@ -48,7 +50,7 @@ var MessageView = function () {
 
 
                 //original
-                $(".cancel").off(app.clickEvent, function () { self.delete1Mess($(this).parent()); });
+                $(".cancel").off(app.clickEvent);
                 $(".cancel").on(app.clickEvent, function () { self.delete1Mess($(this).parent()); });
 
 

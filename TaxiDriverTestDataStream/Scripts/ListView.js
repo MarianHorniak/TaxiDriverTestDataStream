@@ -8,10 +8,10 @@
     this.render = function () {
         this.el.html(ListView.template());
         var self = this;
-        $("#listsBack").off(app.clickEvent, function () { app.home(); });
+        $("#listsBack").off(app.clickEvent);
         $("#listsBack").on(app.clickEvent, function () { app.home(); });
 
-        $("#selectList").off("change", function (e) { self.selectionChange(e); });
+        $("#selectList").off("change");
         $("#selectList").on("change", function (e) { self.selectionChange(e); });
         return this;
     };

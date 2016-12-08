@@ -175,6 +175,15 @@ textarea {
 	color: #fff;
 }
 
+.doubleHeader
+{
+	width: 100%;
+	height: 132px;
+	border-bottom: 1px solid #fff;
+	background: #333;
+	color: #fff;
+}
+
 
 
 .waitingDiv {
@@ -873,30 +882,40 @@ div.GroupHeader {
     font-size: x-large;
 }
 
+#orderDetailContent {
+    position:absolute;width:100%; top:133px;bottom:0px;background-color:#333;
+}
 
-div.tabs > div {
-    padding: 15px;
+#orderDetailTabs {
+    cursor: default;
+    position: relative;
+    width: 100%;
+}
+#orderDetailTabs   > div.right{
+    float:left;
+}
+
+#orderDetailTabs   > div.left{
+    width: 70px;
+    float:left;
+}
+
+#orderDetailTabs   > div > div.selected{
+    background-color:Gray;
+}
+
+#orderDetailTabs > div > div {
+    width:95px;
     text-align:center;
     display: inline-block;
-    margin: 0px;
-    background-color:Gray;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-right: 2px;
     font-size: 25px;
-    border-right:1px solid #333;
+    line-height:56px;
+    border:2px solid white;
 }
 
-div.tabs  > div.selected{
-    background-color:#333;
-}
-
-#orderDetailContent {
-    position:absolute;width:100%; top:67px;bottom:0px;background-color:#333;
-}
-
-#orderDetailTabs > div {
-    /*-moz-column-count: 3;*/
-    /*-webkit-column-count: 3;*/
-    /*column-count: 3;*/
-}
 
 #orderDetailTime{
     padding:10px;

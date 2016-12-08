@@ -8,7 +8,7 @@ var MessageNewView = function (store) {
     this.render = function () {
         this.el.html(MessageNewView.template());
         var self = this;
-        $("#messagenewSave").off(app.clickEvent,function () { self.save(); });
+        $("#messagenewSave").off(app.clickEvent);
         $("#messagenewSave").on(app.clickEvent,function () { self.save(); });
         return this;
     };

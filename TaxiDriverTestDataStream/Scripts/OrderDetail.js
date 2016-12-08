@@ -12,21 +12,16 @@
         var self = this;
         this.el.html(OrderDetail.template());
         DetailMap.initialize($("#orderDetailMap"));
-        $("#orderDetailSave").off(app.clickEvent, function () { self.save(); });
+        $("#orderDetailSave").off(app.clickEvent);
         $("#orderDetailSave").on(app.clickEvent, function () { self.save(); });
 
 
 
-        $("#orderDetailBack").off(app.clickEvent, function () { app.home(); });
+        $("#orderDetailBack").off(app.clickEvent);
         $("#orderDetailBack").on(app.clickEvent, function () { app.home(); });
 
 
-        $("#orderCall").off(app.clickEvent,function () {
-            Service.recallOrder(function () {
-                self.setButtons();
-            });
-        });
-
+        $("#orderCall").off(app.clickEvent);
         $("#orderCall").on(app.clickEvent, function () {
             Service.recallOrder(function () {
                 self.setButtons();
@@ -43,22 +38,22 @@
         //        scrollX: true
         //    });
 
-        $("#orderTimeTab").off(app.clickEvent, function (e) { self.showTime(); });
+        $("#orderTimeTab").off(app.clickEvent);
         $("#orderTimeTab").on(app.clickEvent, function (e) { self.showTime(); });
 
 
-        $("#orderDetailTab").off(app.clickEvent, function () { self.showDetail(); });
+        $("#orderDetailTab").off(app.clickEvent);
         $("#orderDetailTab").on(app.clickEvent, function () { self.showDetail(); });
 
 
-        $("#orderPaymentTab").off(app.clickEvent, function () { self.showPayment(); });
+        $("#orderPaymentTab").off(app.clickEvent);
         $("#orderPaymentTab").on(app.clickEvent, function () { self.showPayment(); });
 
         //orderMessagesTab
-        $("#orderMessagesTab").off(app.clickEvent, function () { self.showMessages(); });
+        $("#orderMessagesTab").off(app.clickEvent);
         $("#orderMessagesTab").on(app.clickEvent, function () { self.showMessages(); });
 
-        $("#orderMapTab").off(app.clickEvent, function (e) { self.showMap(); });
+        $("#orderMapTab").off(app.clickEvent);
         $("#orderMapTab").on(app.clickEvent, function (e) { self.showMap(); });
 
         return this;
@@ -105,7 +100,7 @@
         $("#orderDetailTab").addClass("selected");
 
 
-        $("#btnorderDetailFormChangeEndAddress").off(app.clickEvent, function () { self.changeAddress(); });
+        $("#btnorderDetailFormChangeEndAddress").off(app.clickEvent);
         $("#btnorderDetailFormChangeEndAddress").on(app.clickEvent, function () { self.changeAddress(); });
 
 
@@ -397,7 +392,8 @@
         this.order = Service.orders.Current;
         var s = Service.getSettings();
         console.log(s);
-        Service.sendNewMessage("Info", messtext, 5000, false, false, Globals.RoleName, "TaxiCustomer", s.userId, this.order.GUID, PositionService.lat, PositionService.lng, function () { console.log('message send OK'); self.showMessages(); })
+        Service.sendNewMessage("Info", messtext, 5000, false, false, Globals.RoleName, "TaxiCustomer", s.userId, this.order.GUID, PositionService.lat, PositionService.lng,
+            function () { console.log('message send OK'); self.showMessages(); })
 
 
         //vymazeme 

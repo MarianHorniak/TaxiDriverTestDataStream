@@ -8,10 +8,10 @@
     this.render = function () {
         this.el.html(OrdersHistoryView.template());
         var self = this;
-        $("#historyBack").off(app.clickEvent, function () { app.home(); });
+        $("#historyBack").off(app.clickEvent);
         $("#historyBack").on(app.clickEvent, function () { app.home(); });
 
-        $("#selectHistory").off("change", function (e) { self.selectionChange(e); });
+        $("#selectHistory").off("change");
         $("#selectHistory").on("change", function (e) { self.selectionChange(e); });
 
         Globals.HideHistory();

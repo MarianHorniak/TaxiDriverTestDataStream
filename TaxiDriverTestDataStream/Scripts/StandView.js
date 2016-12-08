@@ -13,11 +13,11 @@
         app.hideNews();
 
 
-        $("#standBack").off(app.clickEvent, function () { app.home(); });
+        $("#standBack").off(app.clickEvent);
         $("#standBack").on(app.clickEvent,function () { app.home(); });
 
         //klik na header
-        $("#standHeader").off(app.clickEvent,function () { self.getData(); });
+        $("#standHeader").off(app.clickEvent);
         $("#standHeader").on(app.clickEvent,function () { self.getData(); });
 
         return this;
@@ -56,12 +56,7 @@
 
 
         //klik na join stand
-        $(".forstandup").off(app.clickEvent,function (item) {
-            item.stopPropagation();
-            var data_id = item.currentTarget.getAttribute("data_id");
-            self.joinStand(data_id);
-        });
-
+        $(".forstandup").off(app.clickEvent);
         $(".forstandup").on(app.clickEvent,function (item) {
             item.stopPropagation();
             var data_id = item.currentTarget.getAttribute("data_id");
@@ -69,7 +64,7 @@
         });
 
         //klik na down
-        $(".forstanddown").off(app.clickEvent,function () { Stand.LeaveStand(Stand.ToHomeScreen()); });
+        $(".forstanddown").off(app.clickEvent);
         $(".forstanddown").on(app.clickEvent,function () { Stand.LeaveStand(Stand.ToHomeScreen()); });
 
         app.waiting(false);

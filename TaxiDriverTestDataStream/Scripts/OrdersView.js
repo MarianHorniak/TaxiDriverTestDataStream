@@ -9,7 +9,7 @@ var OrdersView = function () {
 
     this.render = function () {
         this.el.html(OrdersView.template());
-        $("#taxiHeader").off(app.clickEvent, function () { app.refreshData(["orders", "transporters"]); });
+        $("#taxiHeader").off(app.clickEvent);
         $("#taxiHeader").on(app.clickEvent, function () { app.refreshData(["orders", "transporters"]); });
 
 
@@ -103,18 +103,18 @@ var OrdersView = function () {
                     self.iscroll = new iScroll($('.scroll', self.el)[0], { hScrollbar: false, vScrollbar: false });
                 app.waiting(false);
 
-                $(".up").off(app.clickEvent, function () { self.changeOfferComplex($(this).parent(), "Up"); });
+                $(".up").off(app.clickEvent);
                 $(".up").on(app.clickEvent, function () { self.changeOfferComplex($(this).parent(), "Up"); });
 
-                $(".cancel").off(app.clickEvent, function () { self.changeOfferComplex($(this).parent(), "Down"); });
+                $(".cancel").off(app.clickEvent);
                 $(".cancel").on(app.clickEvent, function () { self.changeOfferComplex($(this).parent(), "Down"); });
 
 
-                $(".confirmCancel").off(app.clickEvent, function () { self.changeOfferComplex($(this).parent(), "Down"); });
+                $(".confirmCancel").off(app.clickEvent);
                 $(".confirmCancel").on(app.clickEvent, function () { self.changeOfferComplex($(this).parent(), "Down"); });
 
 
-                $(".content").off(app.clickEvent, function () { self.detail($(this).parent()); });
+                $(".content").off(app.clickEvent);
                 $(".content").on(app.clickEvent, function () { self.detail($(this).parent()); });
 
                 $('.orders-list').show();

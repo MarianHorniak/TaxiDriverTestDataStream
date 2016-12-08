@@ -260,20 +260,22 @@
 
 <!-- OrderDetail -->
 <script id="orderDetail-tpl" type="text/x-handlebars-template">
-    <div class='header'>
+    <div class='doubleHeader'>
         <!--<button id="orderDetailBack" class="icon ico_back">&nbsp;</button>-->
         <!--<button id="orderCall" class="icon ico_phone">&nbsp;</button>-->
     
-        <div id="orderDetailTabs" class="tabs scrollhoriz">
-            <button id="orderDetailBack" class="icon ico_back">&nbsp;</button>
-
+        <div id="orderDetailTabs"> <!--class="tabs scrollhoriz"-->
+            <div class="left">
+                <button id="orderDetailBack" class="icon ico_back">&nbsp;</button>
                 <button id="orderCall" class="icon ico_phone">&nbsp;</button>
+            </div>
+            <div class="right">
                 <div id="orderTimeTab" class="selected">Čas</div>
-                <div id="orderDetailTab">Detail</div>
+                <div id="orderDetailTab">Detail</div><br/>
                 <div id="orderPaymentTab">Platba</div>
                 <div id="orderMessagesTab">Správy</div>
                 <div id="orderMapTab">Mapa</div>
-            
+            </div>
         </div>
     
     </div>    
