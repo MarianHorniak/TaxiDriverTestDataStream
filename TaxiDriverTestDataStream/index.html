@@ -260,27 +260,21 @@
 
 <!-- OrderDetail -->
 <script id="orderDetail-tpl" type="text/x-handlebars-template">
-    <div id='orderDetailHeader'>
-        <!--<button id="orderDetailBack" class="icon ico_back">&nbsp;</button>-->
-        <!--<button id="orderCall" class="icon ico_phone">&nbsp;</button>-->
-    
-        <div id="orderDetailTabs"> <!--class="tabs scrollhoriz"-->
-            <div class="left">
+    <div class="header">
+        <!--<div id="orderDetailTabs">--> <!--class="tabs scrollhoriz"-->
                 <button id="orderDetailBack" class="icon ico_back">&nbsp;</button>
                 <button id="orderCall" class="icon ico_phone">&nbsp;</button>
-            </div>
-            <div class="right">
-                <div id="orderTimeTab" class="selected">Čas</div>
-                <div id="orderDetailTab">Detail</div><br/>
-                <div id="orderPaymentTab">Platba</div>
-                <div id="orderMessagesTab">Správy</div>
-                <div id="orderMapTab">Mapa</div>
-            </div>
-        </div>
+                <button id="orderTimeTab" class="selected textnoicon">&#8987;</button>
+                <button id="orderDetailTab" class="textnoicon">&#9998;</button>
+                <button id="orderPaymentTab" class="textnoicon">&euro;</button>
+                <button id="orderMessagesTab" class="textnoicon">&#9993;</button>
+                <button id="orderMapTab" class="textnoicon">&#128204;</button>
+        <!--</div>-->
     </div>    
-
+    
     <div id="orderDetailContent" class="scrollBottom">
-        <div  id="orderDetailTime">
+        <div>
+            <div  id="orderDetailTime">
             <button id="orderDetailSave" class="icon texticon ico_submit">&nbsp;</button>
                <input type="hidden" id="OrderTimeToRealize" name="TimeToRealize"/>
               <div id="OrderTimeToRealizeRadio" class="radiolist">
@@ -299,13 +293,13 @@
             </div>
             
         </div>
-        <div id="orderDetailForm" class="FullContent"></div>
-        <div id="orderDetailPayment" class="FullContent">
+            <div id="orderDetailForm" class="FullContent"></div>
+            <div id="orderDetailPayment" class="FullContent">
             <strong>Cena celkovo:</strong> <br/> 
             <input type="text" placeholder="Payment" name="PaymentTotal" id="orderDetailFormPaymentTotal" value="0"/>
             <button id ="btnorderDetailPaymentTotal" title="Potvrdiť"  class="icon texticon ico_submit">Potvrdiť</button> <br/> 
         </div>
-        <div id="orderDetailMessages" class="FullContent">
+            <div id="orderDetailMessages" class="FullContent">
             
             <input type="text" placeholder="sprava..." name="MessageText" id="txtOrderMessageText" />
             <select id="selectMessageType">   </select>
@@ -313,7 +307,7 @@
             <hr />
             <div id="orderDetailMessagesList" class="buttonlist message-list"></div>
         </div>
-
+        </div>
         <div id="orderDetailMap"></div>
     </div>
 </script>

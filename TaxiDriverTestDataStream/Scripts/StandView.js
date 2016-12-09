@@ -52,7 +52,7 @@
         if (self.iscroll)
             self.iscroll.refresh();
         else
-            self.iscroll = new iScroll($('.scrollBottom', self.el)[0], { hScrollbar: false, vScrollbar: false });
+            self.iscroll = new IScroll($('.scrollBottom', self.el)[0], { hScrollbar: false, vScrollbar: false });
 
 
         //klik na join stand

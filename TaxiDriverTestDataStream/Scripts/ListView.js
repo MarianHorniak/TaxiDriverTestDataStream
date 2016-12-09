@@ -73,7 +73,7 @@
         if (self.iscroll)
             self.iscroll.refresh();
         else
-            self.iscroll = new iScroll($('.scrollBottom', self.el)[0], { hScrollbar: false, vScrollbar: true });
+            self.iscroll = new IScroll($('.scrollBottom', self.el)[0], { hScrollbar: false, vScrollbar: true });
 
         app.waiting(false);
         $('.lists-list').show();

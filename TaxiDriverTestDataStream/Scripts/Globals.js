@@ -83,10 +83,11 @@
                     if (resArray && resArray.length > 0)
                     {
                         for (var i = 0; i < resArray.length; i++) {
-                            var r = "#" + resArray[i];
-                            var els = $(r);
-                            $(r).attr("disabled", "disabled");
-                            $(r).hide();
+                            if (resArray[i]) {
+                                var els = $("#" + resArray[i]);
+                                els.attr("disabled", "disabled");
+                                els.hide();
+                            }
                         }
                     }
 

@@ -118,7 +118,7 @@
         if (self.iscroll)
             self.iscroll.refresh();
         else
-            self.iscroll = new iScroll($('.scrollBottom', self.el)[0], { hScrollbar: false, vScrollbar: true });
+            self.iscroll = new IScroll($('.scrollBottom', self.el)[0], { hScrollbar: false, vScrollbar: true });
 
         app.waiting(false);
         $('.ordersHistory-list').show();
@@ -146,7 +146,7 @@
         if (self.iscroll)
             self.iscroll.refresh();
         else
-            self.iscroll = new iScroll($('.scrollBottom', self.el)[0], { hScrollbar: false, vScrollbar: true });
+            self.iscroll = new IScroll($('.scrollBottom', self.el)[0], { hScrollbar: false, vScrollbar: true });
 
         app.waiting(false);
         $('.ordersHistory-list').html(OrdersHistoryView.liTemplateTab(data.Items));
@@ -191,7 +191,7 @@
         if (self.iscroll)
             self.iscroll.refresh();
         else
-            self.iscroll = new iScroll($('.scrollBottom', self.el)[0], { hScrollbar: false, vScrollbar: true });
+            self.iscroll = new IScroll($('.scrollBottom', self.el)[0], { hScrollbar: false, vScrollbar: true });
 
         app.waiting(false);
         $('.ordersHistory-list').html(OrdersHistoryView.liTemplateTabSum(data.Items));

@@ -90,7 +90,7 @@
         if (self.iscroll)
             self.iscroll.refresh();
         else
-            self.iscroll = new iScroll($('.scrollBottom', self.el)[0], { hScrollbar: false, vScrollbar: false });
+            self.iscroll = new IScroll($('#orderDetailContent', self.el)[0], { hScrollbar: false, vScrollbar: false });
     };
 
     this.showDetail = function () {
@@ -108,7 +108,7 @@
         if (self.iscroll)
             self.iscroll.refresh();
         else
-            self.iscroll = new iScroll($('.scrollBottom', self.el)[0], { hScrollbar: false, vScrollbar: false });
+            self.iscroll = new IScroll($('#orderDetailContent', self.el)[0], { hScrollbar: false, vScrollbar: false });
     };
 
 
@@ -139,7 +139,7 @@
         if (self.iscroll)
             self.iscroll.refresh();
         else
-            self.iscroll = new iScroll($('.scrollBottom', self.el)[0], { hScrollbar: false, vScrollbar: false });
+            self.iscroll = new IScroll($('#orderDetailContent', self.el)[0], { hScrollbar: false, vScrollbar: false });
     };
 
     this.showMessages = function () {
@@ -151,7 +151,12 @@
 
         var btn = $("#btnorderDetailMessageNew");
         btn.off(app.clickEvent);
-        btn.on(app.clickEvent, function (event) { event.stopPropagation(); self.setMessage(); return false; });
+        btn.on(app.clickEvent, function (e) {
+            if (e.handled !== true) {
+                self.setMessage();
+                e.handled = true;
+            } return false;
+        });
 
         //soplnime options
         var cis = Lists.getListItems("sysMessageTemplate");
@@ -175,20 +180,28 @@
             Tools.sortSelect(el[0]);
         }
 
+        if (self.iscroll)
+            self.iscroll.refresh();
+        else
+            self.iscroll = new IScroll($('#orderDetailContent', self.el)[0], { hScrollbar: false, vScrollbar: false });
+
+        this.fillMessages();
+    };
+
+    this.fillMessages = function () {
+        var self = this;
         var masterdiv = $("#orderDetailMessagesList");
         masterdiv.empty();
         //tereaz nacitame spravy : komunikaciu
         Service.getMessagesToOrder(Service.orders.Current.GUID,
             function (messages) {
-                if (messages && masterdiv)
-                {
+                if (messages && masterdiv) {
                     console.log(messages);
-                    for(var i=0;i<messages.Items.length;i++)
-                    {
+                    for (var i = 0; i < messages.Items.length; i++) {
                         //SenderRole, ActiveFrom
                         if (messages.Items[i].SenderRole == "TaxiCustomer") //toto je nasa mesage
                         {
-                            masterdiv.append("<div class='content' style='background-color:black'>" +  messages.Items[i].MessageText + " </div>");
+                            masterdiv.append("<div class='content' style='background-color:black'>" + messages.Items[i].MessageText + " </div>");
 
                         }
                         else {
@@ -197,19 +210,12 @@
 
                     }
                 }
-            }
-            
-            );
-
-
-        if (self.iscroll)
-            self.iscroll.refresh();
-        else
-            self.iscroll = new iScroll($('.scrollBottom', self.el)[0], { hScrollbar: false, vScrollbar: false });
+                if (self.iscroll)
+                    self.iscroll.refresh();
+                else
+                    self.iscroll = new IScroll($('#orderDetailContent', self.el)[0], { hScrollbar: false, vScrollbar: false });
+            });
     };
-
-
-
 
     this.showMap = function () {
         this.removeSelectedClass();
@@ -383,7 +389,7 @@
             return;
         }
 
-        console.log("Send message: "+messtext);
+        console.log("Send message: " + messtext);
         
         //posleme
 
@@ -398,11 +404,11 @@
                 $("#txtOrderMessageText").val("");
                 //nastavime selected na "no"
                 $("#selectMessageType").val("no");
-                //waiting
-                app.waiting(false);
                 //spat refresh messages
                 console.log('message send OK');
-                self.showMessages();
+                self.fillMessages();
+                app.waiting(false);
+
             }, function () { app.waiting(false); })
     };
 

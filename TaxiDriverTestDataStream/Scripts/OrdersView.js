@@ -100,7 +100,7 @@ var OrdersView = function () {
                 if (self.iscroll)
                     self.iscroll.refresh();
                 else
-                    self.iscroll = new iScroll($('.scroll', self.el)[0], { hScrollbar: false, vScrollbar: false });
+                    self.iscroll = new IScroll($('.scroll', self.el)[0], { hScrollbar: false, vScrollbar: false });
                 app.waiting(false);
 
                 $(".up").off(app.clickEvent);
