@@ -390,8 +390,12 @@
         }
 
         console.log("Send message: " + messtext);
+
+        alert("Send message: " + messtext);
         
         //posleme
+
+
 
         app.waiting(true);
         this.order = Service.orders.Current;
