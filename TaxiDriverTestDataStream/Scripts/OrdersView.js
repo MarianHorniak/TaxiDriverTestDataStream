@@ -38,6 +38,9 @@ var OrdersView = function () {
         //        app.info("powermanagement Error: " + err)
         //    }
         //}
+
+        this.iscroll = new IScroll($('.scroll', self.el)[0], { hScrollbar: false, vScrollbar: false });
+
         return this;
     };
 
@@ -94,13 +97,8 @@ var OrdersView = function () {
                         this.ShowCancelbtn = false;
                 });
 
-
-
                 $('.orders-list').html(OrdersView.liTemplate(orders.Items));
-                if (self.iscroll)
-                    self.iscroll.refresh();
-                else
-                    self.iscroll = new IScroll($('.scroll', self.el)[0], { hScrollbar: false, vScrollbar: false });
+                    
                 app.waiting(false);
 
                 $(".up").off(app.clickEvent);
@@ -113,11 +111,12 @@ var OrdersView = function () {
                 $(".confirmCancel").off(app.clickEvent);
                 $(".confirmCancel").on(app.clickEvent, function () { self.changeOfferComplex($(this).parent(), "Down"); });
 
-
                 $(".content").off(app.clickEvent);
                 $(".content").on(app.clickEvent, function () { self.detail($(this).parent()); });
 
                 $('.orders-list').show();
+
+                self.iscroll.refresh();
             });
         }
     };

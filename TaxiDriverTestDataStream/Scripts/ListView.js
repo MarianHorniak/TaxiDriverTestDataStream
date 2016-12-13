@@ -13,6 +13,8 @@
 
         $("#selectList").off("change");
         $("#selectList").on("change", function (e) { self.selectionChange(e); });
+
+        self.iscroll = new IScroll($('.scrollBottom', self.el)[0], { hScrollbar: false, vScrollbar: false });
         return this;
     };
 
@@ -69,20 +71,11 @@
             
         });
 
-        $('.lists-list').html(ListView.liTemplate(listitems.Items));
-        if (self.iscroll)
-            self.iscroll.refresh();
-        else
-            self.iscroll = new IScroll($('.scrollBottom', self.el)[0], { hScrollbar: false, vScrollbar: true });
-
         app.waiting(false);
         $('.lists-list').show();
-        
+
+        this.iscroll.refresh();
     }
-
-
-
-
 
     this.getListCommon = function (listName,e) {
         var self = this;
@@ -97,10 +90,6 @@
         }
 
     }
-
-
-
-
 
     this.initialize();
 }

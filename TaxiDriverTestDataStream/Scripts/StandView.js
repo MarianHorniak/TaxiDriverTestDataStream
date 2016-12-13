@@ -20,6 +20,8 @@
         $("#standHeader").off(app.clickEvent);
         $("#standHeader").on(app.clickEvent,function () { self.getData(); });
 
+        self.iscroll = new IScroll($('.scrollBottom', self.el)[0], { hScrollbar: false, vScrollbar: false });
+
         return this;
     };
 
@@ -49,11 +51,6 @@
         Stand.lastOffer = Date.now();
 
         $('.stand-list').html(StandView.liTemplate(standresult.Items));
-        if (self.iscroll)
-            self.iscroll.refresh();
-        else
-            self.iscroll = new IScroll($('.scrollBottom', self.el)[0], { hScrollbar: false, vScrollbar: false });
-
 
         //klik na join stand
         $(".forstandup").off(app.clickEvent);
@@ -69,6 +66,8 @@
 
         app.waiting(false);
         $('.stand-list').show();
+
+        self.iscroll.refresh();
     }
 
     this.upravData = function (standresult) {
@@ -133,10 +132,7 @@
                 self.renderStands(standresult);
             }
             );
-        
     }
-
-
 
     this.initialize();
 
@@ -167,8 +163,6 @@
         var self = this;
         app.log("Join stand:" + standGUID);
 
-        
-
         var s = Service.getSettings();
         Service.callService("TransporterJoinStand", {
             GUID_Transporter: s.transporterId,
@@ -189,15 +183,10 @@
                     },
 
         null
-
         );
 
         return false;
-
     }
-
-
-
 }
 
 var Stand = {
@@ -215,7 +204,6 @@ var Stand = {
         }
 
     },
-
 
     setIconFree: function ()
     {

@@ -14,6 +14,7 @@ var SettingsView = function (messages) {
         $("#appExit").off(app.clickEvent);
         $("#appExit").on(app.clickEvent, function () { app.end(function () { self.loadForm(); }); });
 
+        self.iscroll = new IScroll($('.scrollBottom', self.el)[0], { hScrollbar: false, vScrollbar: false });
         return this;
     };
 
@@ -61,6 +62,8 @@ var SettingsView = function (messages) {
 
             $("#settingsForm").show();
             $("#settingsSave").removeClass("transparent");
+
+            this.iscroll.refresh();
     };
 
     this.initialize();

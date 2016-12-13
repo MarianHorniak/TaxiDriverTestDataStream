@@ -11,35 +11,20 @@
     this.render = function () {
         var self = this;
         this.el.html(OrderDetail.template());
+
         DetailMap.initialize($("#orderDetailMap"));
+
         $("#orderDetailSave").off(app.clickEvent);
         $("#orderDetailSave").on(app.clickEvent, function () { self.save(); });
 
-
-
         $("#orderDetailBack").off(app.clickEvent);
-        $("#orderDetailBack").on(app.clickEvent, function () { app.home(); });
-
+        $("#orderDetailBack").on(app.clickEvent, app.home);
 
         $("#orderCall").off(app.clickEvent);
-        $("#orderCall").on(app.clickEvent, function () {
-            Service.recallOrder(function () {
-                self.setButtons();
-            });
-        });
-
-
-        //scroll divu 
-        //var el = $("#orderDetailTabs");
-        //if (el.iscroll)
-        //    el.iscroll.refresh();
-        //else
-        //    el.iscroll = new iScroll('orderDetailTabs', {
-        //        scrollX: true
-        //    });
+        $("#orderCall").on(app.clickEvent, function () { self.recallOrder(); });
 
         $("#orderTimeTab").off(app.clickEvent);
-        $("#orderTimeTab").on(app.clickEvent, function (e) { self.showTime(); });
+        $("#orderTimeTab").on(app.clickEvent, function () { self.showTime(); });
 
 
         $("#orderDetailTab").off(app.clickEvent);
@@ -54,7 +39,15 @@
         $("#orderMessagesTab").on(app.clickEvent, function () { self.showMessages(); });
 
         $("#orderMapTab").off(app.clickEvent);
-        $("#orderMapTab").on(app.clickEvent, function (e) { self.showMap(); });
+        $("#orderMapTab").on(app.clickEvent, function () { self.showMap(); });
+
+        $("#btnorderDetailPaymentTotal").off(app.clickEvent);
+        $("#btnorderDetailPaymentTotal").on(app.clickEvent, function () { self.setPayment(); });
+
+        $("#btnorderDetailMessageNew").off(app.clickEvent);
+        $("#btnorderDetailMessageNew").on(app.clickEvent, function () { self.setMessage(); });
+
+        self.iscroll = new IScroll($('#orderDetailContent', self.el)[0], { hScrollbar: false, vScrollbar: false });
 
         return this;
     };
@@ -63,7 +56,13 @@
         this.loadData();
     };
    
-
+    this.recallOrder = function () {
+        var self = this;
+        Service.recallOrder(function () {
+            self.setButtons();
+        });
+    };
+    
     this.removeSelectedClass= function () {
     
         $("#orderMapTab").removeClass("selected");
@@ -77,9 +76,7 @@
         $("#orderDetailTime").hide();
         $("#orderDetailPayment").hide();
         $("#orderDetailMessages").hide();
-
     };
-
 
     this.showTime = function () {
         var self = this;
@@ -87,10 +84,7 @@
         $("#orderDetailTime").show();
         $("#orderTimeTab").addClass("selected");
 
-        if (self.iscroll)
-            self.iscroll.refresh();
-        else
-            self.iscroll = new IScroll($('#orderDetailContent', self.el)[0], { hScrollbar: false, vScrollbar: false });
+        this.iscroll.refresh();
     };
 
     this.showDetail = function () {
@@ -99,18 +93,8 @@
         $("#orderDetailForm").show();
         $("#orderDetailTab").addClass("selected");
 
-
-        $("#btnorderDetailFormChangeEndAddress").off(app.clickEvent);
-        $("#btnorderDetailFormChangeEndAddress").on(app.clickEvent, function () { self.changeAddress(); });
-
-
-
-        if (self.iscroll)
-            self.iscroll.refresh();
-        else
-            self.iscroll = new IScroll($('#orderDetailContent', self.el)[0], { hScrollbar: false, vScrollbar: false });
+        this.iscroll.refresh();
     };
-
 
     this.showPayment = function () {
         var self = this;
@@ -118,11 +102,6 @@
         var f = $("#orderDetailPayment");
         f.show();
         $("#orderPaymentTab").addClass("selected");
-       
-        var btn = $("#btnorderDetailPaymentTotal");
-        btn.off(app.clickEvent);
-        btn.on(app.clickEvent, function () { self.setPayment(); });
-
         
         //aka je vyska platby ? nastavime hodnotu
         var pToinput = 0;
@@ -135,11 +114,7 @@
         }
         $("#orderDetailFormPaymentTotal").val(pToinput);
             
-
-        if (self.iscroll)
-            self.iscroll.refresh();
-        else
-            self.iscroll = new IScroll($('#orderDetailContent', self.el)[0], { hScrollbar: false, vScrollbar: false });
+        self.iscroll.refresh();
     };
 
     this.showMessages = function () {
@@ -147,16 +122,8 @@
         this.removeSelectedClass();
         var f = $("#orderDetailMessages");
         f.show();
-        $("#orderMessagesTab").addClass("selected");
 
-        var btn = $("#btnorderDetailMessageNew");
-        btn.off(app.clickEvent);
-        btn.on(app.clickEvent, function (e) {
-            if (e.handled !== true) {
-                self.setMessage();
-                e.handled = true;
-            } return false;
-        });
+        $("#orderMessagesTab").addClass("selected");
 
         //soplnime options
         var cis = Lists.getListItems("sysMessageTemplate");
@@ -180,11 +147,8 @@
             Tools.sortSelect(el[0]);
         }
 
-        if (self.iscroll)
-            self.iscroll.refresh();
-        else
-            self.iscroll = new IScroll($('#orderDetailContent', self.el)[0], { hScrollbar: false, vScrollbar: false });
-
+        self.iscroll.refresh();
+        
         this.fillMessages();
     };
 
@@ -197,23 +161,16 @@
             function (messages) {
                 if (messages && masterdiv) {
                     console.log(messages);
+                    masterdiv.empty();
                     for (var i = 0; i < messages.Items.length; i++) {
                         //SenderRole, ActiveFrom
                         if (messages.Items[i].SenderRole == "TaxiCustomer") //toto je nasa mesage
-                        {
                             masterdiv.append("<div class='content' style='background-color:black'>" + messages.Items[i].MessageText + " </div>");
-
-                        }
-                        else {
+                        else
                             masterdiv.append("<div class='content' style='padding-left:50px;'>" + messages.Items[i].MessageText + " </div>");
-                        }
-
                     }
                 }
-                if (self.iscroll)
-                    self.iscroll.refresh();
-                else
-                    self.iscroll = new IScroll($('#orderDetailContent', self.el)[0], { hScrollbar: false, vScrollbar: false });
+                self.iscroll.refresh();
             });
     };
 
@@ -226,9 +183,7 @@
         }
     };
 
-
     this.setButtons = function () {
-
         var self = this;
         
         if (this.order.Status != "Waiting")
@@ -238,15 +193,12 @@
         else
             $("#orderCall").removeClass("ico_hangup").addClass("ico_phone").show();
 
-        if (this.order.Status == "Offered") {
+        if (this.order.Status == "Offered")
             $("#OrderTimeToRealize").val(Globals.constants.OrderDetail_Defauls_timeToRealize);
-
-        }
         else
             $("#OrderTimeToRealize").val(this.order.TimeToRealize);
 
         if (this.order.Status == "Offered" || this.order.Status == "Reserved") {
-
             //buttony znemoznit
             $('#btnorderDetailPaymentTotal').hide();
             $('#btnorderDetailFormChangeEndAddress').hide();
@@ -279,47 +231,36 @@
             $("#orderDetailSave").show().text("Prijať objednávku");
         else
             $("#orderDetailSave").show().text("Zmeniť čas");
-
-        //scroll left ?
-        //var divScrolHor = $("#orderDetailTabs");
-        //if (divScrolHor.iscroll)
-        //    divScrolHor.iscroll.refresh();
-        //else
-        //    divScrolHor.iscroll = new iScroll( $(".scrollhoriz"), { hScrollbar: true, vScrollbar: true });
-        //divScrolHor.off(onscroll);
-        //divScrolHor.on(onscroll, function () { divScrolHor.scrollLeft(300); });
-
-
     };
 
     this.loadData = function () {
         this.order = Service.orders.Current;
+        var self = this;
         if (this.order) {
             //nastavime patbu na 0
             if (!this.order.PaymentTotal)
                 this.order.PaymentTotal = 0;
 
             $("#orderDetailForm").html(OrderDetail.detailTemplate(this.order));
+
+            $("#btnorderDetailFormChangeEndAddress").off(app.clickEvent);
+            $("#btnorderDetailFormChangeEndAddress").on(app.clickEvent, function () { self.changeAddress(); });
+
             this.setButtons();
-            //if (this.order.StartLatitude) {
-            //   // $("#orderDetailMap").height($(window).height() - $("#orderDetailForm").outerHeight() - 66);
-            //    DetailMap.setMap(this.order.StartLatitude, this.order.StartLongitude, PositionService.lat, PositionService.lng);
-            //}
-
-
+            
             //nastavime premenne
             this.order.ShowOrderCustomerPhone = Globals.constants.ShowOrderCustomerPhone;
             this.order.ShowOrderEndAddress = Globals.constants.ShowOrderEndAddress;
 
             //zobrazit rozbaleny cas, ak sa jedna o ponuku
-            if (this.order.Status == "Offered") {
-                var el = $("#OrderTimeToRealize");
-                if (el != null) {
-                    //var length = $('#OrderTimeToRealize > option').length;
-                    //el.attr('size', length);
-                    //el.removeAttr('height'); 
-                }
-            }
+            //if (this.order.Status == "Offered") {
+            //    var el = $("#OrderTimeToRealize");
+            //    if (el != null) {
+            //        //var length = $('#OrderTimeToRealize > option').length;
+            //        //el.attr('size', length);
+            //        //el.removeAttr('height'); 
+            //    }
+            //}
         }
         this.showTime();
     };
@@ -358,7 +299,7 @@
         this.order = Service.orders.Current;
         app.waiting();
         var settings = Service.getSettings(), self = this;
-       // this.order.PaymentTotal = orderDetailFormPaymentTotal;
+        // this.order.PaymentTotal = orderDetailFormPaymentTotal;
         var data = {
             HistoryAction: "Payment",
             HistoryActionDescription : "Total",
@@ -366,7 +307,7 @@
             Payment: orderDetailFormPaymentTotal
         };
 
-       // alert(orderDetailFormPaymentTotal);
+        // alert(orderDetailFormPaymentTotal);
 
         Service.callService("TaxiSetPayment", data, function () { app.home(); });
     };
@@ -391,7 +332,7 @@
 
         console.log("Send message: " + messtext);
 
-        alert("Send message: " + messtext);
+        //alert("Send message: " + messtext);
         
         //posleme
 
@@ -415,7 +356,6 @@
 
             }, function () { app.waiting(false); })
     };
-
 
     this.save = function () {
 
@@ -458,8 +398,6 @@
 
     this.initialize();
 }
-
-
 
 OrderDetail.template = Handlebars.compile($("#orderDetail-tpl").html());
 OrderDetail.detailTemplate = Handlebars.compile($("#orderDetailForm-tpl").html());

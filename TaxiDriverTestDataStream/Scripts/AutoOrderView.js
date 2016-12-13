@@ -14,7 +14,6 @@ var AutoOrderView = function (store) {
         //$("#AutoOrderToReserved").on(app.change, function () { alert('jjj'); });
         //$("#AutoOrderToReserved").change(function () { alert('jjj1'); });
 
-
         return this;
     };
 

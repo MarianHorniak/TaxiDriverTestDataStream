@@ -16,6 +16,8 @@
 
         Globals.HideHistory();
 
+        self.iscroll = new IScroll($('.scrollBottom', self.el)[0], { hScrollbar: false, vScrollbar: false });
+
         return this;
     };
 
@@ -115,14 +117,11 @@
         }
 
         $('.ordersHistory-list').html(OrdersHistoryView.liTemplate(orders.Items));
-        if (self.iscroll)
-            self.iscroll.refresh();
-        else
-            self.iscroll = new IScroll($('.scrollBottom', self.el)[0], { hScrollbar: false, vScrollbar: true });
-
+        
         app.waiting(false);
         $('.ordersHistory-list').show();
         
+        this.iscroll.refresh();
     }
 
     this.renderTab = function (data) {
@@ -143,15 +142,11 @@
             $('#ordersHistory-listnoData').text(Translator.Translate("no data"));
         }
 
-        if (self.iscroll)
-            self.iscroll.refresh();
-        else
-            self.iscroll = new IScroll($('.scrollBottom', self.el)[0], { hScrollbar: false, vScrollbar: true });
-
         app.waiting(false);
         $('.ordersHistory-list').html(OrdersHistoryView.liTemplateTab(data.Items));
         $('.ordersHistory-list').show();
 
+        this.iscroll.refresh();
     }
 
     this.renderTabSum = function (data) {
@@ -188,15 +183,11 @@
 
         console.log(data);
 
-        if (self.iscroll)
-            self.iscroll.refresh();
-        else
-            self.iscroll = new IScroll($('.scrollBottom', self.el)[0], { hScrollbar: false, vScrollbar: true });
-
         app.waiting(false);
         $('.ordersHistory-list').html(OrdersHistoryView.liTemplateTabSum(data.Items));
         $('.ordersHistory-list').show();
         
+        this.iscroll.refresh();
     }
 
     this.getViewCommon = function (viewName,e) {

@@ -8,11 +8,7 @@ var MessageView = function () {
     this.render = function () {
         var self = this;
         this.el.html(MessageView.template());
-        if (self.iscroll)
-            self.iscroll.refresh();
-        else
-            self.iscroll = new IScroll($('.scrollBottom', self.el)[0], { hScrollbar: true, vScrollbar: true });
-
+        
         $("#messageHeader").off(app.clickEvent);
         $("#messageHeader").on(app.clickEvent, function () { self.loadData(); });
 
@@ -21,6 +17,8 @@ var MessageView = function () {
 
         // $("#messNew").click(function () { self.sendNew(); });
         Globals.HasNewMessasges = false;
+
+        self.iscroll = new IScroll($('.scrollBottom', self.el)[0], { hScrollbar: false, vScrollbar: false });
     };
 
     this.deleteAllMess= function ()
@@ -47,25 +45,20 @@ var MessageView = function () {
                 data = Service.messages.Items;
                 $("#messageList").html(MessageView.liTemplate(data));
 
-
-
                 //original
                 $(".cancel").off(app.clickEvent);
                 $(".cancel").on(app.clickEvent, function () { self.delete1Mess($(this).parent()); });
 
-
                 if (data)
                     $("#messNumber").text = " [" + data.length+"]";
             }
+        this.iscroll.refresh();
         return this;
     };
 
     this.onShow = function () {
         this.loadData();
     };
-
-
-
 
     this.loadData = function () {
         var self = this;
@@ -76,6 +69,7 @@ var MessageView = function () {
 
         //vymazeme new messages
         app.setStatusBarNoneMessage();
+        this.iscroll.refresh();
 
             $('#menu').show();
             Service.getMessages(function (messages) {

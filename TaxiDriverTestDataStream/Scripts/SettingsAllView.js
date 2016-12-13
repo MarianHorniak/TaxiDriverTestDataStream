@@ -8,6 +8,7 @@ var SettingsAllView = function (messages) {
     this.render = function () {
         var self = this;
         this.el.html(SettingsAllView.template());
+        self.iscroll = new IScroll($('.scrollBottom', self.el)[0], { hScrollbar: false, vScrollbar: false });
         return this;
     };
 
@@ -81,20 +82,10 @@ var SettingsAllView = function (messages) {
         if (data) data.ErrorMessage = Service.connectionError;
 
         $("#settingsallForm").html(SettingsAllView.templateForm(data));
-
-
-        if (self.iscroll)
-            self.iscroll.refresh();
-        else {
-            //self.iscroll = new IScroll($('.scrollBottom', self.el)[0], { hScrollbar: false, vScrollbar: false });
-            self.iscroll = new IScroll($('.scrollcommon', self.el)[0], { hScrollbar: true, vScrollbar: true });
-        }
-
-        
-
         $("#settingsallForm").show();
            // $("#settingsallSave").removeClass("transparent");
         app.waiting(false);
+        this.iscroll.refresh();
     };
 
     this.initialize();
