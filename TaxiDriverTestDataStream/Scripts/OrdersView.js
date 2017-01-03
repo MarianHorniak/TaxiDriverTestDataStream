@@ -93,6 +93,9 @@ var OrdersView = function () {
                     if (this.Status == 'Offered')
                         this.StatusOfferGUI = true;
 
+                    if (this.Status == 'Waiting' || this.Status == 'Processing' || this.Status == 'Finish')
+                        this.ShowOrderEndAddress = true;
+
                     if(this.Status=="Processing")
                         this.ShowCancelbtn = false;
                 });
