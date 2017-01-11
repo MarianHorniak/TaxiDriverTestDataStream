@@ -78,7 +78,8 @@
     {{#if this.StatusOfferGUI}}
              <strong>{{this.FormatedDate}} {{this.StatusTranslation}}</strong> <br/>
              {{this.StartCity}} {{this.StartAddress}} <br/>
-        
+            
+
             {{#if this.ShowOrderEndAddress}}
                      {{this.EndCity}} {{this.EndAddress}} <br/>
             {{/if}}
@@ -96,9 +97,22 @@
     {{else}}
 
             <strong>{{this.FormatedDate}}</strong> {{this.StartCity}} {{this.StartAddress}}<br/>
+
+   
+
             {{#if  this.ShowOrderEndAddress}}
+        
+                    {{#if this.ShowOrdNessCount}}
+                       <label style="background-color:black">  S: {{this.ordmesscount}} </label>
+                 {{/if}}
                 {{this.EndCity}} {{this.EndAddress}}<br/>
+           {{else}}
+                    {{#if this.ShowOrdNessCount}}
+                      <label style="background-color:black">  S: {{this.ordmesscount}} </label>
+                 {{/if}}
             {{/if}}
+
+
             {{this.Persons}} / {{this.SpecialConditions}}  
             {{#if  this.ShowOrderCustomerPhone}}
                  / {{this.CustomerPhone}} 
@@ -109,6 +123,7 @@
     </div>
 
     
+
 
     {{#if this.StatusCancel}}
         <div class="icon confirmCancel">&nbsp;</div>

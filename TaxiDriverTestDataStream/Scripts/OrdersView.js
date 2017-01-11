@@ -82,6 +82,7 @@ var OrdersView = function () {
                 $.each(orders.Items, function () {
                     this.FormatedDate = Service.formatJsonDate(this.Date);
                     this.ShowCancelbtn = true;
+                    this.ShowOrdNessCount = false;
                     //nastavime premenne
                     this.ShowOrderCustomerPhone = Globals.constants.ShowOrderCustomerPhone;
                     this.ShowOrderEndAddress = Globals.constants.ShowOrderEndAddress;
@@ -93,11 +94,16 @@ var OrdersView = function () {
                     if (this.Status == 'Offered')
                         this.StatusOfferGUI = true;
 
-                    if (this.Status == 'Waiting' || this.Status == 'Processing' || this.Status == 'Finish')
+                    if (this.Status == 'Waiting' || this.Status == 'Processing' || this.Status == 'Finish' || this.Status == 'Reserved')
                         this.ShowOrderEndAddress = true;
 
                     if(this.Status=="Processing")
                         this.ShowCancelbtn = false;
+
+                    //spravy k objednavke
+                    if(this.ordmesscount && this.ordmesscount>0)
+                        this.ShowOrdNessCount = true;
+
                 });
 
                 $('.orders-list').html(OrdersView.liTemplate(orders.Items));

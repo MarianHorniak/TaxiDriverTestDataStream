@@ -125,8 +125,10 @@ var PositionService = {
         var checkSum_Messages = '';
         var checkSum_Transporter = '';
         var checkSum_User = '';
+        var checkSum_OrderMessages = '';
         app.log("call resfresh version");
 
+        var refreshed = false;
 
         if (!d.Items)
             return;
@@ -134,8 +136,12 @@ var PositionService = {
         checkSum_Orders = d.Items[0]["Column1"];
         checkSum_Messages = d.Items[1]["Column1"];
         checkSum_Transporter = d.Items[2]["Column1"];
-        if(d.Items.length>3)
-            checkSum_Reservation = d.Items[3]["Column1"];
+
+        if (d.Items.length > 3)
+            checkSum_OrderMessages = d.Items[3]["Column1"];
+
+        if (d.Items.length > 4)
+            checkSum_Reservation = d.Items[4]["Column1"];
 
 
         //app.setStatusBar('aa', 'bb', 'mess', 'P');
@@ -144,6 +150,7 @@ var PositionService = {
 
         //chcek offers
         if ((checkSum_Orders && checkSum_Orders != Service.ordersVer)) {
+            var refreshed = true;
             Service.ordersVer = checkSum_Orders;
             app.setStatusBarOffer("New");
             try
@@ -165,6 +172,20 @@ var PositionService = {
             //app.refreshData(["orders", "transporters"]);
             app.refreshData(["orders"]);
         }
+
+        //orders messages = spravy k objednavkam
+        if ((checkSum_OrderMessages && checkSum_OrderMessages != Service.ordersmessagesVer)) {
+            Service.ordersmessagesVer = checkSum_OrderMessages;
+            //app.setStatusBarOffer("New");
+            try {
+                MediaInternal.playSoundInMedia("Message_New", 1, 0);
+            }
+            catch (err) { //zahrame, aj ak bola chyba !
+            }
+            //co treba refresnut ? 
+            if(!refreshed)
+                app.refreshData(["orders"]);
+        };
 
         //reservations 
         app.setStatusBarOfferReservation("None");
