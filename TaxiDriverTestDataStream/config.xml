@@ -2,8 +2,8 @@
 <widget xmlns       = "http://www.w3.org/ns/widgets"
         xmlns:gap   = "http://phonegap.com/ns/1.0"
         id          = "sk.datastream.taxidriverinternal"
-        versionCode = "456"
-        version     = "1.4.56">
+        versionCode = "460"
+        version     = "1.4.60">
  
     <name>TAXI Driver test datastream</name>
   
@@ -34,6 +34,11 @@
   
   <plugin name="cordova-plugin-media" spec="~2.4.0" />
   <plugin name="cordova-plugin-geolocation" spec="*"/>
+  <plugin name="cordova-plugin-inappbrowser" spec="~1.6.1" />
+  <plugin name="cordova-plugin-dialogs" spec="*"/>
+  <plugin name="de.appplant.cordova.plugin.local-notification" spec="~0.8.1" />
+  <!--<plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" source="npm" />-->
+  <plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" spec="*" />
   
   <feature name="http://api.phonegap.com/1.0/geolocation"/>
   <feature name="http://api.phonegap.com/1.0/network"/>

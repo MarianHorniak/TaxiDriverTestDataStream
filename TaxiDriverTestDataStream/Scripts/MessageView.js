@@ -58,6 +58,7 @@ var MessageView = function () {
 
     this.onShow = function () {
         this.loadData();
+        LocalNotification.clear(2);
     };
 
     this.loadData = function () {

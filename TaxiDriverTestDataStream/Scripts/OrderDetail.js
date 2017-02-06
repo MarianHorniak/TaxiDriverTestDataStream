@@ -9,7 +9,7 @@
     };
 
     this.render = function () {
-        var self = this;
+        var self = this; 
         this.el.html(OrderDetail.template());
 
         DetailMap.initialize($("#orderDetailMap"));
@@ -246,6 +246,16 @@
             $("#btnorderDetailFormChangeEndAddress").off(app.clickEvent);
             $("#btnorderDetailFormChangeEndAddress").on(app.clickEvent, function () { self.changeAddress(); });
 
+            $("#orderDetailNavigteStart").off(app.clickEvent);
+            $("#orderDetailNavigteStart").on(app.clickEvent, function () { Navigator.navigateStart(self.order); });
+
+            $("#orderDetailNavigteEnd").off(app.clickEvent);
+            $("#orderDetailNavigteEnd").on(app.clickEvent, function () { Navigator.navigateEnd(self.order); });
+
+
+            $("#btnorderDetailFormGiveBack").off(app.clickEvent);
+            $("#btnorderDetailFormGiveBack").on(app.clickEvent, function () { self.giveBack(); });
+
             this.setButtons();
             
             //nastavime premenne
@@ -263,6 +273,24 @@
             //}
         }
         this.showTime();
+    };
+
+    this.giveBack = function () {
+
+        app.waiting();
+
+        var settings = Service.getSettings(), self = this;
+
+        var data = {
+            GUID_Transporter: settings.transporterId,
+            GUID_TransporterOrder: this.order.GUID,
+            Status_TransporterOrder: this.order.Status,
+            Latitude: PositionService.lat,
+            Longitude: PositionService.lng
+        };
+        //Service.callService("orderBack", data, function () { app.home(); });
+        Service.callService("TransporterOrderGiveBack", data, function () { app.home(); });
+        
     };
 
     this.changeAddress = function () {

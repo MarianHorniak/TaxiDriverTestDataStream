@@ -76,6 +76,11 @@
 
     <div class="content">
     {{#if this.StatusOfferGUI}}
+        
+        {{#if this.ShowMinuteRest}}
+              <label id="mes_{{this.GUID}}" style="background-color:black">{{this.MinuteRestGui}}</label>
+        {{/if}}       
+
              <strong>{{this.FormatedDate}} {{this.StatusTranslation}}</strong> <br/>
              {{this.StartCity}} {{this.StartAddress}} <br/>
             
@@ -95,6 +100,10 @@
                 
 
     {{else}}
+
+           {{#if this.ShowMinuteRest}}
+               <label id="mes_{{this.GUID}}" style="background-color:black">{{this.MinuteRestGui}}</label>
+           {{/if}}     
 
             <strong>{{this.FormatedDate}}</strong> {{this.StartCity}} {{this.StartAddress}}<br/>
 
@@ -251,6 +260,10 @@
         <option value="noselect">-----</option>
         <option value="listPlace">Place</option>
         <option value="listMessageTemplate">Správy</option>
+        <option value="listRestrictedStreet">Zak. ulice</option>
+        <option value="listRestrictedPolygons">Zak. polygóny</option>
+        <option value="listNastBody">Nástupištia</option>
+
     </select>
  </div>
 </div>
@@ -262,7 +275,7 @@
 {{#.}}
 <div data_Id="{{this.GUID}}" class="{{this.isOddCSS}}">
     <div>
-        <strong>{{this.Title}}</strong> 
+        aaa <strong>{{this.Title}}</strong> 
         {{#if this.Text1}}{{this.Text1}} {{/if}}
         {{#if this.Text2}}{{this.Text2}} {{/if}}
     </div>
@@ -317,7 +330,7 @@
         </div>
             <div id="orderDetailMessages" class="FullContent">
             
-            <input type="text" placeholder="sprava..." name="MessageText" id="txtOrderMessageText" />
+            <input type="text" placeholder="správa..." name="MessageText" id="txtOrderMessageText" />
             <select id="selectMessageType">   </select>
             <button id ="btnorderDetailMessageNew" title="Potvrdiť"  class="icon texticon ico_submit">Poslať</button> <br/> 
             <hr />
@@ -331,17 +344,23 @@
 <script id="orderDetailForm-tpl" type="text/x-handlebars-template">
        <strong>{{this.FormatedDate}} {{this.StatusTranslation}}</strong> <br/>   
        <strong>Odkiaľ:</strong> {{this.StartCity}} {{this.StartAddress}} <br/> 
+       <button id ="orderDetailNavigteStart" title="Navigovať">Navigovať</button><br/> 
 
     {{#if this.ShowOrderEndAddress}}
         <strong>Kam:</strong> <br/> 
         <input type="text" placeholder="EndCity" name="EndCity" id="orderDetailFormEndCity" value="{{this.EndCity}}"/>
         <input type="text" placeholder="EndAddress" name="EndAddress" id="orderDetailFormEndAddress" value="{{this.EndAddress}}"/>
+        <button id ="orderDetailNavigteEnd" title="Navigovať">Navigovať</button><br/> 
         <button id ="btnorderDetailFormChangeEndAddress" title="Zmeniť adresu" class="icon texticon ico_submit">Zmeniť cieľ</button> <br/> 
+    {{/if}}
+
+     {{#if this.ShowOrderBack}}
+        <button id ="btnorderDetailFormGiveBack" title="Zmeniť adresu" class="icon texticon ico_submit">Vrátiť na dispečing</button> <br/> 
     {{/if}}
 
      <strong>Kontakt:</strong> {{this.CustomerName}}  
      {{#if this.ShowOrderCustomerPhone}}   
-         <a href="tel: {{this.CustomerPhone}} "> {{this.CustomerPhone}} </a>
+         <a href="javascript: Tools.placeCall('{{this.CustomerPhone}}');"> {{this.CustomerPhone}} </a>
      {{/if}}    
      <br/>
      {{#if this.Persons}}
@@ -583,5 +602,7 @@
 <script src="Scripts/AutoOrderToDispView.js"></script>
 <script src="Scripts/ListView.js"></script>
 <script src="Scripts/Tools.js"></script>
+<script src="Scripts/LocalNotification.js"></script>
+<script src="Scripts/Navigator.js"></script> 
 </body>
 </html>

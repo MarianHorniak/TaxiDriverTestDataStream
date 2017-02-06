@@ -60,11 +60,14 @@
         //CONSTANTS
         constants: {
             ShowOrderCustomerPhone: false,
+            ShowOrderBack:false,
             ShowOrderEndAddress: true,
+            UseVoiceSound:false,
             OrderDetail_Defauls_timeToRealize: 5,
             g_RefreshOrderSeconds: 60,
             Stand_Distancekm: 0.200,
-            Stand_OfferSec:180, //180
+            Stand_OfferSec: 180, //180
+            ordersMinuteRefreshInterval: 60,
         },
 
         GetPhoneSetting: function () {
@@ -98,9 +101,13 @@
                 if (sVal == "1") Globals.constants.ShowOrderCustomerPhone = true;
 
                 sVal = Globals.GetSetItem("ShowOrderEndAddress");
-                if (sVal == "0") Globals.constants.ShowOrderEndAddress = false
+                if (sVal == "0") Globals.constants.ShowOrderEndAddress = false;
 
+                sVal = Globals.GetSetItem("UseVoiceSound");
+                if (sVal == "1") Globals.constants.UseVoiceSound = true;
 
+                sVal = Globals.GetSetItem("ShowOrderBack");
+                if (sVal == "1") Globals.constants.ShowOrderBack = true
             });
 
 

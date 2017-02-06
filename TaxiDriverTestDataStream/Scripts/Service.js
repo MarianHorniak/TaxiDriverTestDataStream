@@ -1,6 +1,7 @@
 ﻿var Service = {
     online: false,
     ordersVer: undefined,
+    ordersMinuteRefresh: Date.now(),
     ordersReservationVer: undefined,
     messagesVer: undefined,
     ordersmessagesVer: undefined,
@@ -308,6 +309,26 @@
         var content = Translator.Translate("Spustiť alarm?") +"<br/><button id=\"btnsetAlarm\" " + scriptText + "  style=\"background-color:black;\" class=\"textnoicon\">" + Translator.Translate("Spustiť") + "</button>";
         app.showNewsComplete(Translator.Translate("Alarm"), null, "", 10000, content);
         return;
+    },
+
+    orderBack: function () {
+        app.hideNews();
+        app.waiting();
+        var s = Service.getSettings();
+        Service.callService("TransporterOrderGiveBack", {
+            GUID_Transporter: s.transporterId,
+            GUID_sysUser_Driver: s.userId,
+            GUID_TransporterOrder: Service.orders.Current.GUID,
+            Latitude: PositionService.lat,
+            Longitude: PositionService.lng
+        },
+            function () {
+                app.home(true);
+            },
+            function (d) {
+                app.info(d.ErrorMessage);
+                app.home(true);
+            });
     },
 
     alarm: function () {

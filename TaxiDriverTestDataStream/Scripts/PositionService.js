@@ -126,6 +126,9 @@ var PositionService = {
         var checkSum_Transporter = '';
         var checkSum_User = '';
         var checkSum_OrderMessages = '';
+
+        var needRefreshMinutes = true;
+
         app.log("call resfresh version");
 
         var refreshed = false;
@@ -163,6 +166,7 @@ var PositionService = {
                 else {
                     app.playNew();
                 }
+                LocalNotification.schedule(1, "Zmena v objednávkach");
             }
             catch (err) { //zahrame, aj ak bola chyba !
                 app.playNew();
@@ -171,6 +175,7 @@ var PositionService = {
             //MHP stacia orders a nepotrebujeme transporters ? 
             //app.refreshData(["orders", "transporters"]);
             app.refreshData(["orders"]);
+            needRefreshMinutes = false;
         }
 
         //orders messages = spravy k objednavkam
@@ -179,12 +184,16 @@ var PositionService = {
             //app.setStatusBarOffer("New");
             try {
                 MediaInternal.playSoundInMedia("Message_New", 1, 0);
+                LocalNotification.schedule(2, "Zmena v správach");
             }
             catch (err) { //zahrame, aj ak bola chyba !
             }
+
             //co treba refresnut ? 
-            if(!refreshed)
+            if (!refreshed) {
                 app.refreshData(["orders"]);
+                needRefreshMinutes = false;
+            }
         };
 
         //reservations 
@@ -223,5 +232,10 @@ var PositionService = {
         }
 
 
+        //poterbujeme zmenit casy na hlavnej obrazovke, tie, ktore robia countDown (MinuteRest ....) AKO ? 
+        if (needRefreshMinutes)
+        {
+            Tools.refreshOrderMinutecntd(true);
+        }
     }
 }

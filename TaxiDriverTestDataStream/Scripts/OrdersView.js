@@ -46,6 +46,7 @@ var OrdersView = function () {
 
     this.onShow = function () {
         this.loadData();
+        LocalNotification.clear(1);
     };
 
     this.loadData = function () {
@@ -78,6 +79,7 @@ var OrdersView = function () {
             $('#menu').show();
             Service.getOrders(function (orders) {
 
+                
 
                 $.each(orders.Items, function () {
                     this.FormatedDate = Service.formatJsonDate(this.Date);
@@ -86,6 +88,17 @@ var OrdersView = function () {
                     //nastavime premenne
                     this.ShowOrderCustomerPhone = Globals.constants.ShowOrderCustomerPhone;
                     this.ShowOrderEndAddress = Globals.constants.ShowOrderEndAddress;
+                    this.ShowOrderBack = false;
+                    this.ShowMinuteRest = false;
+
+                    this.MinuteRest = Tools.minuteDiff(this.Date);
+                    this.MinuteRestGui = "";
+
+                    if (this.MinuteRest < 180 && this.MinuteRest > -180) {
+                        this.MinuteRestGui = this.MinuteRest.toString() + " min";
+                        this.ShowMinuteRest = true;
+                    }
+
 
                     if (this.Status == 'Cancel') {
                         this.StatusCancel = true;
@@ -97,12 +110,17 @@ var OrdersView = function () {
                     if (this.Status == 'Waiting' || this.Status == 'Processing' || this.Status == 'Finish' || this.Status == 'Reserved')
                         this.ShowOrderEndAddress = true;
 
+                    if (this.Status == 'Waiting' || this.Status == 'Processing' || this.Status == 'Reserved')
+                        this.ShowOrderBack = Globals.constants.ShowOrderBack;
+
                     if(this.Status=="Processing")
                         this.ShowCancelbtn = false;
 
                     //spravy k objednavke
                     if(this.ordmesscount && this.ordmesscount>0)
                         this.ShowOrdNessCount = true;
+
+                    //console.log(this);
 
                 });
 

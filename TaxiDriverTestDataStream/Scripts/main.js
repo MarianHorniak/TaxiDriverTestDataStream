@@ -7,7 +7,8 @@
     platform: "",
     clickEvent: "click",
     mediaNew : null,
-    mediaAlert : null,
+    mediaAlert: null,
+    inBackground: false,
     pages: {},
     showAlert: function (message, title) {
 
@@ -97,7 +98,6 @@
             app.mediaNew.play();
         }
     },
-
     playSound: function (soundFile) {
         window.setTimeout(function () {
             if (soundFile) {
@@ -196,8 +196,8 @@
         $('#unalarmButton').hide();
 
         try {
-            document.addEventListener('pause', function () { app.info("Pause"); }, false);
-            document.addEventListener('resume', function () { app.info("Resume"); }, false);
+            document.addEventListener('pause', function () { app.info("Pause"); self.inBackground = true; }, false);
+            document.addEventListener('resume', function () { app.info("Resume"); self.inBackground = false; }, false);
             document.addEventListener("offline", function () { app.info("Offline"); }, false);
             document.addEventListener("online", function () { app.info("Online"); }, false);
             document.addEventListener("unload", function () {
@@ -206,6 +206,7 @@
                             function () { app.info("powermanagement Release"); },
                             function () { app.info("powermanagement Error Release"); }
                     );
+                LocalNotification.clearAll();
             }, false);
             document.addEventListener("menubutton", function () { e.preventDefault(); app.settings(); }, false);
             document.addEventListener("backbutton", function (e) {
@@ -217,6 +218,13 @@
 
         } catch (err) {
             app.log(err);
+        }
+
+        try {
+            LocalNotification.registerPermission();
+        }
+        catch (err) {
+            app.log("Local Notification: " + err);
         }
 
         try {
