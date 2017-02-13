@@ -342,22 +342,25 @@
 </script>
 
 <script id="orderDetailForm-tpl" type="text/x-handlebars-template">
+       <div class="GroupHeader">Odkiaľ</div>
        <strong>{{this.FormatedDate}} {{this.StatusTranslation}}</strong> <br/>   
-       <strong>Odkiaľ:</strong> {{this.StartCity}} {{this.StartAddress}} <br/> 
-       <button id ="orderDetailNavigteStart" title="Navigovať">Navigovať</button><br/> 
+       <strong></strong> {{this.StartCity}} {{this.StartAddress}} <br/> 
+       <button id ="orderDetailNavigteStart" style="width:250px" class="icon texticon ico_submit" title="Navigovať">Navigovať</button><br/> 
 
     {{#if this.ShowOrderEndAddress}}
-        <strong>Kam:</strong> <br/> 
+        <div class="GroupHeader">Kam</div>
+        <!--<strong>Kam:</strong> <br/>--> 
         <input type="text" placeholder="EndCity" name="EndCity" id="orderDetailFormEndCity" value="{{this.EndCity}}"/>
         <input type="text" placeholder="EndAddress" name="EndAddress" id="orderDetailFormEndAddress" value="{{this.EndAddress}}"/>
-        <button id ="orderDetailNavigteEnd" title="Navigovať">Navigovať</button><br/> 
-        <button id ="btnorderDetailFormChangeEndAddress" title="Zmeniť adresu" class="icon texticon ico_submit">Zmeniť cieľ</button> <br/> 
+        <button id ="orderDetailNavigteEnd" style="width:250px" class="icon texticon ico_submit" title="Navigovať">Navigovať</button>
+        <button id ="btnorderDetailFormChangeEndAddress" style="width:250px" title="Zmeniť adresu" class="icon texticon ico_submit">Zmeniť cieľ</button> 
     {{/if}}
 
      {{#if this.ShowOrderBack}}
-        <button id ="btnorderDetailFormGiveBack" title="Zmeniť adresu" class="icon texticon ico_submit">Vrátiť na dispečing</button> <br/> 
+        <button id ="btnorderDetailFormGiveBack" title="Zmeniť adresu" style="width:250px" class="icon texticon ico_submit">Vrátiť disp.</button> <br/> 
     {{/if}}
 
+    <div class="GroupHeader">Info</div>
      <strong>Kontakt:</strong> {{this.CustomerName}}  
      {{#if this.ShowOrderCustomerPhone}}   
          <a href="javascript: Tools.placeCall('{{this.CustomerPhone}}');"> {{this.CustomerPhone}} </a>
