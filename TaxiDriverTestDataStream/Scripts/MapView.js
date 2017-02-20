@@ -109,10 +109,13 @@ var Map = {
         Map.message("Pozícia " + Map.date);
         var poc = "";
         if (Map.carCount && Map.carCount > 0) poc = Translator.Translate('Počet') + ': ' + Map.carCount;
+        var lat = position.coords.latitude.toFixed(2);
+        var lng = position.coords.longitude.toFixed(2);
+        var accu = position.coords.accuracy.toFixed(2);
 
-        var d = Translator.Translate('Lat.')+': ' + position.coords.latitude + '  ' +
-        Translator.Translate('Long.')+': ' + position.coords.longitude + '<br />' +
-        Translator.Translate('Presnosť') + ': ' + position.coords.accuracy + "m, " +
+        var d = Translator.Translate('Lat.')+': ' + lat + '  ' +
+        Translator.Translate('Long.')+': ' + lng + '<br />' +
+        Translator.Translate('Presnosť') + ': ' + accu + "m, " +
         poc + 
         '<br />';
         var ddop = "";

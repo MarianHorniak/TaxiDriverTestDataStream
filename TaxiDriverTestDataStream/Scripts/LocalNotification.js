@@ -81,6 +81,13 @@ var LocalNotification = {
         });
     },
     registerPermission: function () {
+
+        if (typeof cordova === 'undefined') {
+            // variable is undefined
+            this.allowSedule = false;
+            return;
+        }
+
         if (!cordova || !cordova.plugins || !cordova.plugins.notification) {
             this.allowSedule = false;
             return;

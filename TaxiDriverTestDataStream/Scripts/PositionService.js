@@ -14,7 +14,10 @@ var PositionService = {
                 navigator.geolocation.clearWatch(this.watchID);
 
             this.watchID = navigator.geolocation.watchPosition(function (position) {
-                app.info(Translator.Translate("Presnosť pozície") + ": " + position.coords.accuracy + "m");
+
+                var accu = position.coords.accuracy.toFixed(2);
+
+                app.info(Translator.Translate("Presnosť pozície") + ": " + accu + "m");
                 PositionService.lat = position.coords.latitude;
                 PositionService.lng = position.coords.longitude;
             }, function (err) {

@@ -91,7 +91,7 @@ var OrdersView = function () {
                     this.ShowOrderBack = false;
                     this.ShowMinuteRest = false;
 
-                    this.MinuteRest = Tools.minuteDiff(this.Date);
+                    this.MinuteRest = Tools.minuteDiffOrder(this);
                     this.MinuteRestGui = "";
 
                     if (this.MinuteRest < 180 && this.MinuteRest > -180) {

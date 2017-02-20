@@ -38,7 +38,7 @@
 
                 this.ShowMinuteRest = false;
 
-                this.MinuteRest = Tools.minuteDiff(this.Date);
+                this.MinuteRest = Tools.minuteDiffOrder(this);
                 this.MinuteRestGui = "";
 
                 if (this.MinuteRest < 180 && this.MinuteRest > -180) {
@@ -67,8 +67,29 @@
 
             var d = Service.parseJsonDate(dateRelated);
             var diff = (new Date() - d);
-            console.log(diff);
+            //console.log(diff);
             var minutes = Math.round(diff / 60000 );
+
+            return minutes;
+        },
+
+        //rozdiel v minutach od aktualneho datumu pre konkretnu objednavku. 
+        minuteDiffOrder: function (order) {
+
+
+            if (!order) return 0;
+
+            var minutes = 0;
+    
+            var dateRelated = Service.parseJsonDate(order.Date);
+            if (order.TimeToRealize)
+            {
+                dateRelated  = new Date(dateRelated.getTime() + order.TimeToRealize * 60000);
+                //dateRelated = dateRelated.getTime() + (order.TimeToRealize * 60000);
+            }
+
+            var diff = (new Date() - dateRelated);
+            minutes = Math.round(diff / 60000);
 
             return minutes;
         },
