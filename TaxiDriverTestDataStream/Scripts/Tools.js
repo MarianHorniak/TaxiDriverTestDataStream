@@ -80,16 +80,23 @@
             if (!order) return 0;
 
             var minutes = 0;
-    
             var dateRelated = Service.parseJsonDate(order.Date);
-            if (order.TimeToRealize)
-            {
-                dateRelated  = new Date(dateRelated.getTime() + order.TimeToRealize * 60000);
-                //dateRelated = dateRelated.getTime() + (order.TimeToRealize * 60000);
-            }
-
             var diff = (new Date() - dateRelated);
             minutes = Math.round(diff / 60000);
+
+
+
+
+            //ak je zadana diferencia soferom, tak sa pocita z nej !
+            if (order.TimeToRealize && order.TimeToRealizeFrom) {
+                dateRelated = Service.parseJsonDate(order.TimeToRealizeFrom);
+                dateRelated = new Date(dateRelated.getTime() + order.TimeToRealize * 60000);
+                diff = (new Date() - dateRelated);
+                minutes = Math.round(diff / 60000);
+            }
+
+            //prehodnie znemienka  ? 
+            minutes = -minutes;
 
             return minutes;
         },

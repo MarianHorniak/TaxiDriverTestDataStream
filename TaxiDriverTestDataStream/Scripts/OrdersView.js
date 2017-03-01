@@ -94,11 +94,15 @@ var OrdersView = function () {
                     this.MinuteRest = Tools.minuteDiffOrder(this);
                     this.MinuteRestGui = "";
 
-                    if (this.MinuteRest < 180 && this.MinuteRest > -180) {
+                    //if (this.MinuteRest < 180 && this.MinuteRest > -180) {
+                    //    this.MinuteRestGui = this.MinuteRest.toString() + " min";
+                    //    this.ShowMinuteRest = true;
+                    //}
+
+                    
                         this.MinuteRestGui = this.MinuteRest.toString() + " min";
                         this.ShowMinuteRest = true;
-                    }
-
+                    
 
                     if (this.Status == 'Cancel') {
                         this.StatusCancel = true;
