@@ -206,7 +206,7 @@
                             function () { app.info("powermanagement Release"); },
                             function () { app.info("powermanagement Error Release"); }
                     );
-                LocalNotification.clearAll();
+                //LocalNotification.clearAll();
             }, false);
             document.addEventListener("menubutton", function () { e.preventDefault(); app.settings(); }, false);
             document.addEventListener("backbutton", function (e) {
@@ -220,12 +220,12 @@
             app.log(err);
         }
 
-        try {
-            LocalNotification.registerPermission();
-        }
-        catch (err) {
-            app.log("Local Notification: " + err);
-        }
+        //try {
+        //    LocalNotification.registerPermission();
+        //}
+        //catch (err) {
+        //    app.log("Local Notification: " + err);
+        //}
 
         try {
             if (app.isDevice)

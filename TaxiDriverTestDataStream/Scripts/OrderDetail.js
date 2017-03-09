@@ -246,11 +246,11 @@
             $("#btnorderDetailFormChangeEndAddress").off(app.clickEvent);
             $("#btnorderDetailFormChangeEndAddress").on(app.clickEvent, function () { self.changeAddress(); });
 
-            $("#orderDetailNavigteStart").off(app.clickEvent);
-            $("#orderDetailNavigteStart").on(app.clickEvent, function () { Navigator.navigateStart(self.order); });
+            //$("#orderDetailNavigteStart").off(app.clickEvent);
+            //$("#orderDetailNavigteStart").on(app.clickEvent, function () { Navigator.navigateStart(self.order); });
 
-            $("#orderDetailNavigteEnd").off(app.clickEvent);
-            $("#orderDetailNavigteEnd").on(app.clickEvent, function () { Navigator.navigateEnd(self.order); });
+            //$("#orderDetailNavigteEnd").off(app.clickEvent);
+            //$("#orderDetailNavigteEnd").on(app.clickEvent, function () { Navigator.navigateEnd(self.order); });
 
 
             $("#btnorderDetailFormGiveBack").off(app.clickEvent);

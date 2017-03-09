@@ -134,13 +134,13 @@
             if (!num)
                 return;
 
-            if (window.cordova && cordova.InAppBrowser) {
-                cordova.InAppBrowser.open('tel:' + num.replace(/\s/g, ''), '_system');
-            }
-            else
-            {
-                app.info("Unsupported call");
-            }
+            //if (window.cordova && cordova.InAppBrowser) {
+            //    cordova.InAppBrowser.open('tel:' + num.replace(/\s/g, ''), '_system');
+            //}
+            //else
+            //{
+            //    app.info("Unsupported call");
+            //}
         }
     }
 
