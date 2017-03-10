@@ -33,13 +33,8 @@
   
   <access origin="*" />
   
-  <!--<plugin name="cordova-plugin-media" spec="~2.4.0" />
-  <plugin name="cordova-plugin-geolocation" spec="*"/>
-  
-  <feature name="http://api.phonegap.com/1.0/geolocation"/>
-  <feature name="http://api.phonegap.com/1.0/network"/>-->
-
-  <gap:plugin name="org.apache.cordova.media" version="0.2.3" />
+  <plugin name="cordova-plugin-media" spec="~2.4.0" />
+  <!--<plugin name="cordova-plugin-geolocation" spec="*"/>-->
 
   <feature name="http://api.phonegap.com/1.0/geolocation"/>
   <feature name="http://api.phonegap.com/1.0/network"/>
