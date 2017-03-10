@@ -42,20 +42,27 @@ var SettingsView = function (messages) {
     };
     this.loadForm = function () {
         app.waiting();
+        app.log("PKO start waiting");
         var self = this, data;
         try{
-            data= Service.getSettings();
+            data = Service.getSettings();
+            app.log("PKO mam data");
         } catch (err) {
+            app.log("PKO nemam data, err:" + err);
             data = {};
         }
-        if (Service.isAuthenticated) 
+        if (Service.isAuthenticated) {
+            app.log("PKO Service.isAuthenticated");
             Service.getTransporters(function (d) {
+                app.log("PKO Service.getTransporters OK");
                 data.transportes = d.Items;
                 self.showForm(data);
             });
+        }
         else self.showForm(data);
     };
     this.showForm = function (data) {
+        app.log("PKO showForm OK");
         app.waiting(false);
         if (!data)
         {
