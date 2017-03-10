@@ -42,7 +42,12 @@ var SettingsView = function (messages) {
     };
     this.loadForm = function () {
         app.waiting();
-        var self =this, data = Service.getSettings();
+        var self = this, data;
+        try{
+            data= Service.getSettings();
+        } catch (err) {
+            data = {};
+        }
         if (Service.isAuthenticated) 
             Service.getTransporters(function (d) {
                 data.transportes = d.Items;
@@ -51,8 +56,12 @@ var SettingsView = function (messages) {
         else self.showForm(data);
     };
     this.showForm = function (data) {
+        app.waiting(false);
+        if (!data)
+        {
+            data = {};
+        }
             data.ErrorMessage = Service.connectionError;
-            app.waiting(false);
             $("#settingsForm").html(SettingsView.templateForm(data));
 
             if(Service.isComplet())
