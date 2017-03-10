@@ -451,6 +451,8 @@
 
 function onLoad() {
 
+    app.log("PKO onLoad OK");
+    app.log("navigator: " + navigator);
     app.geolocation = false;
     if (navigator.geolocation) {
         app.geolocation = navigator.geolocation;
@@ -460,6 +462,7 @@ function onLoad() {
     app.isDevice = navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/);
     app.platform = navigator.platform;
 
+    app.log("PKO app.isDevice: " + app.isDevice);
 
     if (app.isDevice) {
         app.clickEvent = "tap";
