@@ -417,7 +417,7 @@
 
     initialize: function () {
         app.log("app.initialize");
-        app.log("app.isDevice: " + this.isDevice);
+        
         var self = this;
         this.pages = {};
 
@@ -450,10 +450,9 @@
 };
 
 function onLoad() {
-
-    app.log("PKO onLoad OK");
-    app.log("navigator: " + navigator);
+    app.log("onLoad");
     app.geolocation = false;
+
     if (navigator.geolocation) {
         app.geolocation = navigator.geolocation;
     }
@@ -462,16 +461,16 @@ function onLoad() {
     app.isDevice = navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/);
     app.platform = navigator.platform;
 
-    app.log("PKO app.isDevice: " + app.isDevice);
+    app.log("app.isDevice: " + app.isDevice);
 
     if (app.isDevice) {
         app.clickEvent = "tap";
-        document.addEventListener("deviceready", function () { app.initialize(); }, false);
+        document.addEventListener("deviceready", function () { app.log("event: deviceready"); app.initialize(); }, false);
+        app.log("document.addEventListener(deviceready)");
     } else {
         app.clickEvent = "click";
         app.initialize();
     }
-    
 }
 
 function showMenu() {

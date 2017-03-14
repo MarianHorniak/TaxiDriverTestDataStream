@@ -2,8 +2,8 @@
 <widget xmlns       = "http://www.w3.org/ns/widgets"
         xmlns:gap   = "http://phonegap.com/ns/1.0"
         id          = "sk.datastream.taxidriverinternal"
-        versionCode = "470"
-        version     = "1.4.70">
+        versionCode = "471"
+        version     = "1.4.71">
  
     <name>TAXI Driver test datastream</name>
   
@@ -23,18 +23,18 @@
   <icon src="img/phoneicon76.png"       gap:platform="ios" width="76"  height="76"  />
 
   <preference name="load-url-timeout" value="60000" />
-  <!--<preference name="phonegap-version" value="cli-6.5.0" />-->
-  <preference name="phonegap-version" value="cli-5.1.1" />
+  <preference name="phonegap-version" value="cli-6.5.0" />
   <preference name="DisallowOverscroll" value="true" />
   <preference name="exit-on-suspend" value="false" />
   <preference name="KeepRunning " value="true" />
   <preference name="Fullscreen" value="true" />
   <preference name="loadingDialog" value="Driver, Starting" />
+  <preference name="AndroidPersistentFileLocation" value="Compatibility" />
   
   <access origin="*" />
   
-  <plugin name="cordova-plugin-media" spec="~2.4.0" />
-  <!--<plugin name="cordova-plugin-geolocation" spec="*"/>-->
+  <plugin name="cordova-plugin-media" spec="*" />
+  <plugin name="cordova-plugin-geolocation" spec="*"/>
 
   <feature name="http://api.phonegap.com/1.0/geolocation"/>
   <feature name="http://api.phonegap.com/1.0/network"/>
