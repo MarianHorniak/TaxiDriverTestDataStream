@@ -90,7 +90,7 @@ var OrdersView = function () {
                     this.ShowOrderEndAddress = Globals.constants.ShowOrderEndAddress;
                     this.ShowOrderBack = false;
                     this.ShowMinuteRest = false;
-
+                    //this.DisableOrderCancelOnReserved = false;
                     this.MinuteRest = Tools.minuteDiffOrder(this);
                     this.MinuteRestGui = "";
 
@@ -123,6 +123,10 @@ var OrdersView = function () {
                     //spravy k objednavke
                     if(this.ordmesscount && this.ordmesscount>0)
                         this.ShowOrdNessCount = true;
+
+
+                    if (this.Status == 'Reserved')
+                        this.ShowCancelbtn = !Globals.constants.DisableOrderCancelOnReserved;
 
                     //console.log(this);
 

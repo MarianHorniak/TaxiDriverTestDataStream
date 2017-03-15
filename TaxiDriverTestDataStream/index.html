@@ -6,8 +6,8 @@
     <link href="css/styles.css" rel="stylesheet">
     <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, height=device-height" />
 </head>
-<body onload="onLoad()">
-<div class='waitingDiv'>PKO CAKAM &nbsp;</div>   
+<body>
+<div class='waitingDiv'>&nbsp;</div>   
 <div id="taxiNewFull">
 <div id="taxiNews">
     <button id="btnNewsClose" style="background-color:black;" class="icon ico_back">&nbsp;</button>
@@ -582,7 +582,7 @@
 </script>
 
 
-<script src="phonegap.js"></script>
+<script src="cordova.js"></script>
 <script src="lib/json2.js"></script>    
 <script src="lib/jquery-1.8.2.min.js"></script>
 <script src="lib/handlebars.js"></script>
@@ -602,7 +602,6 @@
 <script src="Scripts/Globals.js"></script>
 <script src="Scripts/Errors.js"></script>
 <script src="Scripts/Lists.js"></script>
-<script src="Scripts/main.js"></script>
 <script src="Scripts/Translator.js"></script>
 <script src="Scripts/NotificationLocal.js"></script>
 <script src="Scripts/MediaInternal.js"></script>
@@ -617,5 +616,7 @@
 <script src="Scripts/Tools.js"></script>
 <!--<script src="Scripts/LocalNotification.js"></script>-->
 <!--<script src="Scripts/Navigator.js"></script>--> 
+<script src="Scripts/main.js"></script>
+<script>onLoad()</script>
 </body>
 </html>

@@ -62,7 +62,8 @@
             ShowOrderCustomerPhone: false,
             ShowOrderBack:false,
             ShowOrderEndAddress: true,
-            UseVoiceSound:false,
+            UseVoiceSound: false,
+            DisableOrderCancelOnReserved: false,
             OrderDetail_Defauls_timeToRealize: 5,
             g_RefreshOrderSeconds: 60,
             Stand_Distancekm: 0.200,
@@ -108,6 +109,11 @@
 
                 sVal = Globals.GetSetItem("ShowOrderBack");
                 if (sVal == "1") Globals.constants.ShowOrderBack = true
+
+                sVal = Globals.GetSetItem("DisableOrderCancelOnReserved");
+                if (sVal == "1") Globals.constants.DisableOrderCancelOnReserved = true
+
+
             });
 
 
