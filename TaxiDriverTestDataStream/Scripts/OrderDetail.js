@@ -241,6 +241,10 @@
             if (!this.order.PaymentTotal)
                 this.order.PaymentTotal = 0;
 
+            //nastavime premenne
+            this.order.ShowOrderCustomerPhone = Globals.constants.ShowOrderCustomerPhone;
+            this.order.ShowOrderEndAddress = Globals.constants.ShowOrderEndAddress;
+
             $("#orderDetailForm").html(OrderDetail.detailTemplate(this.order));
 
             $("#btnorderDetailFormChangeEndAddress").off(app.clickEvent);
@@ -264,9 +268,7 @@
 
             this.setButtons();
             
-            //nastavime premenne
-            this.order.ShowOrderCustomerPhone = Globals.constants.ShowOrderCustomerPhone;
-            this.order.ShowOrderEndAddress = Globals.constants.ShowOrderEndAddress;
+            
 
             //zobrazit rozbaleny cas, ak sa jedna o ponuku
             //if (this.order.Status == "Offered") {
