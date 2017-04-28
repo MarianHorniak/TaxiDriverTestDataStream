@@ -5,11 +5,11 @@ var LocalNotification = {
     //id:
     //orders Objednavky
     //messages Spravy
-    schedule: function (id, text, test) {
+    schedule: function (id, text) {
         if (!this.allowSedule)
             return;
         
-        if (!test && !app.inBackground)
+        if (!app.inBackground)
             return;
         
         this.hasPermission(function () {

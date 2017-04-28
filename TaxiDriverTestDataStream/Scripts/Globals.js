@@ -88,13 +88,15 @@
                     {
                         for (var i = 0; i < resArray.length; i++) {
                             if (resArray[i]) {
-                                var els = $("#" + resArray[i]);
-                                els.attr("disabled", "disabled");
-                                els.hide();
+                                try{
+                                    var els = $("#" + resArray[i]);
+                                    els.attr("disabled", "disabled");
+                                    els.hide();
+                                }
+                                catch (err) { }
                             }
                         }
                     }
-
                 }
 
                 //este do premennych 
