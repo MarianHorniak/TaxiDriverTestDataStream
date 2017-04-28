@@ -206,7 +206,7 @@
                             function () { app.info("powermanagement Release"); },
                             function () { app.info("powermanagement Error Release"); }
                     );
-                //LocalNotification.clearAll();
+                LocalNotification.clearAll();
             }, false);
             document.addEventListener("menubutton", function () { e.preventDefault(); app.settings(); }, false);
             document.addEventListener("backbutton", function (e) {
@@ -220,12 +220,34 @@
             app.log(err);
         }
 
-        //try {
-        //    LocalNotification.registerPermission();
-        //}
-        //catch (err) {
-        //    app.log("Local Notification: " + err);
-        //}
+        try {
+            LocalNotification.registerPermission();
+            LocalNotification.hasPermission(function() {
+
+                cordova.plugins.notification.local.setDefaults({
+                    title: "Taxi driver",
+                    icon: app.getAndroidPath() + 'img/cabs.png',
+                    smallIcon: app.getAndroidPath() + 'img/cabs.png',
+                    //smallIcon: 'res://cordova',
+                    //sound: null, //ticha ...
+                });
+
+                cordova.plugins.notification.local.on("click", function (notification) {
+                    window.setTimeout(
+                        function () {
+                            switch (notification.id) {
+                                case "orders": app.route("orders");
+                                case "messages": app.route("messages");
+                                default: app.home();
+                            }
+                        }, 100
+                    )
+                });
+            });
+        }
+        catch (err) {
+            app.log("Local Notification: " + err);
+        }
 
         try {
             if (app.isDevice)
@@ -409,7 +431,7 @@
 
     getAndroidPath: function () {
         if (app.isDevice) {
-            var path = "/android_asset/www/";
+            var path = window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/";
             return path;
         }
         else return "";

@@ -169,7 +169,7 @@ var PositionService = {
                 else {
                     app.playNew();
                 }
-                //LocalNotification.schedule(1, "Zmena v objednávkach");
+                LocalNotification.schedule("orders", "Zmena v objednávkach");
             }
             catch (err) { //zahrame, aj ak bola chyba !
                 app.playNew();
@@ -187,7 +187,7 @@ var PositionService = {
             //app.setStatusBarOffer("New");
             try {
                 MediaInternal.playSoundInMedia("Message_New", 1, 0);
-                //LocalNotification.schedule(2, "Zmena v správach");
+                LocalNotification.schedule("messages", "Nová správa");
             }
             catch (err) { //zahrame, aj ak bola chyba !
             }

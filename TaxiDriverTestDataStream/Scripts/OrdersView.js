@@ -46,7 +46,7 @@ var OrdersView = function () {
 
     this.onShow = function () {
         this.loadData();
-        //LocalNotification.clear(1);
+        LocalNotification.clear("messages");
     };
 
     this.loadData = function () {

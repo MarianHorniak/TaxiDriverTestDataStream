@@ -1,100 +1,102 @@
-﻿//https://github.com/katzer/cordova-plugin-local-notifications/wiki/11.-Samples
-//https://github.com/evothings/phonegap-estimotebeacons/wiki/Background-notification-guide
+﻿//https://github.com/katzer/cordova-plugin-local-notifications/blob/9a13f4e/README.md
 
 var LocalNotification = {
     allowSedule: false,
     //id:
-    //1 Objednavky
-    //2 Spravy
-    //3
-    //...
-    schedule: function (id, text) {
+    //orders Objednavky
+    //messages Spravy
+    schedule: function (id, text, test) {
         if (!this.allowSedule)
             return;
-
-        if (!app.inBackground) // || !app.allowNotification
+        
+        if (!test && !app.inBackground)
             return;
+        
         this.hasPermission(function () {
-            cordova.plugins.notification.local.get(id, function (notifications) {
-                if (notifications.length === 0)
-                    cordova.plugins.notification.local.schedule({ id: id, text: text });
-                else
-                    cordova.plugins.notification.local.update({ id: id, text: text });
-            })
+            try {
+                window.plugin.notification.local.isScheduled(id, function (isScheduled) {
+                    if (isScheduled)
+                        cordova.plugins.notification.local.cancel(id);
+                    cordova.plugins.notification.local.add({ id: id, text: text });
+                    app.log("cordova.plugins.notification.local.add id:" + id + " text:" + text);
+                });
+
+                /*
+                window.plugin.notification.local.add({
+                    id:         String,  // A unique id of the notifiction
+                    date:       Date,    // This expects a date object
+                    message:    String,  // The message that is displayed
+                    title:      String,  // The title of the message
+                    repeat:     String,  // Either 'secondly', 'minutely', 'hourly', 'daily', 'weekly', 'monthly' or 'yearly'
+                    badge:      Number,  // Displays number badge to notification
+                    sound:      String,  // A sound to be played
+                    json:       String,  // Data to be passed through the notification
+                    autoCancel: Boolean, // Setting this flag and the notification is automatically canceled when the user clicks it
+                    ongoing:    Boolean, // Prevent clearing of notification (Android only)
+                });
+                */
+
+            } catch (err) {
+                app.log("cordova.plugins.notification.local.isScheduled: " + err);
+                return;
+            }
         });
     },
-    clear: function (id, callback) {
+    clear: function (id) {
         if (!this.allowSedule)
             return;
 
-        cordova.plugins.notification.local.clear(id, callback);
-        //cordova.plugins.notification.local.clear([10,20,30], callback);
+        cordova.plugins.notification.local.cancel(id);
     },
-    clearAll: function (callback) {
+    clearAll: function () {
         if (!this.allowSedule)
             return;
 
-        cordova.plugins.notification.local.clearAll(callback);
+        cordova.plugins.notification.local.cancelAll();
     },
     hasPermission: function (callback) {
-        var self = this;
-        if (this.allowSedule)
-        {
+        
+        if (this.allowSedule) {
             if (callback)
                 callback();
             return;
         }
-        if (!cordova || !cordova.plugins || !cordova.plugins.notification)
-        {
+        try {
+            if (!cordova || !cordova.plugins || !cordova.plugins.notification) {
+                this.allowSedule = false;
+                return;
+            }
+        }
+        catch (err) {
             this.allowSedule = false;
+            app.log("LocalNotification.hasPermission: " + err);
             return;
         }
 
         cordova.plugins.notification.local.hasPermission(function (granted) {
-            self.allowSedule = granted;
-            //app.info(granted ? "Local Notification Granted" : "Local Notification Not Granted");
-            
             if (granted) {
-                cordova.plugins.notification.local.setDefaults({
-                    title: "Taxi driver",
-                    icon: app.getPhoneGapPath() + 'img/cabs.png',
-                    //smallIcon: 'res://cordova',
-                    //sound: null,
-                    //badge: 1,
-                    //data: { test: id }
-                });
-
-                cordova.plugins.notification.local.on('click', function (notification) {
-                    //self.clear(notification.id);
-                    switch (notification.id)
-                    {
-                        case 1: app.route("orders");
-                        case 2: app.route("messages");
-                        default: app.home();
-                    }
-                    //a pod.
-                });
+                LocalNotification.allowSedule = true;
+                app.log("LocalNotification.hasPermission: True");
 
                 if (callback)
                     callback();
             }
+            else {
+                app.log("LocalNotification.hasPermission: False");
+            }
         });
     },
-    registerPermission: function () {
-
-        if (typeof cordova === 'undefined') {
-            // variable is undefined
-            this.allowSedule = false;
-            return;
-        }
-
+    registerPermission: function (callback) {
         if (!cordova || !cordova.plugins || !cordova.plugins.notification) {
-            this.allowSedule = false;
+            LocalNotification.allowSedule = false;
             return;
         }
 
         cordova.plugins.notification.local.registerPermission(function (granted) {
-            app.info(granted ? "Local Notification Granted" : "Local Notification Not Granted");
+            LocalNotification.allowSedule = granted;
+            app.log(granted ? "Local Notification Granted" : "Local Notification Not Granted");
+            if (callback)
+                callback(granted);
         });
     }
 }

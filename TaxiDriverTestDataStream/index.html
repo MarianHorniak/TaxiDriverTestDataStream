@@ -355,14 +355,14 @@
        <div class="GroupHeader">Odkiaľ</div>
        <strong>{{this.FormatedDate}} {{this.StatusTranslation}}</strong> <br/>   
        <strong></strong> {{this.StartCity}} {{this.StartAddress}} <br/> 
-       <!--<button id ="orderDetailNavigteStart" style="width:250px" class="icon texticon ico_submit" title="Navigovať">Navigovať</button><br/> -->
+       <button id ="orderDetailNavigteStart" style="width:250px" class="icon texticon ico_submit" title="Navigovať">Navigovať</button><br/>
 
     {{#if this.ShowOrderEndAddress}}
         <div class="GroupHeader">Kam</div>
         <!--<strong>Kam:</strong> <br/>--> 
         <input type="text" placeholder="EndCity" name="EndCity" id="orderDetailFormEndCity" value="{{this.EndCity}}"/>
         <input type="text" placeholder="EndAddress" name="EndAddress" id="orderDetailFormEndAddress" value="{{this.EndAddress}}"/>
-       <!-- <button id ="orderDetailNavigteEnd" style="width:250px" class="icon texticon ico_submit" title="Navigovať">Navigovať</button>-->
+        <button id ="orderDetailNavigteEnd" style="width:250px" class="icon texticon ico_submit" title="Navigovať">Navigovať</button>
         <button id ="btnorderDetailFormChangeEndAddress" style="width:250px" title="Zmeniť adresu" class="icon texticon ico_submit">Zmeniť cieľ</button> 
     {{/if}}
 
