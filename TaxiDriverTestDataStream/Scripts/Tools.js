@@ -112,7 +112,6 @@
             return newString;
         },
 
-
         sortSelect: function (selElem) {
             var tmpAry = new Array();
             for (var i = 0; i < selElem.options.length; i++) {
@@ -134,9 +133,9 @@
             if (!num)
                 return;
 
-            //if (window.cordova && cordova.InAppBrowser) {
-            //    cordova.InAppBrowser.open('tel:' + num.replace(/\s/g, ''), '_system');
-            //}
+            if (window.cordova && cordova.InAppBrowser) {
+                cordova.InAppBrowser.open('tel:' + num.replace(/\s/g, ''), '_system');
+            }
             //else
             //{
             //    app.info("Unsupported call");

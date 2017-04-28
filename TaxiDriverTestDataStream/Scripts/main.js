@@ -40,7 +40,7 @@
     },
 
     showNewsComplete: function (title, soundFile, color, hideinmilisec, content) {
-        if (!soundFile | soundFile == "") soundFile = MediaInternal.defaultNewsSoundfile; //"audio/sound_new.mp3";
+        if (!soundFile || soundFile == "") soundFile = MediaInternal.defaultNewsSoundfile; //"audio/sound_new.mp3";
         $("#taxiNewsContent").html(content);
         $("#taxiNewsTitle").html(title);
         $("#taxiNewFull").show(200);
@@ -226,8 +226,8 @@
 
                 cordova.plugins.notification.local.setDefaults({
                     title: "Taxi driver",
-                    icon: app.getAndroidPath() + 'img/cabs.png',
-                    smallIcon: app.getAndroidPath() + 'img/cabs.png',
+                    //icon: app.getAndroidPath() + 'img/cabs.png',
+                    //smallIcon: app.getAndroidPath() + 'img/cabs.png',
                     //smallIcon: 'res://cordova',
                     //sound: null, //ticha ...
                 });
@@ -236,12 +236,12 @@
                     window.setTimeout(
                         function () {
                             switch (notification.id) {
-                                case "orders": app.route("orders");
-                                case "messages": app.route("messages");
-                                default: app.home();
+                                case "orders": app.route("orders"); break;
+                                case "messages": app.route("messages"); break;
+                                default: app.home(); break;
                             }
                         }, 100
-                    )
+                    );
                 });
             });
         }

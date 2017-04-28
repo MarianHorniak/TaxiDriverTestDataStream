@@ -2,11 +2,9 @@
 //!!!https://github.com/dpa99c/phonegap-launch-navigator
 
 var Navigator = {
-    navigate: function (toPoint)
-    {
+    navigate: function (toPoint) {
         if (window.launchnavigator)
             window.launchnavigator.navigate(toPoint);
-        //endAddress
     },
     navigateStart: function (order) {
         if (!order)

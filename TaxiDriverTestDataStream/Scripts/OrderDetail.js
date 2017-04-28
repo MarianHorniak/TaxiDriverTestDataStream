@@ -255,6 +255,13 @@
             $("#btnorderDetailFormGiveBack").off(app.clickEvent);
             $("#btnorderDetailFormGiveBack").on(app.clickEvent, function () { self.giveBack(); });
 
+            $("#btnorderDetailFormGiveBack").off(app.clickEvent);
+            $("#btnorderDetailFormGiveBack").on(app.clickEvent, function () { self.giveBack(); });
+
+
+            $("#detailCustomerPhone").off(app.clickEvent);
+            $("#detailCustomerPhone").on(app.clickEvent, function () { Tools.placeCall(self.order.CustomerPhone); });
+
             this.setButtons();
             
             //nastavime premenne
