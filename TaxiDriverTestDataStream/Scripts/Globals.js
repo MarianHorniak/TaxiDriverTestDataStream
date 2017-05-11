@@ -101,9 +101,9 @@
                 var bd = Globals.GetSetItem("BossDrivers");
                 if (bd) {
                     var s = Service.getSettings();
-                    var uId = d.userId;
+                    var uId = s.userId;
                     var bdArray = bd.split(Globals.SplitString);
-                    Globals.isBoss =  bdArray && bdArray.length > 0 && bdArray.indexOf(d.userId) != -1;
+                    Globals.isBoss =  bdArray && bdArray.length > 0 && bdArray.indexOf(s.userId) != -1;
                 }
 
                 //disable casti menu ! -- tiez po page.rener();
