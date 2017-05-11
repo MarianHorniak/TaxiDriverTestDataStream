@@ -102,8 +102,8 @@
                 if (bd) {
                     var s = Service.getSettings();
                     var uId = s.userId;
-                    var bdArray = bd.split(Globals.SplitString);
-                    Globals.isBoss =  bdArray && bdArray.length > 0 && bdArray.indexOf(s.userId) != -1;
+                    var bdArray = bd.toLowerCase().split(Globals.SplitString);
+                    Globals.isBoss =  bdArray && bdArray.length > 0 && bdArray.indexOf(s.userId.toLowerCase()) != -1;
                 }
 
                 //disable casti menu ! -- tiez po page.rener();
