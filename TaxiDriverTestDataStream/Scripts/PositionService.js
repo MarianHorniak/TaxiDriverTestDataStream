@@ -157,28 +157,32 @@ var PositionService = {
         //chcek offers
         if ((checkSum_Orders && checkSum_Orders != Service.ordersVer)) {
             var refreshed = true;
+            var onlyInit = false; //je to pociatcony stav, ideme z NULL
+            if (!Service.ordersVer) onlyInit = true;
             Service.ordersVer = checkSum_Orders;
-            app.setStatusBarOffer("New");
-            try
-            {
-                var isSpecial = Service.ordersVer.indexOf("BroadCast") > -1
-                //nova objednavka, alebo broadcast ? 
-                if (isSpecial) {
-                    MediaInternal.playSoundInMedia("Order_Broadcast",1,0);
+
+            if (!onlyInit) {
+                app.setStatusBarOffer("New");
+                try {
+                    var isSpecial = Service.ordersVer.indexOf("BroadCast") > -1
+                    //nova objednavka, alebo broadcast ? 
+                    if (isSpecial) {
+                        MediaInternal.playSoundInMedia("Order_Broadcast", 1, 0);
+                    }
+                    else {
+                        app.playNew();
+                    }
+                    LocalNotification.schedule("orders", "Zmena v objednávkach");
                 }
-                else {
+                catch (err) { //zahrame, aj ak bola chyba !
                     app.playNew();
                 }
-                LocalNotification.schedule("orders", "Zmena v objednávkach");
-            }
-            catch (err) { //zahrame, aj ak bola chyba !
-                app.playNew();
-            }
 
-            //MHP stacia orders a nepotrebujeme transporters ? 
-            //app.refreshData(["orders", "transporters"]);
-            app.refreshData(["orders"]);
-            needRefreshMinutes = false;
+                //MHP stacia orders a nepotrebujeme transporters ? 
+                //app.refreshData(["orders", "transporters"]);
+                app.refreshData(["orders"]);
+                needRefreshMinutes = false;
+            }
         }
 
         //orders messages = spravy k objednavkam
