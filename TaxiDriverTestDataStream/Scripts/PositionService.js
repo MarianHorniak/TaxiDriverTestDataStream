@@ -203,6 +203,21 @@ var PositionService = {
             }
         };
 
+        //permamnet sound on messages
+        var OrderOfferPermanentSound = 0;
+        var set1 = Globals.GetSetItem("OrderOfferPermanentSound");
+        if (set1) OrderOfferPermanentSound = set1;
+        if (OrderOfferPermanentSound == "1" && Service.orders && Service.orders.Items && Service.orders.Items.length>0) {
+
+            var playperm = false;
+            var r = $.grep(Service.orders.Items, function (o) { return o.Status == "Offered"; });
+            if (r.length > 0)
+                playperm = true;
+
+            if(playperm)
+                app.playNew();
+        }
+
         //reservations 
         app.setStatusBarOfferReservation("None");
         if (checkSum_Reservation && checkSum_Reservation!="") {
@@ -233,6 +248,10 @@ var PositionService = {
             }
 
         }
+
+
+
+
 
         //nieco je s transporterom na servri, napr stanoviste 
         if (checkSum_Transporter && checkSum_Transporter != Service.transporterVer) {

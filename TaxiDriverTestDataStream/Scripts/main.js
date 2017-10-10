@@ -219,6 +219,21 @@
         } catch (err) {
             app.log(err);
         }
+        try {
+            if (AndroidFullScreen) {
+                // Extend your app underneath the status bar (Android 4.4+ only)
+                //AndroidFullScreen.showUnderStatusBar();
+
+                // Extend your app underneath the system UI (Android 4.4+ only)
+                //AndroidFullScreen.showUnderSystemUI();
+
+                // Hide system UI and keep it hidden (Android 4.4+ only)
+                AndroidFullScreen.immersiveMode();
+            }
+        }
+        catch (err) {
+            app.log("AndroidFullScreen: " + err);
+        }
 
         try {
             LocalNotification.registerPermission();

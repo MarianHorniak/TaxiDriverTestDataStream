@@ -2,8 +2,8 @@
 <widget xmlns       = "http://www.w3.org/ns/widgets"
         xmlns:gap   = "http://phonegap.com/ns/1.0"
         id          = "sk.datastream.taxidriverinternal"
-        versionCode = "509"
-        version     = "1.5.09">
+        versionCode = "510"
+        version     = "1.5.10">
  
     <name>TAXI Driver test datastream</name>
   
@@ -36,7 +36,8 @@
   <plugin name="cordova-plugin-media" spec="*" />
   <plugin name="cordova-plugin-geolocation" spec="*"/>
   <plugin name="cordova-plugin-inappbrowser" spec="*" />
-  
+  <plugin name="cordova-plugin-fullscreen" spec="*" />
+
   <plugin name="de.appplant.cordova.plugin.local-notification" spec="*" />
   <plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" spec="*" />
 
