@@ -197,7 +197,7 @@
 
         try {
             document.addEventListener('pause', function () { app.info("Pause"); self.inBackground = true; }, false);
-            document.addEventListener('resume', function () { app.info("Resume"); self.inBackground = false; }, false);
+            document.addEventListener('resume', function () { app.info("Resume"); self.inBackground = false; app.fullScreen(); }, false);
             document.addEventListener("offline", function () { app.info("Offline"); }, false);
             document.addEventListener("online", function () { app.info("Online"); }, false);
             document.addEventListener("unload", function () {
@@ -219,22 +219,7 @@
         } catch (err) {
             app.log(err);
         }
-        try {
-            if (AndroidFullScreen) {
-                // Extend your app underneath the status bar (Android 4.4+ only)
-                //AndroidFullScreen.showUnderStatusBar();
-
-                // Extend your app underneath the system UI (Android 4.4+ only)
-                //AndroidFullScreen.showUnderSystemUI();
-
-                // Hide system UI and keep it hidden (Android 4.4+ only)
-                AndroidFullScreen.immersiveMode();
-            }
-        }
-        catch (err) {
-            app.log("AndroidFullScreen: " + err);
-        }
-
+        app.fullScreen();
         try {
             LocalNotification.registerPermission();
             LocalNotification.hasPermission(function() {
@@ -273,6 +258,34 @@
         catch (err) {
             app.log("Media: " + err);
         }
+    },
+    fullScreen: function()
+    {
+        try {
+            if (AndroidFullScreen) {
+                // Extend your app underneath the status bar (Android 4.4+ only)
+                //AndroidFullScreen.showUnderStatusBar();
+
+                // Extend your app underneath the system UI (Android 4.4+ only)
+                //AndroidFullScreen.showUnderSystemUI();
+
+                // Hide system UI and keep it hidden (Android 4.4+ only)
+                AndroidFullScreen.immersiveMode();
+            }
+        }
+        catch (err) {
+            app.log("AndroidFullScreen: " + err);
+        }
+
+        try {
+            if (StatusBar) {
+                StatusBar.hide();
+            }
+        }
+        catch (err) {
+            app.log("StatusBar: " + err);
+        }
+
     },
     home: function (refresh) {
         app.route("orders");
