@@ -198,8 +198,9 @@
         try {
             document.addEventListener('pause', function () { app.info("Pause"); self.inBackground = true; }, false);
             document.addEventListener('resume', function () { app.info("Resume"); self.inBackground = false; app.fullScreen(); }, false);
-            document.addEventListener('hidekeyboard', function () { app.fullScreen(); }, false);
-            document.addEventListener('showkeyboard', function () { app.fullScreen(); }, false);
+
+            document.addEventListener("showkeyboard", function () { alert("Keyboard is ON"); app.fullScreen(); }, false);
+            document.addEventListener("hidekeyboard", function () { alert("Keyboard is OFF"); app.fullScreen(); }, false);
 
             document.addEventListener("offline", function () { app.info("Offline"); }, false);
             document.addEventListener("online", function () { app.info("Online"); }, false);
