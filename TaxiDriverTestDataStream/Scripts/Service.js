@@ -102,7 +102,7 @@
                 if (Service.isComplet()) {
                     Lists.listInitialize();
                     Globals.initialize();
-                    PositionService.startWatch();
+                    PositionService.startPool();
                     Service.loginHistory();
                     app.refreshTransporter(callback);
                 }
@@ -115,7 +115,7 @@
                 }
 
             }, function (d) {
-                //PositionService.stopWatch();
+
                 if (d.ErrorMessage)
                     Service.connectionError = d.ErrorMessage;
                 else
@@ -147,7 +147,7 @@
     },
     logout: function (callback) {
         if (Service.isAuthenticated) {
-            PositionService.stopWatch();
+            PositionService.stopPool();
             Service.isAuthenticated = false;
             var s = Service.getSettings();
             //notify local 

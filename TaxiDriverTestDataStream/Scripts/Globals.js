@@ -70,6 +70,7 @@
             Stand_Distancekm: 0.200,
             Stand_OfferSec: 180, //180
             ordersMinuteRefreshInterval: 60,
+            DisableMenuOnBreak: false
         },
 
         GetPhoneSetting: function () {
@@ -95,6 +96,9 @@
 
                 sVal = Globals.GetSetItem("DisableOrderCancelOnReserved");
                 if (sVal == "1") Globals.constants.DisableOrderCancelOnReserved = true;
+
+                sVal = Globals.GetSetItem("DisableMenuOnBreak");
+                if (sVal == "1") Globals.constants.DisableMenuOnBreak = true;
 
                 //BossDrivers
                 Globals.isBoss = false;

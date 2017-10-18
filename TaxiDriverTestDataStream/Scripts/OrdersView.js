@@ -51,6 +51,8 @@ var OrdersView = function () {
 
     this.loadData = function () {
         var self = this;
+        var s = Service.getSettings();
+
         $('#unbreakButton').hide();
         $('#unalarmButton').hide();
 
@@ -69,7 +71,7 @@ var OrdersView = function () {
             $('#menu').hide();
             app.waiting(false);
         }
-        else  if (Service.transporter.Status == "Break") {
+        else  if (Globals.constants.DisableMenuOnBreak && Service.transporter.Status == "Break") {
             $('#unbreakButton').show();
             $('#menu').hide();
             app.waiting(false);
