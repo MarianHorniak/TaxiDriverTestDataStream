@@ -47,6 +47,10 @@ body
     height: 50px;
 }
 
+#taxiStatusInfo.Break {
+    background-color:blue;
+}
+
 #taxiStatusInfo.Free {
     background-color:green;
 }
@@ -536,6 +540,11 @@ h2
 	bottom: 0px;
 	left: 0px;
 	overflow: hidden;
+    text-align:center;
+    
+}
+.scrollBottom > div, .scrollBottom > form{
+    text-align:left;
 }
 
 .input.Mess {
@@ -606,7 +615,7 @@ h2
     background-color:#333;
 }
 
-#unbreakButton {
+#unbreakButton, #unbreakButton2 {
     display:none;
     margin-top: 100px;
     height:65px;
