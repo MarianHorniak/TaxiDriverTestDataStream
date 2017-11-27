@@ -3,8 +3,8 @@
         xmlns:gap   = "http://phonegap.com/ns/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android"
         id          = "sk.datastream.taxidriverinternal"
-        versionCode = "518"
-        version     = "1.5.18">
+        versionCode = "519"
+        version     = "1.5.19">
  
     <name>TAXI Driver test datastream</name>
   
@@ -24,7 +24,9 @@
   <icon src="img/phoneicon76.png"       gap:platform="ios" width="76"  height="76"  />
 
   <preference name="load-url-timeout" value="60000" />
-  <preference name="phonegap-version" value="cli-6.5.0" />
+  <preference name="phonegap-version" value="cli-7.0.1" />
+  <preference name="pgb-builder-version" value="1" />
+    
   <preference name="exit-on-suspend" value="false" />
   <preference name="KeepRunning " value="true" />
   <preference name="Fullscreen" value="true" />
@@ -36,27 +38,26 @@
   <plugin name="cordova-plugin-media" spec="*" />
   <plugin name="cordova-plugin-geolocation" spec="*"/>
   <plugin name="cordova-plugin-inappbrowser" spec="*" />
-  
   <plugin name="de.appplant.cordova.plugin.local-notification" spec="*" />
   <plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" spec="*" />
 
-  <!--<feature name="http://api.phonegap.com/1.0/geolocation"/>
-  <feature name="http://api.phonegap.com/1.0/network"/>-->
+  <feature name="http://api.phonegap.com/1.0/geolocation"/>
+  <feature name="http://api.phonegap.com/1.0/network"/>
   
   <platform name="android">
-    <plugin name="cordova-plugin-file" version="*" />
-
     <preference name="android-build-tool" value="gradle" />
     <!-- Phonegap Build only -->
 
     <preference name="android-minSdkVersion" value="21" />
-    <preference name="android-targetSdkVersion" value="23" />
+    <!--<preference name="android-targetSdkVersion" value="23" />-->
 
     <config-file target="AndroidManifest.xml" parent="/*">
+      <uses-permission android:name="android.permission.INTERNET" />
       <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
       <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
       <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
       <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+      <uses-feature android:name="android.hardware.location.gps" />
     </config-file>
   </platform>
   
