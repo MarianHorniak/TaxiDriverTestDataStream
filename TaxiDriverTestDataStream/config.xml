@@ -2,8 +2,8 @@
 <widget xmlns       = "http://www.w3.org/ns/widgets"
         xmlns:gap   = "http://phonegap.com/ns/1.0"
         id          = "sk.datastream.taxidriverinternal"
-        versionCode = "516"
-        version     = "1.5.16">
+        versionCode = "517"
+        version     = "1.5.17">
  
     <name>TAXI Driver test datastream</name>
   
@@ -29,7 +29,7 @@
   <preference name="Fullscreen" value="true" />
   <preference name="loadingDialog" value="Driver, Starting" />
   <preference name="AndroidPersistentFileLocation" value="Compatibility" />
-  
+    
   <access origin="*" />
 
   <plugin name="cordova-plugin-media" spec="*" />
@@ -41,5 +41,15 @@
 
   <feature name="http://api.phonegap.com/1.0/geolocation"/>
   <feature name="http://api.phonegap.com/1.0/network"/>
+  
+  <platform name="android">
+    <config-file target="AndroidManifest.xml" parent="/*">
+      <uses-permission android:name="android.permission.INTERNET" />
+      <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+      <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+      <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+      <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    </config-file>
+  </platform>
   
 </widget>
