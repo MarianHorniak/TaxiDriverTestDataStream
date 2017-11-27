@@ -3,8 +3,8 @@
         xmlns:gap   = "http://phonegap.com/ns/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android"
         id          = "sk.datastream.taxidriverinternal"
-        versionCode = "519"
-        version     = "1.5.19">
+        versionCode = "520"
+        version     = "1.5.20">
  
     <name>TAXI Driver test datastream</name>
   
@@ -34,22 +34,24 @@
   <preference name="AndroidPersistentFileLocation" value="Compatibility" />
     
   <access origin="*" />
-
-  <plugin name="cordova-plugin-media" spec="*" />
-  <plugin name="cordova-plugin-geolocation" spec="*"/>
+  <plugin name="cordova-plugin-media" spec="2.4.1" />
+  <plugin name="cordova-plugin-geolocation" spec="2.4.2"/>
   <plugin name="cordova-plugin-inappbrowser" spec="*" />
   <plugin name="de.appplant.cordova.plugin.local-notification" spec="*" />
   <plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" spec="*" />
 
   <feature name="http://api.phonegap.com/1.0/geolocation"/>
+  <feature name="http://api.phonegap.com/1.0/media"/>
   <feature name="http://api.phonegap.com/1.0/network"/>
+  <feature name="http://api.phonegap.com/1.0/notification"/>
+  <feature name="http://api.phonegap.com/1.0/device"/>
   
-  <platform name="android">
+  <!--<platform name="android">
     <preference name="android-build-tool" value="gradle" />
-    <!-- Phonegap Build only -->
+    --><!-- Phonegap Build only --><!--
 
     <preference name="android-minSdkVersion" value="21" />
-    <!--<preference name="android-targetSdkVersion" value="23" />-->
+    --><!--<preference name="android-targetSdkVersion" value="23" />--><!--
 
     <config-file target="AndroidManifest.xml" parent="/*">
       <uses-permission android:name="android.permission.INTERNET" />
@@ -59,6 +61,6 @@
       <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
       <uses-feature android:name="android.hardware.location.gps" />
     </config-file>
-  </platform>
+  </platform>-->
   
 </widget>
