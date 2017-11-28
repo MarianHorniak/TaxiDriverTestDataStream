@@ -31,9 +31,9 @@
   <preference name="Fullscreen" value="true" />
   <preference name="loadingDialog" value="Driver, Starting" />
   <preference name="AndroidPersistentFileLocation" value="Compatibility" />
-    
+
   <access origin="*" />
-  
+
   <plugin name="cordova-plugin-media" spec="2.4.1" />
   <plugin name="cordova-plugin-geolocation" spec="2.4.2"/>
   <plugin name="cordova-plugin-inappbrowser" spec="*" />
