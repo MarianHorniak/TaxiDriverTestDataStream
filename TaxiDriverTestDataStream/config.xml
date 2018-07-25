@@ -3,8 +3,8 @@
         xmlns:gap   = "http://phonegap.com/ns/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android"
         id          = "sk.datastream.taxidriverinternal"
-        versionCode = "534"
-        version     = "1.5.34">
+        versionCode = "535"
+        version     = "1.5.35">
  
     <name>TAXI Driver test datastream</name>
   
@@ -25,7 +25,6 @@
 
   <preference name="load-url-timeout" value="60000" />
   <preference name="phonegap-version" value="cli-7.0.1" />
-  <preference name="android-minSdkVersion" value="16" />
   <preference name="pgb-builder-version" value="1" />
   <preference name="exit-on-suspend" value="false" />
   <preference name="KeepRunning " value="true" />
@@ -41,6 +40,9 @@
   <plugin name="de.appplant.cordova.plugin.local-notification" spec="*" />
   <plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" spec="*" />
 
+  <plugin name="cordova-plugin-okhttp" spec="*" />
+  
+  
   <feature name="http://api.phonegap.com/1.0/geolocation"/>
   <feature name="http://api.phonegap.com/1.0/media"/>
   <feature name="http://api.phonegap.com/1.0/network"/>
