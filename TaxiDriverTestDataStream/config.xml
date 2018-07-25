@@ -3,8 +3,8 @@
         xmlns:gap   = "http://phonegap.com/ns/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android"
         id          = "sk.datastream.taxidriverinternal"
-        versionCode = "530"
-        version     = "1.5.30">
+        versionCode = "531"
+        version     = "1.5.31">
  
     <name>TAXI Driver test datastream</name>
   
