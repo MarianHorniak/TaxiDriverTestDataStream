@@ -111,7 +111,16 @@ var OrdersView = function () {
                     if (this.Status == 'Cancel') {
                         this.StatusCancel = true;
                         this.ShowCancelbtn = false;
+                        this.StatusTranslation = "Zrušená";
                     }
+                    //'RejectConfirmWait' as internalMessage
+                    if (this.internalMessage && this.internalMessage == 'RejectConfirmWait')
+                    {
+                        this.StatusCancel = true;
+                        this.ShowCancelbtn = false;
+                        this.StatusTranslation = "Zrušená";
+                    }
+
                     if (this.Status == 'Offered')
                         this.StatusOfferGUI = true;
 
@@ -198,9 +207,18 @@ var OrdersView = function () {
 
         //switch podla typov
         if (currentOrder && currentOrder.Status == "Processing") {
+
+            //zmena cenay moze byt zakazana
+            var canset = 1;
+            var sValDisableOrderChangePrice = Globals.GetSetItem("DisableOrderChangePrice");
+            if (sValDisableOrderChangePrice && sValDisableOrderChangePrice == "1")
+            {
+                canset = 0;
+            }
+
             //platba
             var mustset = Globals.GetSetItem("RequirePaymentScreen");
-            if (mustset == 1 && !currentOrder.PaymentTotal || currentOrder.PaymentTotal == 0) {
+            if (mustset == 1 && canset==1) {
 
                 this.MustSetPayment(currentOrder);
                 if (!currentOrder.PaymentTotal) iOK = false;
@@ -231,8 +249,12 @@ var OrdersView = function () {
         this.changeOffer(btn, action, currentOrder);
 
         //posprocess
-        if (canContinue)
+        if (canContinue) 
             canContinue = this.afterchangeOffer(btn, action, currentOrder);
+
+        if (currentOrder && canContinue && Globals.GetSetItem("RoutePhoneOrderToTimeScreen") && action == "Up" && currentOrder.OrderSource=="Phone" && currentOrder.Status=="Offered") {
+            app.route("detail");
+        }
     }
 
     this.changeOffer = function (btn, action, currentOrder) {

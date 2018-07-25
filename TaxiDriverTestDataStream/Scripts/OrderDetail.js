@@ -219,6 +219,13 @@
             $("#orderDetailFormPaymentTotal").prop('disabled', false);
         }
 
+        //cena moze byt zakazana menit na driverovi 
+        var sValDisableOrderChangePrice = Globals.GetSetItem("DisableOrderChangePrice");
+        if (sValDisableOrderChangePrice && sValDisableOrderChangePrice == "1")
+        {
+            $('#btnorderDetailPaymentTotal').hide();
+        }
+
         //specialita pre reserved
         if (this.order.Status == "Reserved") {
             if (Globals.GetSetItem("EnableOrderDriverChat") == "1")

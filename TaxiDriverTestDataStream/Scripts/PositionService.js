@@ -156,15 +156,39 @@ var PositionService = {
         if (!d.Items)
             return;
 
-        checkSum_Orders = d.Items[0]["Column1"];
-        checkSum_Messages = d.Items[1]["Column1"];
-        checkSum_Transporter = d.Items[2]["Column1"];
+        if (d.Items.length > 0) {
+            checkSum_Orders = d.Items[0]["Column1"];
+            if(!checkSum_Orders) 
+                checkSum_Orders = d.Items[0][""];
+        }
 
-        if (d.Items.length > 3)
+        if (d.Items.length > 1) {
+            checkSum_Messages = d.Items[1]["Column1"];
+            if (!checkSum_Messages)
+                checkSum_Messages = d.Items[1][""];
+
+        }
+
+        if (d.Items.length > 2) {
+            checkSum_Transporter = d.Items[2]["Column1"];
+            if (!checkSum_Transporter)
+                checkSum_Transporter = d.Items[2][""];
+
+        }
+
+        if (d.Items.length > 3) {
             checkSum_OrderMessages = d.Items[3]["Column1"];
+            if (!checkSum_OrderMessages)
+                checkSum_OrderMessages = d.Items[3][""];
 
-        if (d.Items.length > 4)
+        }
+
+        if (d.Items.length > 4) {
             checkSum_Reservation = d.Items[4]["Column1"];
+            if (!checkSum_Reservation)
+                checkSum_Reservation = d.Items[4][""];
+
+        }
 
 
         //app.setStatusBar('aa', 'bb', 'mess', 'P');
