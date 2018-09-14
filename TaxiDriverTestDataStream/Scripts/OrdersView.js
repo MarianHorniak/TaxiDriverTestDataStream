@@ -188,6 +188,8 @@ var OrdersView = function () {
         var scriptText = "onclick = \"OrdersActions.setPaymentDialog('"+currentOrder.GUID+"')\"";
         //aka je vyska platby ? nastavime hodnotu
         var pToinput = 0;
+        if (currentOrder.PaymentTotal)
+            pToinput = currentOrder.PaymentTotal;
         if (pToinput == 0)
         {
             var sp = Globals.GetSetItem("DefaultPaymentValue");

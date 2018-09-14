@@ -3,8 +3,8 @@
         xmlns:gap   = "http://phonegap.com/ns/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android"
         id          = "sk.datastream.taxidriverinternal"
-        versionCode = "536"
-        version     = "1.5.36">
+        versionCode = "540"
+        version     = "1.5.40">
  
     <name>TAXI Driver test datastream</name>
   
@@ -40,7 +40,6 @@
   <plugin name="de.appplant.cordova.plugin.local-notification" spec="*" />
   <plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" spec="*" />
 
-  <plugin name="cordova-plugin-okhttp" spec="2.0.0" />
   
   
   <feature name="http://api.phonegap.com/1.0/geolocation"/>

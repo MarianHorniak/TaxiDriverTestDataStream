@@ -103,6 +103,7 @@ var MapUtility = {
     apiOK: function () {
         MapUtility.apiIsOk = true;
         MapUtility.geocoder = new google.maps.Geocoder();
+        console.log("MapView API OK");
     },
     showPosition: function () {
         MapUtility.message("Hľadám pozíciu ...");

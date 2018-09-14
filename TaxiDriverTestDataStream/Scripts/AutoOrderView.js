@@ -69,7 +69,9 @@ var AutoOrderView = function (store) {
         $.each(d, function (i, v) { data[v.name] = v.value; });
 
         var StartCity = data["StartCity"];
+        if (!StartCity) StartCity = "-";
         var StartAddress = data["StartAddress"];
+        if (!StartAddress) StartAddress = "-";
         var AutoOrderToReserved = $('#AutoOrderToReserved').prop('checked');// $("#AutoOrderToReserved").val(); //data["isReserved"];
 
         

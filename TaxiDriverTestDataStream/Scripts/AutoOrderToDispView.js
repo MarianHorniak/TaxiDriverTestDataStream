@@ -47,7 +47,9 @@ var AutoOrderToDispView = function (store) {
         $.each(d, function (i, v) { data[v.name] = v.value; });
 
         var StartCity = data["StartCity"];
+        if (!StartCity) StartCity = "-";
         var StartAddress = data["StartAddress"];
+        if (!StartAddress) StartAddress = "-";
         var StartName = data["StartName"];
         var StartPhone = data["StartPhone"];
 
