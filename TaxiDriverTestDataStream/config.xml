@@ -4,7 +4,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         id          = "sk.datastream.taxidriverinternal"
         versionCode = "540"
-        version     = "1.5.40">
+        version     = "1.5.41">
  
     <name>TAXI Driver test datastream</name>
   
