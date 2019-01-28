@@ -37,7 +37,7 @@
 
   <access origin="*" />
 
-  <plugin name="cordova-plugin-media" spec="4.0.0" />
+  <plugin name="cordova-plugin-media" spec="3.0.1" />
   <plugin name="cordova-plugin-geolocation" spec="2.4.3"/>
   <plugin name="cordova-plugin-inappbrowser" spec="*" />
   <plugin name="de.appplant.cordova.plugin.local-notification" spec="*" />
