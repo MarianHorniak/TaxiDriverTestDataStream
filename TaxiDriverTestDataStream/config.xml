@@ -24,24 +24,24 @@
   <icon src="img/phoneicon76.png"       gap:platform="ios" width="76"  height="76"  />
 
   <preference name="load-url-timeout" value="60000" />
-  <!--<preference name="phonegap-version" value="cli-7.0.1" />-->
-  <preference name="pgb-builder-version" value="1" />
+  <preference name="phonegap-version" value="cli-7.0.1" />
+  <!--<preference name="pgb-builder-version" value="1" />-->
   <preference name="exit-on-suspend" value="false" />
   <preference name="KeepRunning " value="true" />
   <preference name="Fullscreen" value="true" />
   <preference name="loadingDialog" value="Driver, Starting" />
   <preference name="AndroidPersistentFileLocation" value="Compatibility" />
 
-  <!--<preference name="android-minSdkVersion" value="17" />-->
-  <!--<preference name="android-targetSdkVersion" value="27" />-->
+  <!--<preference name="android-minSdkVersion" value="17" />
+  <preference name="android-targetSdkVersion" value="25" />-->
 
   <access origin="*" />
 
-  <plugin name="cordova-plugin-media" spec="*" />
-  <plugin name="cordova-plugin-geolocation" spec="*"/>
-  <plugin name="cordova-plugin-inappbrowser" spec="*" />
-  <plugin name="de.appplant.cordova.plugin.local-notification" spec="*" />
-  <plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" spec="*" />
+  <plugin name="cordova-plugin-media" spec="5.0.2" />
+  <plugin name="cordova-plugin-geolocation" spec="4.0.1"/>
+  <plugin name="cordova-plugin-inappbrowser" spec="3.0.0" />
+  <plugin name="de.appplant.cordova.plugin.local-notification" spec="0.8.5" />
+  <plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" spec="4.2.2" />
   
   <feature name="http://api.phonegap.com/1.0/geolocation"/>
   <feature name="http://api.phonegap.com/1.0/media"/>
