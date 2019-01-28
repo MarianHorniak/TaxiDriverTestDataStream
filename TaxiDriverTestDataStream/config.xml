@@ -3,8 +3,8 @@
         xmlns:gap   = "http://phonegap.com/ns/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android"
         id          = "sk.datastream.taxidriverinternal"
-        versionCode = "542"
-        version     = "1.5.42">
+        versionCode = "543"
+        version     = "1.5.43">
  
     <name>TAXI Driver test datastream</name>
   
@@ -33,7 +33,7 @@
   <preference name="AndroidPersistentFileLocation" value="Compatibility" />
 
   <preference name="android-minSdkVersion" value="17" />
-  <preference name="android-targetSdkVersion" value="26" />
+  <preference name="android-targetSdkVersion" value="27" />
 
   <access origin="*" />
 
