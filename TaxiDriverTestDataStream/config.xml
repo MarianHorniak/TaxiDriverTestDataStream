@@ -32,6 +32,9 @@
   <preference name="loadingDialog" value="Driver, Starting" />
   <preference name="AndroidPersistentFileLocation" value="Compatibility" />
 
+  <preference name="android-minSdkVersion" value="17" />
+  <preference name="android-targetSdkVersion" value="26" />
+
   <access origin="*" />
 
   <plugin name="cordova-plugin-media" spec="2.4.1" />
@@ -49,20 +52,8 @@
   <feature name="http://api.phonegap.com/1.0/device"/>
   
   <!--<platform name="android">
-    <preference name="android-build-tool" value="gradle" />
-    --><!-- Phonegap Build only --><!--
-
-    <preference name="android-minSdkVersion" value="21" />
-    --><!--<preference name="android-targetSdkVersion" value="23" />--><!--
-
-    <config-file target="AndroidManifest.xml" parent="/*">
-      <uses-permission android:name="android.permission.INTERNET" />
-      <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-      <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-      <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-      <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
-      <uses-feature android:name="android.hardware.location.gps" />
-    </config-file>
+    <preference name="useAndroidX" value="true" />
+    <preference name="enableJetifier" value="true" />
   </platform>-->
   
 </widget>
