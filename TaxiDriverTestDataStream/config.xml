@@ -3,8 +3,8 @@
         xmlns:gap   = "http://phonegap.com/ns/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android"
         id          = "sk.datastream.taxidriverinternal"
-        versionCode = "543"
-        version     = "1.5.43">
+        versionCode = "544"
+        version     = "1.5.44">
  
     <name>TAXI Driver test datastream</name>
   
@@ -32,28 +32,21 @@
   <preference name="loadingDialog" value="Driver, Starting" />
   <preference name="AndroidPersistentFileLocation" value="Compatibility" />
 
-  <preference name="android-minSdkVersion" value="17" />
-  <preference name="android-targetSdkVersion" value="27" />
+  <!--<preference name="android-minSdkVersion" value="17" />-->
+  <!--<preference name="android-targetSdkVersion" value="27" />-->
 
   <access origin="*" />
 
-  <plugin name="cordova-plugin-media" spec="2.4.1" />
-  <plugin name="cordova-plugin-geolocation" spec="2.4.2"/>
+  <plugin name="cordova-plugin-media" spec="*" />
+  <plugin name="cordova-plugin-geolocation" spec="*"/>
   <plugin name="cordova-plugin-inappbrowser" spec="*" />
   <plugin name="de.appplant.cordova.plugin.local-notification" spec="*" />
   <plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" spec="*" />
-
-  
   
   <feature name="http://api.phonegap.com/1.0/geolocation"/>
   <feature name="http://api.phonegap.com/1.0/media"/>
   <feature name="http://api.phonegap.com/1.0/network"/>
   <feature name="http://api.phonegap.com/1.0/notification"/>
   <feature name="http://api.phonegap.com/1.0/device"/>
-  
-  <!--<platform name="android">
-    <preference name="useAndroidX" value="true" />
-    <preference name="enableJetifier" value="true" />
-  </platform>-->
   
 </widget>
