@@ -32,8 +32,8 @@
   <preference name="loadingDialog" value="Driver, Starting" />
   <preference name="AndroidPersistentFileLocation" value="Compatibility" />
 
-  <!--<preference name="android-minSdkVersion" value="17" />
-  <preference name="android-targetSdkVersion" value="25" />-->
+  <!--<preference name="android-minSdkVersion" value="17" />-->
+  <preference name="android-targetSdkVersion" value="27" />
 
   <access origin="*" />
 
