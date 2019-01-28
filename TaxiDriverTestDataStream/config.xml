@@ -48,5 +48,10 @@
   <feature name="http://api.phonegap.com/1.0/network"/>
   <feature name="http://api.phonegap.com/1.0/notification"/>
   <feature name="http://api.phonegap.com/1.0/device"/>
+
+  <platform name="android">
+    <preference name="OKHTTP_VERSION" default="3.+" />
+    <framework src="com.squareup.okhttp3:okhttp:$OKHTTP_VERSION" />
+  </platform>
   
 </widget>
