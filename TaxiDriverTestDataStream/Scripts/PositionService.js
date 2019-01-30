@@ -213,7 +213,7 @@ var PositionService = {
                     else {
                         app.playNew();
                     }
-                    LocalNotification.schedule("orders", "Zmena v objednávkach");
+                    LocalNotification.scheduleOrder();
                 }
                 catch (err) { //zahrame, aj ak bola chyba !
                     app.playNew();
@@ -232,7 +232,7 @@ var PositionService = {
             //app.setStatusBarOffer("New");
             try {
                 MediaInternal.playSoundInMedia("Message_New", 1, 0);
-                LocalNotification.schedule("orders", "Zmena v objednávkach");
+                LocalNotification.scheduleOrder();
             }
             catch (err) { //zahrame, aj ak bola chyba !
             }
@@ -285,20 +285,14 @@ var PositionService = {
             if (hasNew) {
                 app.setStatusBarNewMessage();
                 MediaInternal.playSoundInMedia("Message_New", 1, 0);
-                LocalNotification.schedule("messages", "Nová správa");
+                LocalNotification.scheduleMessage();
             }
-
         }
-
-
-
-
 
         //nieco je s transporterom na servri, napr stanoviste 
         if (checkSum_Transporter && checkSum_Transporter != Service.transporterVer) {
             Transporter.ProcessCheckSum(checkSum_Transporter);
         }
-
 
         //poterbujeme zmenit casy na hlavnej obrazovke, tie, ktore robia countDown (MinuteRest ....) AKO ? 
         if (needRefreshMinutes)

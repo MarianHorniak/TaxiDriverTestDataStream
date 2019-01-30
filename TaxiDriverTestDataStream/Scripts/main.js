@@ -225,34 +225,6 @@
             app.log(err);
         }
         //app.fullScreen();
-        try {
-            LocalNotification.registerPermission();
-            LocalNotification.hasPermission(function() {
-
-                cordova.plugins.notification.local.setDefaults({
-                    title: "Taxi driver",
-                    //icon: app.getAndroidPath() + 'img/cabs.png',
-                    //smallIcon: app.getAndroidPath() + 'img/cabs.png',
-                    //smallIcon: 'res://cordova',
-                    //sound: null, //ticha ...
-                });
-
-                cordova.plugins.notification.local.on("click", function (notification) {
-                    window.setTimeout(
-                        function () {
-                            switch (notification.id) {
-                                case "orders": app.route("orders"); break;
-                                case "messages": app.route("messages"); break;
-                                default: app.home(); break;
-                            }
-                        }, 100
-                    );
-                });
-            });
-        }
-        catch (err) {
-            app.log("Local Notification: " + err);
-        }
 
         try {
             if (app.isDevice)

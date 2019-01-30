@@ -41,6 +41,7 @@
   <plugin name="cordova-plugin-geolocation" spec="4.0.1"/>
   <plugin name="cordova-plugin-inappbrowser" spec="*" />
   <plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" spec="4.2.2" />
+  <plugin name="phonegap-plugin-local-notification" spec="*" />
   <!--<plugin name="de.appplant.cordova.plugin.local-notification" spec="0.8.3" />-->
 
 
